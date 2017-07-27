@@ -1,0 +1,199 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+	class Product extends CI_Controller 
+	{	
+		var $msg;
+		var $itemNum;
+		var $memLogin;
+		var $acc_id;
+		public function __construct()
+			{
+				parent::__construct();
+				$this->load->model('product_m_site','pm');
+				$this->load->model("memberLogin_model","mm");
+				$this->load->model('home_m','hm');
+				$this->itemNum = isset($this->session->product)?count($this->session->product):0;
+			}
+	    public function index()
+		{	
+				$data['advertisement']=$this->hm->adv();
+				$data['category']=$this->hm->category();
+				$data['itemNum'] = $this->itemNum;
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav',$data);
+				$this->load->view('product_page', $data);
+				$this->load->view('layout_site/footer');
+		}
+
+	    public function product_page_detail($pro_id)
+	    {
+			if($pro_id!==""){
+				$data["de_value"]=$this->pm->product_page_detail($pro_id);
+				$data['advertisement']=$this->hm->adv();
+				$data['category']=$this->hm->category();
+				$data["type"] = $data['de_value']->p_type;
+				$data['itemNum'] = $this->itemNum;
+				 if($data!==""){
+				 	$this->load->view('layout_site/header_top');
+					$this->load->view('layout_site/nav',$data);
+					
+					$this->load->view('product_detail',$data);
+					$this->load->view('layout_site/footer');
+				 }
+			}
+
+			else
+			{
+						 
+				$this->load->view('layout_site/header_top');
+					$this->load->view('layout_site/nav');
+					
+					$this->load->view('error_404');
+					$this->load->view('layout_site/footer');
+				
+			}
+		}	
+
+		public function add_to_cart($name,$id,$qty,$str)
+		{
+			$query = $this->pm->get_price($id);
+			$data = array(
+							'name'	=>	$name,
+					        'id'    => $id,
+					        'qty' 	=> $qty,
+					        'price'	=> $query->price,
+					        'str'	=>	$str
+							);
+			
+			$_SESSION['product'][] = $data;
+			echo count($_SESSION['product']);
+		}
+
+		public function process($type)
+		{
+			$name = "";
+			$password = "";
+			if($type=="register")
+			{
+				$this->pm->register_member();
+				$this->clear_session();
+			}else
+			{
+				$name = $this->input->post("txtLoginName");
+				$password = $this->input->post("txtLoginPassword");
+
+				$validation = $this->pm->validate_member($name,$password);
+				if($validation)
+				{
+					$this->clear_session();
+				}else
+				{
+					echo "fail";
+				}
+			}
+		}
+
+		public function display_cart()
+		{
+
+			$str = "<table class='table table-striped'>";
+			$str .= "<thead>";
+			$str .= "<tr>";
+			$str .= "<th>No.</th>";
+			$str .= "<th>Name</th>";
+			$str .= "<th>Quantity</th>";
+			$str .= "<th>Price</th>";
+			$str .= "<th>Action</th>";
+			$str .= "</tr>";
+			$str .= "</thead>";
+			$str .= "<tbody>";
+			if(isset($_SESSION['product']))
+			{
+				foreach ($_SESSION['product'] as $key => $value) {
+					$str .= "<tr>";
+					$str .= "<td>".($key+1)."</td>";
+					$str .= "<td>".$value['name']."</td>";
+					$str .= "<td>".$value['qty']."</td>";
+					$str .= "<td>".$value['price']."</td>";
+					$str .= '<td><button id="btnRemove" onclick="itemRemove('.$key.')">Remove</button></td>';
+					$str .= "</tr>";
+				}
+			}
+			
+			$str .= "</tbody>";
+			$str .= "</table>";
+			echo $str;
+
+		}
+
+		public function clear_session()
+		{
+			session_destroy();
+			redirect("product_c");
+		}
+
+		public function show_session()
+		{
+			var_dump($_SESSION['product']);
+		}
+
+		public function remove_item($id)
+		{
+			unset($_SESSION['product'][$id]);
+			echo count($_SESSION['product']);
+		}
+
+		public function checkout()
+		{
+			if(isset($_SESSION["product"]))
+			{
+				$data["bastseller"]=$this->hm->product_bestsller();
+				$data['category']=$this->hm->category();
+				$data['product'] = $_SESSION['product'];
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav',$data);
+				/*$this->load->view('layout_site/category',$data);*/
+				$this->load->view('checkout',$data);
+				$this->load->view('layout_site/footer');	
+			}
+			else
+			{
+				exit('No direct script access allowed');
+			}
+		}
+
+
+		public function login()
+		{
+			
+			$validate = false;
+			$data["msg"] = $this->msg;
+			$this->form_validation->set_rules("txtEmail","Email","required|valid_email|max_length[50]");
+			$this->form_validation->set_rules("txtPass","Password","required|max_length[100]");
+
+			if(isset($_POST["btnLogin"])&&$this->form_validation->run()===true)
+			{
+				$email = $this->input->post("txtEmail");
+				$pwd = $this->input->post("txtPass");
+				$validate = $this->mm->validate_member($email,$pwd);
+				if($validate!==true)
+				{
+					$data["msg"] = $validate;
+					$this->load->view('layout_site/style');
+					$this->load->view('Checkout/form_login',$data);
+				}else
+				{
+
+					$data["active_account"]=$this->mm->check_member($this->session->memLogin);
+					$this->load->view('layout_site/style');
+					$this->load->view('Checkout/ChoosePayment', $data);
+					
+				}
+			}else
+			{
+				$this->load->view('layout_site/style');
+				
+				$this->load->view('Checkout/form_login',$data);
+			}	
+		}
+	}
