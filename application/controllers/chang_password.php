@@ -27,24 +27,6 @@
 					<div class="col-lg-12">
 						<form class="form-horizontal" action="<?php echo base_url()?>product/registerMember" method="post">
 							<div class="form-group">
-								<label class="col-lg-3 control-label">Member Name</label>
-								<div class="col-lg-9">
-									<input type="text" name="txtName" value="<?php echo set_value('txtName')?>" id="txtName" placeholder="Member Name" class="form-control" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-3 control-label">Phone Number</label>
-								<div class="col-lg-9">
-									<input type="text" name="txtPhone" value="<?php echo set_value('txtPhone')?>" id="txtPhone" placeholder="Phone Number" class="form-control" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-3 control-label">Email</label>
-								<div class="col-lg-9">
-									<input type="email" name="txtEmail" id="txtEmail" value="<?php echo set_value('txtEmail')?>" placeholder="Email" class="form-control" required>
-								</div>
-							</div>
-							<div class="form-group">
 								<label class="col-lg-3 control-label">Password</label>
 								<div class="col-lg-9">
 									<input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="Password" required>
@@ -54,17 +36,6 @@
 								<label class="col-lg-3 control-label">Confirm Password</label>
 								<div class="col-lg-9">
 									<input type="password" name="txtConfirm" id="txtConfirm" class="form-control" placeholder="Confirm Password" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<div id="errorMsg" style="display:none;">
-									<label class="col-lg-5" style="color:red;"><i class="glyphicon glyphicon-remove-sign"></i> Passwords don't matched!</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-3 control-label">Address</label>
-								<div class="col-lg-9">
-									<input type="text" value="<?php echo set_value('txtAddr')?>" name="txtAddr" id="txtAddr" class="form-control" placeholder="Address">
 								</div>
 							</div>
 							<div class="form-group">

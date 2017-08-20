@@ -1,6 +1,4 @@
- <!DOCTYPE html>
- <html>
- <head>
+
  	<title>blog detail</title>
  	<link rel="shortcut icon" href="<?php echo base_url('assets/uploads/mobile-cart-icon.png');?>">
  	<style>
@@ -137,20 +135,15 @@
 							<div class="item-thumbnail" style="float: left;">
 								<!-- Trigger the Modal -->
 								<img id="myImg" src="<?php echo base_url('assets/uploads/'.$de_blog->img);?>" alt="Trolltunga, Norway" style="width: 464px;">
-
 								<!-- The Modal -->
 								<div id="myModal" class="modal">
-
 									<!-- The Close Button -->
 									<span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
 									<!-- Modal Content (The Image) -->
 									<img class="modal-content" id="img01">
-
 									<!-- Modal Caption (Image Text) -->
 									<div id="caption"></div>
 								</div>
-								
 							</div>
 							<div class="item-title">
 								<h3 style="color: #337ab7;"><?php echo $de_blog->title?></h3>
@@ -189,8 +182,9 @@
 					</div>
 				</div><!-- class row comment -->
 			</div><!--col-xs-12 col-sm-6 col-md-9-->
-
-		  	<div class="col-xs-12 col-md-3" style="background: #e2e0e0;">
+			//
+			
+		  	<!-- <div class="col-xs-12 col-md-3" style="background: #e2e0e0;">
 		  		<h4>Popular Posts</h4><hr />
 		  		<?php foreach ($popular_blog as  $value) { ?>
 			  		<div class="item-content">
@@ -207,43 +201,8 @@
 						</div>
 					</div><hr />
 				<?php } ?>
-		  	</div><!-- col-xs-12 col-md-3 for Popular Posts -->
+		  	</div><!-- col-xs-12 col-md-3 for Popular Posts --> -->
+			//
+
 		</div><!-- class row -->
 	</div><!-- class container -->
-
-	<script type="text/javascript">
-		// $(document).ready(function() {
-		// 	$('input[type="submit"]').attr('disabled', true);
-		// 	$('textarea').on('keyup',function() {
-		// 	    var textarea_value = $("#title").val();
-		// 	    if(textarea_value != '') {
-		// 	        $('input[type="submit"]').attr('disabled' , false);
-		// 	    }else{
-		// 	        $('input[type="submit"]').attr('disabled' , true);
-		// 	    }
-		// 	});
-		// });
-
-		// Get the modal
-			var modal = document.getElementById('myModal');
-
-			// Get the image and insert it inside the modal - use its "alt" text as a caption
-			var img = document.getElementById('myImg');
-			var modalImg = document.getElementById("img01");
-			var captionText = document.getElementById("caption");
-			img.onclick = function(){
-			    modal.style.display = "block";
-			    modalImg.src = this.src;
-			    captionText.innerHTML = this.alt;
-			}
-
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
-
-			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() { 
-			  modal.style.display = "none";
-			}
-	</script>
- </body>
- </html>

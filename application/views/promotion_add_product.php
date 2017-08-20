@@ -11,16 +11,15 @@ $str_id=$this->session->userdata["promotion"][6];
             <div class="row">                                           
                 <div class="col-lg-12">
                     <?php if(isset($action)) echo form_open($action,"id='form' name='form'")?>
-        
               <!--==== start error =====-->
                     <div class="row">
                         <div class="col-lg-6 ">                      
                           <span ng-show="error_p_dublicate"> 
                             <div class="alert alert-warning" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Warning!</strong>{{msg}}                                                               
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong>Warning!</strong>{{msg}}                                                               
                             </div>
                           </span>                        
                         </div>              
@@ -61,10 +60,10 @@ $str_id=$this->session->userdata["promotion"][6];
                             <div class="col-lg-4">
                               <div class="form-group">
                                 <label>Free Product</label>
-                                 <select class="form-control input-sm" name="ddlFree" id="txtFree" ng-model="ddlFree" ng-change="free_product(ddlFree)">
+                                  <select class="form-control input-sm" name="ddlFree" id="txtFree" ng-model="ddlFree" ng-change="free_product(ddlFree)">
                                     <option value="">Chose One</option>
                                     <option value="{{x.P_id}}" ng-repeat="x in product_free">{{x.P_name}}</option>                                    
-                                 </select>
+                                  </select>
                               </div>
                             </div>  
                             <div class="col-lg-4">
@@ -76,10 +75,8 @@ $str_id=$this->session->userdata["promotion"][6];
                              <div class="col-lg-2"><span class="pull-right" style="color:red; margin-top:30px;" ng-show="error">Please Enter form just number!</span>                        </div>
                          <!--==end form ==-->                         
                          </div>  
-                      </div>
-              <!--=== end product list ==== -->
-
-              <!--==== product selected promotion =====-->                    
+                      </div><!--=== end product list ==== -->
+                      <!--==== product selected promotion =====-->                    
                         <div class="col-lg-6">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -90,10 +87,9 @@ $str_id=$this->session->userdata["promotion"][6];
                                       <div class="panel-body" style="overflow:scroll; height:320px; overflow-x: hidden;">
                                         <div class="row">                                        
                                           <div class="col-lg-2" ng-repeat="x in promotion_selected" ng-click="remove($index)">
-                                              
                                               <div class="row">
                                                 <div class="col-lg-12">
-                                                   <div class="thumbnail"  style="margin-bottom: 0px">                                                                                                                                                                                       
+                                                  <div class="thumbnail"  style="margin-bottom: 0px">                                                                                                                                                                                       
                                                     <input type="hidden" ng-value="{{x[0]}}" ng-model="txtP_id" name="txtP_id">
                                                     <input type="hidden" ng-value="{{x[3]}}" ng-model="buyQty">
                                                     <input type="hidden" ng-value="{{x[6]}}" ng-model="free">
@@ -102,7 +98,6 @@ $str_id=$this->session->userdata["promotion"][6];
                                                   </div>
                                                 </div>
                                               </div>
-
                                               <div class="row">
                                                 <div class="col-lg-12">                                                  
                                                   <small style="font-size: 10.5px">                                                                                                                                   
@@ -113,7 +108,6 @@ $str_id=$this->session->userdata["promotion"][6];
                                                   </small>
                                                 </div>
                                               </div>
-
                                               <div class="row">
                                                 <div class="col-lg-12">                                                  
                                                   <small style="font-size: 10.5px">                                                                                                                                   
@@ -124,7 +118,6 @@ $str_id=$this->session->userdata["promotion"][6];
                                                   </small>
                                                 </div>
                                               </div>
-
                                           </div>                                                                                    
                                           <input type="text" name="str" ng-model="str" id="str" value="" style="visibility: hidden;">
                                         </div>
@@ -134,12 +127,11 @@ $str_id=$this->session->userdata["promotion"][6];
                             </div>
                             <div class="row">                             
                               <div class="col-lg-12">
-                                  <?php echo form_button("btnCancel","Cancel",array("class"=>"btn btn-defaul pull-right","style"=>"margin-left:10px","id"=>"btnCancel"))?>
-                                  <?php echo form_button("btnAdd","Add",array("class"=>"btn btn-success pull-right","ng-click"=>"add_promotion()","id"=>"btnAdd"))?>
+                                <?php echo form_button("btnCancel","Cancel",array("class"=>"btn btn-defaul pull-right","style"=>"margin-left:10px","id"=>"btnCancel"))?>
+                                <?php echo form_button("btnAdd","Add",array("class"=>"btn btn-success pull-right","ng-click"=>"add_promotion()","id"=>"btnAdd"))?>
                               </div>
                             </div>                          
-                        </div>
-            <!--=== end product selected promotion ==== -->  
+                        </div><!--=== end product selected promotion ==== -->  
                       </div>                  
                     <?php echo form_close()?>
                 </div>
@@ -157,10 +149,10 @@ $str_id=$this->session->userdata["promotion"][6];
     $scope.free_product=function(x1)
     {
       $http.get("<?php echo base_url();?>/ng/get_promotion_free.php?str_id="+"<?php echo $str_id;?>"+"").then(function (response)
-                  {
-                    var a = response.data.records;
-                    for(x in a){if(a[x]['P_id']==x1){free_id=a[x]['P_id'];free_name=a[x]['P_name']}};
-                  });
+      {
+        var a = response.data.records;
+        for(x in a){if(a[x]['P_id']==x1){free_id=a[x]['P_id'];free_name=a[x]['P_name']}};
+      });
     }
   //get product to free      
       $http.get("<?php echo base_url();?>/ng/get_promotion_free.php?str_id="+"<?php echo $str_id;?>"+"")        
@@ -184,38 +176,35 @@ $str_id=$this->session->userdata["promotion"][6];
           arr1[i] = p_id;          
           if(result==-1)
           {                                
-             arr[i] = [];
-                arr[i][0] = p_id;
-                arr[i][1] = p_name;
-                arr[i][2] = path;
-                arr[i][3] = $scope.txtBuyQty;                                                                                
-                arr[i][4] = free_name;                                                
-                arr[i][5] = $scope.txtQtyFree;
-                arr[i][6] = free_id; 
-                $scope.promotion_selected = arr;
-                i = i+1;
+            arr[i] = [];
+            arr[i][0] = p_id;
+            arr[i][1] = p_name;
+            arr[i][2] = path;
+            arr[i][3] = $scope.txtBuyQty;                                                                                
+            arr[i][4] = free_name;                                                
+            arr[i][5] = $scope.txtQtyFree;
+            arr[i][6] = free_id; 
+            $scope.promotion_selected = arr;
+            i = i+1;
             $scope.str=JSON.stringify($scope.promotion_selected);
           }else
           {
-             $scope.error_p_dublicate=true;$scope.msg=" This Promotion is already.";
+            $scope.error_p_dublicate=true;$scope.msg=" This Promotion is already.";
           }
-
         }
       }                         
-    
  //remove product promotion from product discout list       
       $scope.remove=function(index)
       {
-          if(index!==undefined)
-          {
-              $scope.promotion_selected.splice(index,1);  
-              arr1.splice(index,1);            
-              i = i-1;
-              $scope.str=JSON.stringify($scope.promotion_selected);
-          }
+        if(index!==undefined)
+        {
+          $scope.promotion_selected.splice(index,1);  
+          arr1.splice(index,1);            
+          i = i-1;
+          $scope.str=JSON.stringify($scope.promotion_selected);
+        }
       }
 //add discount
-      
       $scope.add_promotion=function()
       {
         if($scope.str==undefined || $scope.str=="[]"){$scope.error_p_dublicate=true;$scope.msg=" Please select promotion.";}        

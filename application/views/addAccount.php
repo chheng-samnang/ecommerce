@@ -69,7 +69,6 @@
 						<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid}">
 						 	<label>Account Password</label>
 						 	<input type="Password" name="password" id="password" class="form-control input-sm" ng-model="user.password" placeholder="Your Password" ng-required="true">
-						 	
 						 </div>
 					</div>
 					<div class="col-lg-6">
@@ -79,9 +78,7 @@
 							<p  style="color: red; margin-top: 31px;" ng-show="userForm.confirmPassword.$error.valueMatch && !userForm.confirmPassword.$error.required" class="help-block">Confirm password doesnot match.</p>
 						</div>
 					</div>	
-								
 				</div>
-
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">

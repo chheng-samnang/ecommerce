@@ -80,10 +80,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										echo "<label>".$row[0]['chkLabel']."</label> <br />";
 										foreach ($row as $value) 
 										{
-											
 											echo $value['label']." ";
 											echo form_checkbox($value);
-												
 										}
 										echo "</div>";
 											echo "</div>";	
@@ -100,11 +98,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										echo "</div>";
 											echo "</div>";
 									}
-									
-									
 								}
 							}
-							
 						?>
 
 						</div>

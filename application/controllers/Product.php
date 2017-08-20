@@ -201,9 +201,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/footer');
 		}
 		public function payment_detail($payment_method_id="") #$payment_method_id = wal_id
-		{
+		{	echo $payment_method_id;
 			if($payment_method_id!=""){
 				$ballance = $this->pm->get_wallet_bal($payment_method_id);
+				var_dump($ballance);
 				if($ballance->tran_amt!=null)
 				{
 					if(isset($_SESSION['product']))

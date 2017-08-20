@@ -31,7 +31,6 @@ class Wallet_c extends CI_Controller
 										$value->wal_status==1?"Enable" : "Disable",										
 										$value->user_crea,										
 										date("d-m-Y",strtotime($value->date_crea)),
-												
 										$value->wal_id																				
 									);
 			$i=$i+1;
@@ -81,35 +80,28 @@ class Wallet_c extends CI_Controller
 		if($tran_id!="")
 		{
 			$status="";
-			$data["wallCode"] = $this->pm->get_wallet_code($tran_id);
 			$data["balance"] = $this->pm->get_wallet_bal($tran_id);
+			$data["wallCode"] = $this->pm->get_wallet_code($tran_id);
 			$data["wal_id"] = $tran_id;
-			if(empty($data["balance"]->tran_amt))
-			{
-				$data["balance"]->tran_amt = 0;
-			}
-			
-			if(!empty($this->uri->segment(5)))
-			{
-				$status = $this->uri_segment(5);
-				$wal_id = $this->uri_segment(4);
-				$data["wallet_tran"] = $this->wallet_m->get_wallet_transaction_by_status();
-				
-			}else
-			{
-				$data["wallet_tran"] = $this->wallet_m->get_wallet_transaction($tran_id);	
-				
-			}
 
+			if(empty($data["balance"]->tran_amt))
+			{ $data["balance"]->tran_amt = 0;}
+
+			if(!empty($this->uri->segment(5)))
+			{	
+				$status = $this->uri->segment(5);
+				$wal_id = $this->uri->segment(4);
+				$data["wallet_tran"] = $this->wallet_m->get_wallet_transaction_by_status($status,$tran_id);
+			}
+			else
+			{ 
+			    $data["wallet_tran"] = $this->wallet_m->get_wallet_transaction($tran_id);
+		    }
+			//$data["wallet_tran"] = $this->wallet_m->get_wallet_transaction($tran_id);	
 			$this->load->view('template/header');
 			$this->load->view('template/left');
 			$this->load->view('admin/wallet_transaction',$data);
 			$this->load->view('template/footer');
-
-
-		}else
-		{
-			echo "Invalid Transaction ID.";
 		}
 	}
 	public function add_transaction($wal_id)
@@ -163,6 +155,7 @@ class Wallet_c extends CI_Controller
 		$this->load->view('admin/page_add',$data);
 		$this->load->view('template/footer');		
 	}
+	
 	public function add_value()
 	{
 		if(isset($_POST["btnSubmit"]))

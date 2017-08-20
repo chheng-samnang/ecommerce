@@ -15,15 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function index()
 		{
-
 			$keyword=$this->input->post('keyword');
-
 		        $data['blog']=$this->bm->search($keyword, $this->limit); // Search blog
 				$data['popular_blog']=$this->bm->popular_blog();
-
 				$total_rows=$this->bm->count();
-
-
 		        $config['total_rows']=$total_rows;
 		        $config['per_page']=$this->limit;
 		        $config['uri_segment']=3;
@@ -31,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		        $this->pagination->initialize($config);
 		        $data['page_link']=$this->pagination->create_links();
-
+			
 				$this->load->view('layout_site/style');
 				$this->load->view('blog', $data, compact($data));
 				$this->load->view('layout_site/footer');

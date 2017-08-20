@@ -37,11 +37,17 @@ $str_id=$this->session->userdata["promotion"][6];
                                 </div>
                                 <div class="panel-body" style="overflow:scroll; height:360px">
                                   <div class="row">                                   
-                                    <div class="col-lg-2" ng-repeat="x in product" ng-click="validation(x.P_id,x.P_name,x.Path)">
-                                      <div class="thumbnail" style="margin-bottom: 0px">                                                                                         
-                                        <img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="width:100px; height:60px;">
-                                      </div>                                                                                                                     
-                                      <small style="font-size:10.5px">{{x.P_name}}</small>                                      
+                                    <div class="col-lg-4" ng-repeat="x in product" ng-click="validation(x.P_id,x.P_name,x.Path)">
+                                      <div class="panel panel-default">
+                                        <div class="panel-body">
+                                          <table>
+                                            <tr>
+                                              <td><img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="width:100px; height:60px;"></td>
+                                              <td><small style="font-size:10.5px">{{x.P_name}}</small></td>
+                                            </tr>
+                                          </table>
+                                        </div>
+                                      </div>
                                     </div>                                   
                                   </div>
                                 </div>
@@ -51,7 +57,9 @@ $str_id=$this->session->userdata["promotion"][6];
 
                          <div class="row">
                          <!--== form == -->
-                            <div class="col-lg-4"><span class="pull-right" style="color:red; margin-top:30px;" ng-show="error">Please Enter form just number!</span>                        </div>
+                            <div class="col-lg-4">
+                              <span class="pull-right" style="color:red; margin-top:30px;" ng-show="error">Please Enter form just number!</span>
+                            </div>
                             <div class="col-lg-3">
                               <div class="form-group">
                                 <label>Buy Quantity</label>                                
@@ -61,13 +69,13 @@ $str_id=$this->session->userdata["promotion"][6];
                             <div class="col-lg-2">
                               <div class="form-group">
                                 <label>Free Product</label>
-                                 <select class="form-control input-sm" name="ddlFree" id="txtFree" ng-model="ddlFree" ng-change="free_product(ddlFree)">
+                                  <select class="form-control input-sm" name="ddlFree" id="txtFree" ng-model="ddlFree" ng-change="free_product(ddlFree)">
                                     <option value="">Chose One</option>
                                     <option value="{{x.P_id}}" ng-repeat="x in product_free">{{x.P_name}}</option>                                    
-                                 </select>
+                                  </select>
                               </div>
                             </div>  
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                               <div class="form-group">
                                 <label>Quantity Free</label>
                                 <?php echo form_input("txtQtyFree","",array("class"=>"form-control input-sm","placeholder"=>"Enter Quantity","ng-model"=>"txtQtyFree"));?>
@@ -88,42 +96,26 @@ $str_id=$this->session->userdata["promotion"][6];
                                       </div>
                                       <div class="panel-body" style="overflow:scroll; height:360px">
                                         <div class="row">                                        
-                                          <div class="col-lg-2" ng-repeat="x in promotion_selected" ng-click="remove($index)">
-                                              
-                                              <div class="row">
-                                                <div class="col-lg-12">
-                                                   <div class="thumbnail"  style="margin-bottom: 0px">                                                                                                                                                                                       
-                                                    <input type="hidden" ng-value="{{x[0]}}" ng-model="txtP_id" name="txtP_id">
-                                                    <input type="hidden" ng-value="{{x[3]}}" ng-model="buyQty">
-                                                    <input type="hidden" ng-value="{{x[6]}}" ng-model="free">
-                                                    <input type="hidden" ng-value="{{x[5]}}" ng-model="qtyFree">                                                                                                                                                                                    
-                                                    <img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>"  style="width:100px; height:60px;">                                              
-                                                  </div>
+                                          <div class="col-lg-4" ng-repeat="x in promotion_selected" ng-click="remove($index)">
+                                               <input type="hidden" ng-value="{{x[0]}}" ng-model="txtP_id" name="txtP_id">
+                                                <input type="hidden" ng-value="{{x[3]}}" ng-model="buyQty">
+                                                <input type="hidden" ng-value="{{x[6]}}" ng-model="free">
+                                                <input type="hidden" ng-value="{{x[5]}}" ng-model="qtyFree">                                                                                                                                                                                    
+                                              <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                  <table>
+                                                    <tr>
+                                                      <td><img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>" style="width:100px; height:60px;"></td>
+                                                      <td>
+                                                        <span class="pull-left">Buy <span  style="color:blue">{{x[1]}}</span></span>
+                                                        <span style="color:red;" class="pull-right">{{x[3]}}</span>
+                                                        <span class="pull-left">Add <span style="color:blue">{{x[4]}}</span></span>
+                                                        <span style="color:red;" class="pull-right">{{x[5]}}</span>
+                                                      </td>
+                                                    </tr>
+                                                  </table>
                                                 </div>
                                               </div>
-
-                                              <div class="row">
-                                                <div class="col-lg-12">                                                  
-                                                  <small style="font-size: 10.5px">                                                                                                                                   
-                                                    <div>
-                                                      <span class="pull-left">Buy <span  style="color:blue">{{x[1]}}</span></span>
-                                                      <span style="color:red;" class="pull-right">{{x[3]}}</span>
-                                                    </div>                                                                                                                                              
-                                                  </small>
-                                                </div>
-                                              </div>
-
-                                              <div class="row">
-                                                <div class="col-lg-12">                                                  
-                                                  <small style="font-size: 10.5px">                                                                                                                                   
-                                                    <div>
-                                                      <span class="pull-left">Add <span style="color:blue">{{x[4]}}</span></span>
-                                                      <span style="color:red;" class="pull-right">{{x[5]}}</span>
-                                                    </div>                                                                                                                                              
-                                                  </small>
-                                                </div>
-                                              </div>
-
                                           </div>                                                                                    
                                           <input type="text" name="str" ng-model="str" id="str" value="" style="visibility: hidden;">
                                         </div>

@@ -26,42 +26,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{
 			case "Bussiness":
 			{
-					$products  = "display";
-					$fund      = "display";
-					$promotion = "display";
-					$order = "display";
+				$products  = "display";
+				$fund      = "display";
+				$promotion = "display";
+				$order = "display";
 
-					$service   = "none";
-					$Inventory = "none";
-					$members   = "none";
-					$account   = "none";
+				$service   = "none";
+				$Inventory = "none";
+				$members   = "none";
+				$account   = "none";
 			}
 				break;
 
 			case "Agent":
 			{
-					$service   = "display";
-
-					$products  = "none";
-					$fund      = "none";
-					$Inventory = "none";
-					$promotion = "none";
-					$members   = "none";
-					$account   = "none";
+				$service   = "display";
+				$products  = "none";
+				$fund      = "none";
+				$Inventory = "none";
+				$promotion = "none";
+				$members   = "none";
+				$account   = "none";
 			}
 				break;
 
 			case "Shop-owner":
 			{
-					$service   = "display";
-					$products  = "display";
-					$fund      = "display";
-					$Inventory = "display";
-					$promotion = "display";
-					$order = "display";
-
-					$members   = "none";
-					$account   = "none";
+				$service   = "display";
+				$products  = "display";
+				$fund      = "display";
+				$Inventory = "display";
+				$promotion = "display";
+				$order = "display";
+				$members   = "none";
+				$account   = "none";
 
 			}
 				break;
@@ -72,51 +70,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$service   = "display";
 					$Inventory = "display";
 					$fund      = "display";
-
 					$products  = "none";
 					$promotion = "none";
 					$members   = "none";
-
 			}
 				break;
 
 			case "Association":
 			{
-					$Inventory = "display";
-					$promotion = "display";
-					$members   = "display";
-
-					$service   = "none";
-					$products  = "none";
-					$fund      = "none";
-					$account   = "none";
+				$Inventory = "display";
+				$promotion = "display";
+				$members   = "display";
+				$service   = "none";
+				$products  = "none";
+				$fund      = "none";
+				$account   = "none";
 			}
 				break;
-
 			default:
-
 				break;
-
 		}
 ?>
 </nav>
 	<div class="row" style="margin-top:30px;" ng-app="myApp" ng-controller="myCtrl">
 		<div class="col-lg-10 col-lg-offset-1">
 			  <!-- Nav tabs -->
+			  <div class="row">
+					<div class="col-lg-12">
+					<?php
+						if(!empty($error) OR validation_errors())
+						{
+					?>
+						<div class="alert alert-danger" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							  <span aria-hidden="true">&times;</span>
+							</button>
+							<strong>Attention!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
+						</div>
+					<?php }?>
+					</div>
+				</div>
 			<ul class="nav nav-tabs" role="tablist">
 			    <li role="presentation" class="active"><a href="#myAccount" aria-controls="home" role="tab" data-toggle="tab"><?php echo $this->lang->line('manage');?> <?php echo $this->lang->line('account');?></a></li>
 			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><?php echo $this->lang->line('profile')?></a></li>
+			    <li role="presentation"><a href="#setting" aria-controls="setting" role="tab" data-toggle="tab"><?php echo $this->lang->line('setting')?></a></li>
 			    <li role="presentation" class="navbar-right" style="margin-right: 0px;">
-
 			    	<i class="fa fa-users" aria-hidden="true" style="color: #026aa7;"></i>
 						<?php foreach ($member as $row) {
 							echo $row->mem_name;
-						}
-						?>
-						
+						}?>
 			    </li>
 			</ul>
-
 		  	<div class="tab-content" style="background:#fff;padding:10px;">
 					<div role="tabpanel" class="tab-pane active" id="myAccount">
 						<div class="<?php echo $account?>">
@@ -228,7 +232,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 								</div><!-- col-lg-12-->
-							</div><!-- row Service-->
+						</div><!-- row Service-->
 					</div><!-- class Service-->
 
 						<div class="<?php echo $products?>">
@@ -577,6 +581,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 					</div>
 				</div>
+				<!-- setting -->
+				<div role="tabpanel" class="tab-pane" id="setting">
+					<div class="row">
+						<div class="col-lg-7">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form action="<?php echo base_url()?>memberLogin/change_password" method="post">
+									<?php 
+											$poto = $profile->acc_img;
+												if(empty($poto)) $poto = "default.png";
+											?>
+									<img src="<?php echo base_url()?>assets/uploads/<?php echo $poto?>" class="img-thumbnail" width="110" alt=""><br>
+									<h6>Code: <?php echo $profile->acc_code ?></h6>
+									<div class="form-group">
+										<label for="">Name</label>
+										<?php echo form_input("txtName",$profile->mem_name,"class='form-control' readonly"); ?>
+									</div>
+									<div class="row">
+										<div class="col-lg-6">
+											<input type="hidden" value="<?php echo $profile->mem_code ?>" name="mem_code" id="mem_code">
+											<input type="hidden" value="<?php echo $acc_id; ?>" name="acc_id" id="acc_id">
+											<label for="Newpassword">New Password</label>
+											<input type="text" placeholder="new passowrd" class="form-control input-sm" name="Newpassword" id="Newpassword">
+										</div>
+										<div class="col-lg-6">
+											<label for="ConPassword">Confirm Password</label>
+											<input placeholder="confrim password" class="form-control input-sm" type="text" name="ConPassword" id="ConPassword">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="pull-right" style="margin-top:10px">
+												<input type="submit" class="btn btn-success btn-sm" value="Save" name="">
+											</div>
+										</div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end setting -->
 		    </div><!-- tab-content -->
 		</div><!-- col-lg-10 col-lg-offset-1-->
 <!-- Modal -->
@@ -682,7 +729,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>memberLogin/addAccount");
 
 	});
+	$("#btnSavePasswd").click(function(){
 
+		window.location.assign("<?php echo base_url()?>memberLogin/change_password");
+
+	});
+	
 	$("#btnAddProduct").click(function(){
 
 		window.location.assign("<?php echo base_url()?>memberLogin/addProduct");
@@ -708,6 +760,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/AddFund");
 
 	});
+
 	$("#btnAddInventory").click(function(){
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/addInventory");
 	});

@@ -32,7 +32,7 @@ class AccountModel extends CI_Model
 			}
 		}else
 		{
-			$query = $this->db->query('SELECT acc_code,mem_name,sex,acc_type,acc_img,acc_id FROM tbl_account a INNER JOIN tbl_member m ON a.mem_id=m.mem_id');
+			$query = $this->db->query('SELECT acc_code,mem_name,status,sex,acc_type,acc_img,acc_id FROM tbl_account a INNER JOIN tbl_member m ON a.mem_id=m.mem_id');
 
 			if($query->num_rows()>0)
 			{
@@ -49,6 +49,7 @@ class AccountModel extends CI_Model
 					'sex'	=>	$this->input->post('ddlGender'),
 					'dob'	=>	$this->input->post('txtDob'),
 					'pob'	=>	$this->input->post('txtPob'),
+					'status'	=>	$this->input->post('ddlStatus'),
 					'acc_type'	=>	$this->input->post('ddlAccType'),
 					'acc_img'	=>	!empty($this->input->post('txtImgName'))?$this->input->post('txtImgName'):"",
 					'company'	=>	$this->input->post('txtCompany'),
@@ -60,6 +61,15 @@ class AccountModel extends CI_Model
 			);
 		$this->db->insert('tbl_account',$data);
 	}
+	public function changpassword()
+	{ 	$id=$this->input->post("acc_id");
+		if($id!=""){
+			$data= array('acc_password'=>	$this->input->post('newpassword'));
+			$this->db->where('acc_id',$id);
+			$query=$this->db->update('tbl_account',$data);
+			if($query){return true;}
+		}
+	}
 	function update_model($id)
 	{
 		if(!empty($this->input->post('txtImgName')))
@@ -70,6 +80,7 @@ class AccountModel extends CI_Model
 						'sex'	=>	$this->input->post('ddlGender'),
 						'dob'	=>	$this->input->post('txtDob'),
 						'pob'	=>	$this->input->post('txtPob'),
+						'status'	=>	$this->input->post('ddlStatus'),
 						'acc_type'	=>	$this->input->post('ddlAccType'),
 						'acc_img'	=>	!empty($this->input->post('txtImgName'))?$this->input->post('txtImgName'):"",
 						'company'	=>	$this->input->post('txtCompany'),
@@ -87,6 +98,7 @@ class AccountModel extends CI_Model
 						'sex'	=>	$this->input->post('ddlGender'),
 						'dob'	=>	$this->input->post('txtDob'),
 						'pob'	=>	$this->input->post('txtPob'),
+						'status'	=>	$this->input->post('ddlStatus'),
 						'acc_type'	=>	$this->input->post('ddlAccType'),
 						'company'	=>	$this->input->post('txtCompany'),
 						'position'	=>	$this->input->post('txtPosition'),
@@ -96,8 +108,6 @@ class AccountModel extends CI_Model
 						'date_updt'	=>	date('Y-m-d')
 					);
 		}
-
-		
 		$this->db->where('acc_id',$id);
 		$this->db->update('tbl_account',$data);
 	}

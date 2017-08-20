@@ -43,6 +43,24 @@ class Wallet_m extends CI_Model
 		}
 	}
 
+	public function get_wallet_transaction_by_status($status="",$tran_id="")
+		{	if($status!=""){
+					if($status=="all"){
+						$query = $this->db->get_where("tbl_wallet_transaction",array("wal_id"=>$tran_id));
+						if($query->num_rows()>0){return $query->result();
+						}else{ return array();}	
+					}
+					else{
+							$query=$this->db->query("SELECT * FROM tbl_wallet_transaction WHERE tran_type='$status' AND wal_id='$tran_id' ORDER BY wal_tran_id DESC ");
+							if($query->num_rows()>0)
+							{
+							return $query->result();
+							}else{ return array();}	
+				}
+		}			
+	}
+
+
 	public function update_transaction($wal_tran_id)
 	{
 		$data = array(
@@ -109,14 +127,15 @@ class Wallet_m extends CI_Model
 			if($acc_id==$result->acc_id){return FALSE;}
 			else
 			{
-				$data= array(
-						"acc_id" => $this->input->post("ddlAccCode"),
-						"wal_code" => $this->input->post("txtWalCode"),												
-						"wal_status" => $this->input->post("ddlStatus"),
-						"wal_desc" => $this->input->post("txtDesc"),												
-						"user_updt" => $this->userLog,
-						"date_updt" => date('Y-m-d')
-						 );
+				$data= array
+						(
+							"acc_id" => $this->input->post("ddlAccCode"),
+							"wal_code" => $this->input->post("txtWalCode"),												
+							"wal_status" => $this->input->post("ddlStatus"),
+							"wal_desc" => $this->input->post("txtDesc"),												
+							"user_updt" => $this->userLog,
+							"date_updt" => date('Y-m-d')
+						);
 				$this->db->where("wal_id",$id);
 				$query=$this->db->update("tbl_wallet",$data);
 				if($query==TRUE){return $query;}

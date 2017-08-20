@@ -32,7 +32,7 @@ class Product_c extends CI_Controller
 										$value->p_id
 									);
 			$i=$i+1;
-		endforeach;
+			endforeach;
 		}											
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
@@ -50,7 +50,7 @@ class Product_c extends CI_Controller
 	public function validation()
 	{		
 		$this->form_validation->set_rules('txtPName','Product name','required');
-		$this->form_validation->set_rules('txtPrice','Price','required');
+		$this->form_validation->set_rules('txtPrice', 'The field', 'numeric');
 		$this->form_validation->set_rules('txtDateRelease','Date release','required');												
 		if($this->form_validation->run()==TRUE){return TRUE;}
 		else{return FALSE;}
@@ -145,7 +145,6 @@ class Product_c extends CI_Controller
 				$data['action'] = "{$this->page_redirect}/edit_value/{$id}";
 				$data['pageHeader'] = $this->lang->line('product');			
 				$data['cancel'] = $this->page_redirect;
-
 				$this->load->view('template/header');
 				$this->load->view('template/left');
 				$this->load->view("admin/page_edit",$data);

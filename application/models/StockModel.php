@@ -17,7 +17,7 @@ class StockModel extends CI_Model
 	{
 		if($id=="")
 		{
-			$query = $this->db->query("SELECT s.p_id,p_name,qty,stk_type,stk_desc,s.user_crea,s.date_crea FROM tbl_stock s INNER JOIN tbl_product p ON s.p_id=p.p_id");
+			$query = $this->db->query("SELECT s.p_id,p_name,qty,stk_type,stk_desc,s.user_crea,s.date_crea FROM tbl_stock s INNER JOIN tbl_product p ON s.p_id=p.p_id ORDER BY stk_id DESC");
 			
 			if($query->num_rows()>0)
 			{
@@ -47,14 +47,15 @@ class StockModel extends CI_Model
 	{
 		$data = array(
 						'p_id'	=>	$this->input->post('ddlProduct'),
-						'str_id'	=>	$this->str_id,
+						'str_id'=>	$this->str_id,
 						'qty'	=>	$this->input->post('txtQty'),
 						'stk_type'	=>	$this->input->post('ddlType'),
 						'stk_desc'	=>	$this->input->post('txtDesc'),
 						'user_crea'	=>	$this->userCrea,
 						'date_crea'	=>	date('Y-m-d')
 			);
-		$this->db->insert('tbl_stock',$data);
+		$query=$this->db->insert('tbl_stock',$data);
+		if($query){return $query;}
 	}
 
 	function update_stock($id)

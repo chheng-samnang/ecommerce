@@ -1,4 +1,7 @@
 <?php
+
+
+$lang["setting"] = "Setting";
 $lang["menu0"] = "Dashboard";
 $lang["menu1"] = "Category Management";
 $lang["menu2"] = "Brand Management";
@@ -34,7 +37,7 @@ $lang['cancel'] = 'Cancel';
 #======================= for Button =================================
 
 $lang["welcome"] = "Welcome";
-
+$lang["promotion_select"]="Promotion Selected"; 
 $lang["category"] = "Category";
 $lang["brand"] = "Brand";
 $lang["member"] = "Member";

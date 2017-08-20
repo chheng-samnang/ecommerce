@@ -59,6 +59,7 @@ class Member_c extends CI_Controller
 		$this->load->view('template/left');
 		$this->load->view('admin/page_add',$data);
 		$this->load->view('template/footer');
+
 	}
 	public function add_value()
 	{
@@ -75,24 +76,28 @@ class Member_c extends CI_Controller
 				}
 			else{$this->add();}
 		}
+		if(isset($_POST["btnCancel"]))
+		{
+			$this->index();
+		}
 	}
 	public function edit($id="")
 	{
 		if($id!="")
 		{
-
 			$row=$this->member_m->index($id);
 			if($row==TRUE)
 			{
 				$option = array('1'=>'Enable','0'=>'Disable');
+				$data['cancel'] = $this->page_redirect;
 				$data['ctrl'] = $this->createCtrl($row,$option);
 				$data['action'] = "{$this->page_redirect}/edit_value/{$id}";
 				$data['pageHeader'] = $this->lang->line('member');	
-				
 				$this->load->view('template/header');
 				$this->load->view('template/left');
 				$this->load->view("admin/page_edit",$data);
 				$this->load->view('template/footer');
+
 			}
 		}
 		else{return FALSE;}

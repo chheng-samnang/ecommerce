@@ -149,21 +149,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</div>
 							</div>
 						</div>
-						
 						<hr />
 						<div class="row">
 							<div class="col-lg-12">
 								<!-- <?php echo form_submit('btnSubmit','$save','class="btn btn-success"');?> -->
 								<input type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-success" value="<?php echo $this->lang->line('save');?>">
-								<button name="btnCancel" id="btnCancel" class="btn btn-default"><?php echo $this->lang->line('cancel');?></button>
+								<button type="button" name="btnCancel" id="btnCancel" class="btn btn-default"><?php echo $this->lang->line('cancel');?></button>
 								<!-- <?php echo form_button('btnCancel','Cancel','id="btnCancel" class="btn btn-default"');?> -->
 							</div>
 						</div>
-						
-						
-						
-						
-						
 					</div>
 				</div>
 				<?php echo form_close()?>
@@ -171,7 +165,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
-
 <script>
 	function uploadFile() {
 		var formData = new FormData();

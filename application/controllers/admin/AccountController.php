@@ -12,7 +12,7 @@ class AccountController extends CI_Controller
 		parent::__construct();
 		$this->page_redirect = "account";
 		$this->action="account/add";
-		$this->pageHeader="Account";
+		$this->pageHeader="account";
 		$this->cancel = "account";
 		$this->load->model("accountModel","am");
 		$this->load->model("locationModel","lm");
@@ -21,7 +21,7 @@ class AccountController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('account');
-		$data['tbl_hdr'] = array('Acc.Code','Member Name','Gender','Acc. Type','Acc. Image');
+		$data['tbl_hdr'] = array('Acc.Code','Member Name','Staus','Gender','Acc. Type','Acc. Image');
 
 		$query = $this->am->get_account();
 		$i=0;
@@ -34,6 +34,7 @@ class AccountController extends CI_Controller
 			$data["tbl_body"][$i] = array(
 											$value->acc_code,
 											$value->mem_name,
+											$value->status=="1"?"Enable":"Disable",
 											$sex,
 											$value->acc_type,
 											"<img class='img-thumbnail' src='assets/uploads/".$poto."' style='width:43px;' />",
@@ -44,25 +45,44 @@ class AccountController extends CI_Controller
 		}else
 		{
 			$data["tbl_body"][$i] = array();
-		}
-		
-
+		}	
 		$data['action_url'] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
-									$this->page_redirect.'/delete') ;
+									$this->page_redirect.'/delete',
+									$this->page_redirect.'/changpassword',
+									) ;
 		$this->load->view('template/header');
 		$this->load->view('template/left');
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
 	}
-
+	public function add(){ 
+		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|callback__check_length[6,10]');
+			if($this->form_validation->run()==TRUE){return TRUE;}
+		else{return FALSE;}
+		}
 
 	function add_account()
 	{
 		if(isset($_POST['btnSubmit']))
-		{	
-			$this->am->insert_account();
-			redirect("account");	
+		{		
+			if($this->input->post("txtPassword")==$this->input->post("txtConfirm"))
+			{
+				$this->am->insert_account();
+				redirect("account");	
+			}else
+			{
+				$data['error']="confirm-password must be the same password...! ";
+				$data['action'] = $this->action;
+				$data['multipart'] = true;
+				$data['pageHeader'] = $this->lang->line('account');
+				$data['ctrl'] = $this->createCtrl();
+				$data['cancel'] = $this->cancel;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_add',$data);
+				$this->load->view('template/footer');
+			}
 		}else
 		{
 			$data['action'] = $this->action;
@@ -75,9 +95,40 @@ class AccountController extends CI_Controller
 			$this->load->view('admin/page_add',$data);
 			$this->load->view('template/footer');
 		}
-		
 	}
-
+	public function validation(){
+		$this->form_validation->set_rules("confirmPassword","Confirm password","required");
+		$this->form_validation->set_rules("newpassword","Password","required");
+		if($this->form_validation->run()==TRUE){
+			return true;
+		}else{return false;}
+	}
+	public function changpassword($id="",$error=""){
+			$data['error']=$error;
+			$data["acc_id"]=$id;
+			$data['action'] = $this->action;
+			$data['multipart'] = true;
+			$data['pageHeader'] = $this->lang->line('account');
+			$data['ctrl'] = $this->createCtrl();
+			$data['cancel'] = $this->cancel;
+			$this->load->view('template/header');
+			$this->load->view('template/left');
+			$this->load->view('admin/acc_change_password',$data);
+			$this->load->view('template/footer');
+	}
+	public function save_chage_password(){
+		if($this->validation()==TRUE){
+			if($this->input->post("newpassword")==$this->input->post("confirmPassword")){
+			 	$row=$this->am->changpassword();
+			 	if($row==TRUE){
+			 		$this->index();
+			 }
+			}else{
+				$error="confirm password must be the same password....!";
+				$acc_id=$this->input->post("acc_id");
+				$this->changpassword($acc_id,$error);}
+		}else{$this->changpassword();}
+	}
 	function createCtrl()
 	{
 		$query = $this->am->loadMember();
@@ -94,6 +145,7 @@ class AccountController extends CI_Controller
 		}
 		$acc = date('s');
 		$option2 = array('0'=>'Choose One','F'=>'Female','M' =>'Male');
+		$option5 = array('1'=>'Enable','0'=>'Disable');
 		$option3 = array('General'=>'General','Agent'=>'Agent','Shop-owner'=>'Shop-owner','Bussiness'=>'Bussiness','Association'=>'Association','Individual'=>'Individual');
 		
 		$ctrl = array(
@@ -111,7 +163,7 @@ class AccountController extends CI_Controller
 								'type'	=>	'password',
 								'name'	=>	'txtPassword',
 								'id'	=>	'txtPassword',
-								'placeholder'	=>	'Enter Password here...',
+								'placeholder'=>'Enter Password here...',
 								'class'	=>	'form-control',
 								'label'	=>	'Password',
 								'required'	=>	''
@@ -141,6 +193,7 @@ class AccountController extends CI_Controller
 								'class'	=>	'class="form-control"',
 								'label'	=>	'Gender'
 							),
+
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDob',
@@ -203,12 +256,20 @@ class AccountController extends CI_Controller
 								'label'	=>	'Location'
 							),
 						array(
+								'type'	=>	'dropdown',
+								'name'	=>	'ddlStatus',
+								'id'	=>	'ddlStatus',
+								'option'=>	$option5,
+								'class'	=>	'class="form-control"',
+								'label'	=>	'Staus'
+							),
+						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
 								'label'	=>	'Image'
-							)
+							),
 			);
 		return $ctrl;
 	}
@@ -228,7 +289,7 @@ class AccountController extends CI_Controller
 			$option4[0]	=	"Choose One";
 			$option4[$value->loc_id] = $value->loc_name;
 		}
-		
+		$option5 = array('1'=>'Enable','0'=>'Disable');
 		$option2 = array('0'=>'Choose One','F'=>'Female','M' =>'Male');
 		$option3 = array('General'=>'General','Agent'=>'Agent','Shop-owner'=>'Shop-owner','Bussiness'=>'Bussiness','Association'=>'Association','Individual'=>'Individual');
 		
@@ -325,7 +386,15 @@ class AccountController extends CI_Controller
 								'value'	=>	set_value('txtPob',$account->pob),
 								'label'	=>	'Place of Birth'
 							),
-						
+						array(
+								'type'	=>	'dropdown',
+								'name'	=>	'ddlStatus',
+								'id'	=>	'ddlStatus',
+								'option'=>	$option5,
+								'selected'	=>	$account->status,
+								'class'	=>	'class="form-control"',
+								'label'	=>	'Staus'
+							),	
 						
 						array(
 								'type'	=>	'upload',
@@ -352,6 +421,7 @@ class AccountController extends CI_Controller
 				$data['multipart'] = true;
 				$data['pageHeader'] = $this->lang->line('account');
 				$data['ctrl'] = $this->editCtrl($id);
+				$data['cancel'] = $this->page_redirect;
 				if (isset($_POST["btnCancel"])) 
 				{
 					redirect('account');

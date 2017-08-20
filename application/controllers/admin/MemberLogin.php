@@ -9,7 +9,6 @@ class MemberLogin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
 		$this->pageHeader='Member';		
 		$this->page_redirect="admin/memberLogin";							
 		$this->load->model("promotion_m", "pm");
@@ -84,8 +83,8 @@ class MemberLogin extends CI_Controller
 			
 	}
 
-	public function profile($acc_id="")
-	{
+	public function profile($acc_id="",$error="")
+	{	
 		if($acc_id!="")
 		{
 			$this->session->unset_userdata("promotion");
@@ -109,20 +108,42 @@ class MemberLogin extends CI_Controller
 			$data["profile"] = $this->mm->get_account_validation($acc_id);
 			$data["inventory"] = $this->mm->get_inventory($acc_id);
 			$data["store"] = $this->mm->get_shop($this->session->acc_id);
-
+			$data["error"]=$error;
 			$this->load->view("layout_site/header_top1",$data);
-
 			$this->load->view("layout_site/nav");
 			$this->load->view("admin/member_profile",$data);
 			$this->load->view("layout_site/footer");
-
 		}else
 		{
 			$this->load->view("admin/login_member.php",$data);
 		}
+	}	
+	public function validation(){
+		$this->form_validation->set_rules("ConPassword","Confirm password","required");
+		$this->form_validation->set_rules("Newpassword","Password","required");
+		if($this->form_validation->run()==TRUE){
+			return true;
+		}else{return false;}
 	}
 
-
+	 public function change_password(){
+		 	if($this->validation()==TRUE){
+		 		if($this->input->post("Newpassword")==$this->input->post("ConPassword")){
+		 			$row=$this->mm->change_password();
+		 			if($row==TRUE){
+		 				$acc_id=$this->input->post("acc_id");
+			 			$this->profile($acc_id);
+		 			}
+		 		}else{
+		 			$acc_id=$this->input->post("acc_id");
+		 			$error="confirm password must be the same password...!";
+		 			$this->profile($acc_id,$error);
+		 		}
+		 	}else{
+		 		$acc_id=$this->input->post("acc_id");
+		 		$this->profile($acc_id);
+		 	}
+	}
 	public function addInventory()
 	{
 		$data["itemCode"] = $this->mm->get_inventory_code();

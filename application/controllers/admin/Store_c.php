@@ -101,7 +101,7 @@ class Store_c extends CI_Controller
 				$data['ctrl'] = $this->createCtrl($row,$option);		
 				$data['action'] = "{$this->page_redirect}/edit_value/{$id}";
 				$data['pageHeader'] = $this->lang->line('store');		
-				
+				$data['cancel'] = $this->page_redirect;
 				$this->load->view('template/header');
 				$this->load->view('template/left');
 				$this->load->view("admin/page_edit",$data);

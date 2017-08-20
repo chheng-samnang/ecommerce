@@ -1,9 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-/**
-* 
-*/
 class InventoryController extends CI_Controller
 {
 	var $pageHeader,$page_redirect,$action,$cancel;
@@ -31,7 +27,6 @@ class InventoryController extends CI_Controller
 		$i=0;
 		if(!empty($query))
 		{
-
 			foreach ($query as $key => $value) {
 				$img = $value->path;
 				if(empty($img)) $img = "default.png"; // default image
@@ -47,11 +42,8 @@ class InventoryController extends CI_Controller
 			$i++;
 			}
 		}else
-		{
-			$data["tbl_body"][$i] = array();
-		}
-		
-
+		{$data["tbl_body"][$i] = array();}
+	
 		$data['action_url'] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
 									$this->page_redirect.'/delete') ;
@@ -62,18 +54,42 @@ class InventoryController extends CI_Controller
 		//var_dump($query);
 
 	}
+	public function validation()
+	{		
+		$this->form_validation->set_rules('txtInvCode','Inventory Code','required');
+		$this->form_validation->set_rules('ddlAccount', '', 'required');
+		$this->form_validation->set_rules('ddlStore','Stor Name','required');	
+		$this->form_validation->set_rules('ddlCat','Category','required');
+		$this->form_validation->set_rules('ddlBrand', 'Brand', 'required');
+		$this->form_validation->set_rules('txtInvName','Inventory Name','required');
+		$this->form_validation->set_rules('txtPrice','Price','numeric');												
+		if($this->form_validation->run()==TRUE){return TRUE;}
+		else{return FALSE;}
+	}	
 
 	public function addInventory()
 	{
 		if(isset($_POST['btnSubmit']))
 		{	
-			$this->im->insert_inventory();
-			redirect("inventory");	
+			if($this->validation()==TRUE)
+			{
+				$row=$this->im->add_inventory();
+				if($row==TRUE){redirect("inventory");}
+			}else{
+				$data['action'] = $this->action;
+				$data['multipart'] = true;
+				$data['pageHeader'] = $this->pageHeader;
+				$data['ctrl'] = $this->createCtrl();
+				$data['cancel'] = $this->cancel;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_add',$data);
+				$this->load->view('template/footer');
+			}
 		}
+
 		elseif (isset($_POST["btnCancel"])) 
-		{
-			redirect('inventory');
-		}
+		{ redirect('inventory');}
 		else
 		{
 			$data['action'] = $this->action;
@@ -102,20 +118,16 @@ class InventoryController extends CI_Controller
 			}
 			else
 			{
-					$data['action'] = "inventory/edit/".$id;
-					$data['multipart'] = true;
-					$data['pageHeader'] = $this->pageHeader;
-					$data['ctrl'] = $this->editCtrl($id);
-					//$data['cancel'] = $this->cancel;
-					$this->load->view('template/header');
-					$this->load->view('template/left');
-					$this->load->view('admin/page_edit',$data);
-					$this->load->view('template/footer');	
+				$data['action'] = "inventory/edit/".$id;
+				$data['multipart'] = true;
+				$data['pageHeader'] = $this->pageHeader;
+				$data['ctrl'] = $this->editCtrl($id);
+				//$data['cancel'] = $this->cancel;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_edit',$data);
+				$this->load->view('template/footer');	
 			}
-		}
-		else
-		{
-			echo "Invalid Inventory ID.";
 		}
 	}
 
@@ -125,9 +137,6 @@ class InventoryController extends CI_Controller
 		{
 			$this->im->deleteInventory($id);
 			redirect("inventory");
-		}else
-		{
-			echo "Invalid Inventory ID.";
 		}
 	}
 
@@ -168,13 +177,14 @@ class InventoryController extends CI_Controller
 								'placeholder'	=>	'Enter Inventory Code here...',
 								'value'	=>	set_value('txtInvCode',$invCode),
 								'class'	=>	'form-control',
-								'readonly'	=>	'readonly',
+								'readonly'	=>'readonly',
 								'label'	=>	'Inventory Code'
 							),
 						array(
 								'type'	=>	'dropdown',
 								'name'	=>	'ddlAccount',
 								'id'	=>	'ddlAccount',
+								'value'	=>	set_value('ddlAccount',''),
 								'option'=>	$option1,
 								'class'	=>	'class="form-control"',
 								'label'	=>	'Account Code'
@@ -184,6 +194,7 @@ class InventoryController extends CI_Controller
 								'name'	=>	'ddlStore',
 								'id'	=>	'ddlStore',
 								'option'=>	$option2,
+								'value'	=>	set_value('ddlStore',''),
 								'class'	=>	'class="form-control"',
 								'label'	=>	'Store Name'
 							),
@@ -191,6 +202,7 @@ class InventoryController extends CI_Controller
 								'type'	=>	'dropdown',
 								'name'	=>	'ddlCat',
 								'id'	=>	'ddlCat',
+								'value'	=>	set_value('ddlCat',''),
 								'option'=>	$option3,
 								'class'	=>	'class="form-control"',
 								'label'	=>	'Category'
@@ -199,6 +211,7 @@ class InventoryController extends CI_Controller
 								'type'	=>	'dropdown',
 								'name'	=>	'ddlBrand',
 								'id'	=>	'ddlBrand',
+								'value'	=>	set_value('ddlBrand',''),
 								'option'=>	$option4,
 								'class'	=>	'class="form-control"',
 								'label'	=>	'Brand'
@@ -216,7 +229,7 @@ class InventoryController extends CI_Controller
 								'type'	=>	'text',
 								'name'	=>	'txtPrice',
 								'id'	=>	'txtPrice',
-								'placeholder'	=>	'Enter Price  here...',
+								'placeholder'=>	'Enter Price  here...',
 								'value'	=>	set_value('txtPrice',''),
 								'class'	=>	'form-control',
 								'label'	=>	'Price'
@@ -297,7 +310,6 @@ class InventoryController extends CI_Controller
 	{
 		$item = $this->im->get_inventory($id);
 		$invCode = $item->p_code;
-
 		$account = $this->am->get_account();	
 		$store = $this->im->get_store();	
 		$category = $this->im->get_category();	
@@ -329,6 +341,7 @@ class InventoryController extends CI_Controller
 								'name'	=>	'txtInvCode',
 								'id'	=>	'txtInvCode',
 								'placeholder'	=>	'Enter Inventory Code here...',
+								'value'=>$row==""?set_value("txtProCode",$row15):$row15,
 								'value'	=>	set_value('txtInvCode',$invCode),
 								'class'	=>	'form-control',
 								'readonly'	=>	'readonly',

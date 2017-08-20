@@ -42,8 +42,6 @@ class StockController extends CI_Controller
 		{
 			$data['tbl_body'][$i] = array();
 		}
-		
-
 		$data['action_url'] = array(0=>$this->page_redirect.'/add',
 									1=>$this->page_redirect.'/edit',
 									2=>$this->page_redirect.'/delete') ;
@@ -53,26 +51,42 @@ class StockController extends CI_Controller
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
 	}
+	public function adds()
+	{
+	    $product = $this->sm->get_product();
+		foreach ($product as $key => $value){
+			$option[0]	= 'Choose One';
+			$option[$value->p_id] = $value->p_name;}
+		$data["error"]="Product is required...!";
+		$data['action'] = 'stock/add';
+		$data['pageHeader'] = $this->lang->line('stock');
+		$data['ctrl'] = $this->createCtrl($row="", $option);
+		$data['cancel'] = $this->cancel;
+		$this->load->view('template/header');
+		$this->load->view('template/left');
+		$this->load->view('admin/page_add',$data);
+		$this->load->view('template/footer');
+	}
 
 	function add_stock()
-	{
-		
+	{	
 		if(isset($_POST['btnSubmit']))
-		{
-			$this->sm->insert_stock();
-			redirect("stock");
+		{	
+		if($this->input->post("ddlProduct")){
+				$row=$this->sm->insert_stock();
+				if($row==TRUE){ redirect("stock");}
+			}else{ $this->adds();}	
 		}else
 		{
 			$product = $this->sm->get_product();
 			foreach ($product as $key => $value) {
 				$option[0]	= 'Choose One';
-				$option[$value->p_id] = $value->p_name;
-			}
+				$option[$value->p_id] = $value->p_name;}
+
 			$data['action'] = 'stock/add';
 			$data['pageHeader'] = $this->lang->line('stock');
 			$data['ctrl'] = $this->createCtrl($row="", $option);
 			$data['cancel'] = $this->cancel;
-
 			$this->load->view('template/header');
 			$this->load->view('template/left');
 			$this->load->view('admin/page_add',$data);
@@ -103,8 +117,6 @@ class StockController extends CI_Controller
 
 			}else
 			{
-				
-
 				$this->load->view('template/header');
 				$this->load->view('template/left');
 				$this->load->view('admin/page_edit',$data);
@@ -139,7 +151,7 @@ class StockController extends CI_Controller
 							'value'=>$row==""? set_value("ddlProduct") : $row1,
 							'selected'=>$row==""?NULL:$row1,
 							'class'	=>	'class="form-control"',
-							'label'	=>	'Product'
+							'label'	=>	'Product',
 						),
 					array(
 							'type'	=>	'text',
@@ -148,7 +160,8 @@ class StockController extends CI_Controller
 							'value'=>$row==""? set_value("txtQty") : $row3,
 							'placeholder'	=>	'Enter Quantity here...',
 							'class'	=>	'form-control',
-							'label'	=>	'Quantity'
+							'label'	=>	'Quantity',
+							'required'	=>	'',
 						),
 					array(
 							'type'	=>	'dropdown',
@@ -156,14 +169,14 @@ class StockController extends CI_Controller
 							'id'	=>	'ddlType',
 							'option'=>	$option1,
 							'selected'	=>	$row==""?NULL:$row2,						'class'	=>	'class="form-control"',
-							'label'	=>	'Transaction Type'
+							'label'	=>	'Transaction Type',
 						),
 					array(
 							'type'	=>	'textarea',
 							'name'	=>	'txtDesc',
 							'id'	=>	'txtDesc',
 							'value'=>$row==""? set_value("txtDesc") : $row4,
-							'label'	=>	'Description'
+							'label'	=>	'Description',
 						)
 			);
 		return $ctrl;

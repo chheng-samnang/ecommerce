@@ -38,7 +38,7 @@ class Promotion_m extends CI_Model
 		$data1=array
 					(
 						"pro_id"=>$pro_id,
-						"str_id"=>$this->session->userdata["promotion"][6],
+						//"str_id"=>$this->session->userdata["promotion"][6],
 						"date_from"=>$this->session->userdata["promotion"][0],
 						"date_to"=>$this->session->userdata["promotion"][1],
 						"cat_id"=>$this->session->userdata["promotion"][2],

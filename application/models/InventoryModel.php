@@ -100,7 +100,7 @@ class InventoryModel extends CI_Model
 			return array();
 		}
 	}
-	public function insert_inventory()
+	public function add_inventory()
 	{
 		$img = $this->input->post("txtImgName");
 		$data = array(
@@ -124,18 +124,19 @@ class InventoryModel extends CI_Model
 
 			);
 
-		$this->db->insert("tbl_product",$data);
+		$query=$this->db->insert("tbl_product",$data);
+		if($query==TRUE){return TRUE;}
 
 		if($img!="")
 		{			
-			echo $id = $this->get_inventory_id($this->input->post("txtInvCode"));
+		    $id = $this->get_inventory_id($this->input->post("txtInvCode"));
 			$data = array(
 							'p_id'	=>	$id,
 							'path'	=>	$img,
 							'media_type'	=>	'inventory',
 							'user_crea'	=>	$this->session->memLogin,
 							'date_crea'	=>	date("Y-m-d")
-				);
+			);
 			$this->db->insert("tbl_media",$data);
 		}
 	}

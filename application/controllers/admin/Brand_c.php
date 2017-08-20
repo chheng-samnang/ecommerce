@@ -45,12 +45,10 @@
 		{
 			// $data['option'] = array('1'=>'Enable','0'=>'Disable');
 			$data['ctrl'] = $this->createCtrl($row);
-			
 			$data['action'] = 'brand/add';
 			$data['pageHeader'] = $this->lang->line('brand');	
 			$data['panelTitle'] = $this->panelTitle;
 			$data['cancel'] = $this->cancel;
-
 
 			if(isset($_POST['btnSubmit']))
 			{

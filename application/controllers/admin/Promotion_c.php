@@ -45,6 +45,7 @@ class Promotion_c extends CI_Controller
 		$this->load->view('admin/page_view', $data);
 		$this->load->view('template/footer');
 	}		
+	
 	public function add()
 	{						
 		$data['action'] = "{$this->page_redirect}/pro_type";		
@@ -57,20 +58,21 @@ class Promotion_c extends CI_Controller
 		$this->load->view('admin/promotion_add',$data);
 		$this->load->view('template/footer');		
 	}
+
 	public function pro_type()
 	{	
 		$data['action'] = "{$this->page_redirect}/add_promotion";			
 		$data['pageHeader'] = $this->lang->line('promotion');		
 		$data['cancel'] = $this->page_redirect;				 		
 		$promotion1=array(																	
-									$this->input->post("txtFrom"),
-									$this->input->post("txtTo"),
-									$this->input->post("ddlCategory"),
-									$this->input->post("ddlOcc"),
-									$this->input->post("txtProName"),
-									$this->input->post("ddlType"),
-									$this->input->post("ddlStore")								
-								);
+							$this->input->post("txtFrom"),
+							$this->input->post("txtTo"),
+							$this->input->post("ddlCategory"),
+							$this->input->post("ddlOcc"),
+							$this->input->post("txtProName"),
+							$this->input->post("ddlType"),
+							$this->input->post("ddlStore")								
+						);
 		$this->session->set_userdata("promotion",$promotion1);		
 		if($this->input->post("ddlType")=="d")
 		{			
@@ -78,6 +80,7 @@ class Promotion_c extends CI_Controller
 			$this->load->view('admin/promotion_discount',$data);
 			$this->load->view('template/footer');
 		}
+		
 		elseif($this->input->post("ddlType")=="a")
 		{
 			$this->load->view('template/header');
@@ -85,6 +88,7 @@ class Promotion_c extends CI_Controller
 			$this->load->view('template/footer');
 		}				
 	}
+
 	public function add_promotion()
 	{			
 		$this->promotion_m->add_promotion();						
