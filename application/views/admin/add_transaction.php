@@ -38,6 +38,7 @@
 					<label>Amount</label>
 					<input type="text" name="txtAmt" class="form-control" placeholder="Enter amount here...">
 				</div>
+				
 				<div class="form-group">
 					<label>Transaction Date</label>
 					<input type="text" name="txtTranDate" class="form-control datetimepicker" placeholder="Click here to pick a date">

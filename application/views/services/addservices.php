@@ -32,7 +32,6 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<input type="hidden" name="txt_acc_id" value="<?php echo $account->acc_id;?>">
-								<input type="hidden" name="txt_str_id" value="0">
 								<label>Service Name</label>
 								<input type="text" name="txt_service"  class="form-control input-sm" placeholder="Service Name">
 							</div>
@@ -40,7 +39,9 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Store Name</label>
-								<input type="" readonly="readonly" class="form-control input-sm" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>">
+								<input type="hidden" name="txt_str_id" value="<?php if($store->str_name){echo $store->str_id;}?>">
+								<input type="hidden" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>" name="">
+								<input type="text" readonly="readonly" class="form-control input-sm" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>">
 							</div>
 						</div>
 					</div><!-- class Row-->
@@ -48,12 +49,10 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Category</label>
-								<select name="txt_category" readonly="" class="form-control input-sm">
-									
+								<select name="txt_category" class="form-control input-sm">
 									<?php foreach ($category as $row) 
 									{
 										if($row->cat_id=="8"){
-
 									?>
 										<option  value="<?php echo $row->cat_id?>"><?php echo $row->cat_name?></option>
 									<?php 
@@ -65,7 +64,7 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Price</label>
-								 <input type="text" name="txt_price" class="form-control input-sm" placeholder="Price" ng-model="txt_price" ng-pattern="/^[0-9]{1,10}$/" required />
+								 <input type="text" name="txt_price" class="form-control input-sm" placeholder="Price" ng-init="txt_price" ng-model="txt_price" ng-pattern="/^[0-9]{1,10}$/" required />
         						<span style="color:Red" ng-show="personForm.txt_price.$dirty&&personForm.txt_price.$error.pattern">Only Numbers Allowed, Maximum 10 Characters</span>
 							</div>
 						</div>

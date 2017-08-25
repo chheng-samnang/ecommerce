@@ -84,8 +84,9 @@ class Product_c extends CI_Controller
 				foreach($brand as $value):						
 				$option3[$value->brn_id]=$value->brn_name;								
 			endforeach;
-			}						
-		$data['ctrl'] = $this->createCtrl($row="",$option1,$option2,$option3,$p_code);		
+			}	
+			$option4= array('1'=>'Enable','0'=>'Disable');				
+		$data['ctrl'] = $this->createCtrl($row="",$option1,$option2,$option3,$option4,$p_code);		
 		$data['action'] = "{$this->page_redirect}/add_value";
 		$data['pageHeader'] = $this->lang->line('product');		
 		$data['cancel'] = $this->page_redirect;
@@ -138,10 +139,11 @@ class Product_c extends CI_Controller
 				$option3[$value->brn_id]=$value->brn_name;								
 			endforeach;
 			}			
-			$row=$this->product_m->index($id);			
+			$row=$this->product_m->index($id);		
+			$option4 = array('1'=>'Enable','0'=>'Disable');		
 			if($row==TRUE)
 			{																																		
-				$data['ctrl'] = $this->createCtrl($row,$option1,$option2,$option3,$row->p_code);		
+				$data['ctrl'] = $this->createCtrl($row,$option1,$option2,$option3,$option4,$row->p_code);		
 				$data['action'] = "{$this->page_redirect}/edit_value/{$id}";
 				$data['pageHeader'] = $this->lang->line('product');			
 				$data['cancel'] = $this->page_redirect;
@@ -150,16 +152,12 @@ class Product_c extends CI_Controller
 				$this->load->view("admin/page_edit",$data);
 				$this->load->view('template/footer');
 			}else
-			{
-				echo "Product not found!";
-			}
+			{echo "Product not found!";}
 		}
 		else{echo "Cannot find Product ID!";}
 	}
 	public function edit_value($id="")
 	{
-
-		
 		if(isset($_POST["btnSubmit"]))
 		{						
 			$this->product_m->edit($id);	
@@ -168,10 +166,8 @@ class Product_c extends CI_Controller
 	       	
 		}elseif(isset($_POST['btnCancel']))
 		{
-					
 			redirect('admin/product_c');			
 		}
-
 	}	
 
 	public function delete($id="")
@@ -183,7 +179,7 @@ class Product_c extends CI_Controller
 		}
 		else{return FALSE;}
 	}
-	public function createCtrl($row="",$option1,$option2,$option3,$p_code)
+	public function createCtrl($row="",$option1,$option2,$option3,$option4,$p_code)
 		{	
 			if($row!="")
 			{			
@@ -201,6 +197,7 @@ class Product_c extends CI_Controller
 					$row12=$row->short_desc;
 					$row13=$row->p_desc;														
 					$row14=$row->path;
+					$row16=$row->p_status;
 					$row15=$p_code;
 			}
 			$row15=$p_code;												
@@ -272,7 +269,15 @@ class Product_c extends CI_Controller
 									'class'=>'form-control',
 									'label'=>'Price',									
 								),
-							
+							array(
+									'type'=>'dropdown',
+									'name'=>'ddlStatus',
+									'value'=>$row==""? set_value("ddlStatus") : $row2,
+									'option'=>$option4,
+									'selected'=>$row==""?NULL:$row16,	
+									'class'=>'class="form-control"',
+									'label'=>'Status',									
+								),
 							array(
 									'type'=>'text',
 									'name'=>'txtColor',

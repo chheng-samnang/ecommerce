@@ -26,7 +26,6 @@
 								<input type="text" name="txt_transaction_date"   class="form-control datetimepicker input-sm" placeholder="Transaction Date...">
 							</div>
 						</div>
-						
 					</div><!-- class Row-->
 					
 						<div class="col-lg-1">

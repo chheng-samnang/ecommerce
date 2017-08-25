@@ -43,24 +43,17 @@ $scope.msg = "Form Validated";
 								<input type="" readonly="readonly" class="form-control input-sm" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>">
 							</div>
 						</div>
-						
 					</div><!-- class Row-->
 					<div class="row">
-						
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Category</label>
-								<select name="txt_category" readonly="" class="form-control input-sm">
-									
-									<?php foreach ($category as $row) 
-									{
-										if($row->cat_id=="8"){
-
-									?>
-										<option  value="<?php echo $row->cat_id?>"><?php echo $row->cat_name?></option>
-									<?php 
-										}
-									}?>
+								<select name="txt_category" class="form-control input-sm">
+									<?php foreach ($category as  $value) {?>
+										<option value="<?php echo $value->cat_id?>"
+											<?php if($value->cat_id==$services->cat_id) echo  "selected"?>><?php echo $value->cat_name?>
+										</option>
+									<?php }?>
 								</select>
 							</div>
 						</div>
@@ -82,7 +75,7 @@ $scope.msg = "Form Validated";
 			                            echo "<option value='0' > Disable </option>";
 			                        }else
 			                            echo "<option value='0' selected=''>Disable </option>";
-			                            // echo "<option value='1'> Enable </option>";
+			                             echo "<option value='1'> Enable </option>";
 			                    ?>
 								</select>
 							</div>

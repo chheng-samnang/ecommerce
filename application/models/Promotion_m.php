@@ -32,13 +32,15 @@ class Promotion_m extends CI_Model
 		$query=$this->db->get("tbl_promotion_occasion");
 		if($query->num_rows()>0){return $query->result();}		
 	}	
+	public function get_pro_id(){
+		$query=$this->db->query("SELECT pro_id FROM tbl_promotion ORDER BY pro_id DESC ");
+		if($query->num_rows()>0){return $query->row();}
+	}
 	public function add_promotion()
-	{
-		$pro_id=uniqid();
+	{	
 		$data1=array
 					(
-						"pro_id"=>$pro_id,
-						//"str_id"=>$this->session->userdata["promotion"][6],
+						"str_id"=>$this->session->userdata["promotion"][6],
 						"date_from"=>$this->session->userdata["promotion"][0],
 						"date_to"=>$this->session->userdata["promotion"][1],
 						"cat_id"=>$this->session->userdata["promotion"][2],
@@ -47,10 +49,12 @@ class Promotion_m extends CI_Model
 						"pro_type"=>$this->session->userdata["promotion"][5],
 						"status"=>"1"
 					);
+				$this->db->insert("tbl_promotion",$data1);#insert pro
 		$json=json_decode($this->input->post("str"));					
 		if(count($json)>0)
-		{	
-			$this->db->insert("tbl_promotion",$data1);#insert pro
+		{			
+			$row=$this->get_pro_id();
+			$pro_id=$row->pro_id;
 			if(count($json[0])==4)
 			{
 				for($i=0;$i<count($json);$i++)

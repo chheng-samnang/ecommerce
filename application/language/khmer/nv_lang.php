@@ -31,7 +31,7 @@ $lang['save'] = 'រក្សាទុក';
 $lang['update'] = 'កែប្រែ';
 $lang['cancel'] = 'បោះបង់'; 
 $lang["welcome"] = "សូមស្វាគមន៍";
-
+$lang["setting"] = "ការកំណត់";
 $lang["category"] = "ប្រភេទ";
 $lang["brand"] = "ម៉ាក";
 $lang["manage"] = "គ្រប់គ្រង";
@@ -70,6 +70,8 @@ $lang["about"]="អំពី​យើង";
 $lang["contact"]="ទំនាក់ទំនង";
 $lang["blog"]="Blog";
 $lang["close"]="បិត";
+$lang["trash"]="បាេះចោល"; 
+$lang["untrash"]="មិនបាេះចោល";
 $lang["go_product"] = "ទៅ​​ ផលិតផល";
 $lang["profile"] = "ព័ត៌មាន ផ្ទាល់ខ្លួន";
 $lang["register"] = "ចុះឈ្មោះ";

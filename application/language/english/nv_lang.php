@@ -69,6 +69,8 @@ $lang["refresh"]="Refresh";
 
 $lang["changes_language"]="Changes language";
 $lang["status"]="Status";
+$lang["trash"]="Trash";
+$lang["untrash"]="Un-Trash";
 $lang["detail"]="Detail";
 $lang["customer"]="Customer​ Info";
 $lang["seacrh1"]="What are you looking for...";

@@ -35,8 +35,7 @@ class Product_m extends CI_Model
 		}
 		else
 		{
-
-			$query=$this->db->query("SELECT p_code,tbl_media.path,str.str_name,str.str_id,cat.cat_name,cat.cat_id,brn.brn_id,brn.brn_name,p.p_id,p_name,qty,p_desc,short_desc,price,color,size,model,date_release,dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt FROM tbl_product AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id RIGHT JOIN tbl_media ON p.p_id=tbl_media.p_id left JOIN tbl_stock s ON p.p_id=s.p_id WHERE p.p_id={$id}");
+			$query=$this->db->query("SELECT p_code,tbl_media.path,str.str_name,str.str_id,cat.cat_name,cat.cat_id,brn.brn_id,brn.brn_name,p.p_id,p_status,p_name,qty,p_desc,short_desc,price,color,size,model,date_release,dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt FROM tbl_product AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id RIGHT JOIN tbl_media ON p.p_id=tbl_media.p_id left JOIN tbl_stock s ON p.p_id=s.p_id WHERE p.p_id={$id}");
 			$result=$query->row();
 			if($result){return $result;}
 		}
@@ -70,6 +69,7 @@ class Product_m extends CI_Model
 						"color" => $this->input->post("txtColor"),
 						"size" => $this->input->post("txtSize"),
 						"model" => $this->input->post("txtModel"),
+						"p_status" => $this->input->post("ddlStatus"),
 						"date_release" => date("Y-m-d",strtotime($this->input->post("txtDateRelease"))),
 						"dimension" => $this->input->post("txtDimensoin"),
 						"short_desc" => $this->input->post("txtShortDesc"),
@@ -118,6 +118,7 @@ class Product_m extends CI_Model
 						"color" => $this->input->post("txtColor"),
 						"size" => $this->input->post("txtSize"),
 						"model" => $this->input->post("txtModel"),
+						"p_status" => $this->input->post("ddlStatus"),
 						"date_release" => date("Y-m-d",strtotime($this->input->post("txtDateRelease"))),
 						"dimension" => $this->input->post("txtDimensoin"),
 						"short_desc" => $this->input->post("txtShortDesc"),
@@ -151,6 +152,7 @@ class Product_m extends CI_Model
 						"color" => $this->input->post("txtColor"),
 						"size" => $this->input->post("txtSize"),
 						"model" => $this->input->post("txtModel"),
+						"p_status" => $this->input->post("ddlStatus"),
 						"date_release" => date("Y-m-d",strtotime($this->input->post("txtDateRelease"))),
 						"dimension" => $this->input->post("txtDimensoin"),
 						"short_desc" => $this->input->post("txtShortDesc"),

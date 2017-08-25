@@ -53,6 +53,7 @@
 							<div class="form-group">
 								<label>Category</label>
 								<select name="txt_category" class="form-control input-sm">
+
 									<?php foreach ($category as  $value) {?>
 										<option value="<?php echo $value->cat_id?>"
 											<?php if($value->cat_id==$product->cat_id) echo  "selected"?>><?php echo $value->cat_name?>

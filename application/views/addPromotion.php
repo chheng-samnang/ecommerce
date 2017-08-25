@@ -7,7 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">                                           
                 <div class="col-lg-12">
                     <?php if(isset($action)) echo form_open($action,"id='form'")?>
-                                                  
                     <div class="row">
                       <div class="col-lg-2"></div>
               <!--==== start col-lg-8 =====-->                    

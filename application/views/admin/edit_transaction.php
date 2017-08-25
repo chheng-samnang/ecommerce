@@ -36,6 +36,14 @@
 					<input type="text" name="txtAmt" class="form-control" value="<?php echo set_value('txtAmt',$transaction->tran_amt)?>" placeholder="Enter amount here...">
 				</div>
 				<div class="form-group">
+					<label>Staus</label>
+					<select class="form-control" name="ddlStatus">
+						<option value="none">Choose One</option>
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</select>
+				</div>
+				<div class="form-group">
 					<label>Transaction Date</label>
 					<input type="text" name="txtTranDate" class="form-control datetimepicker" value="<?php echo set_value('txtTranDate',$transaction->tran_date)?>" placeholder="Click here to pick a date">
 				</div>

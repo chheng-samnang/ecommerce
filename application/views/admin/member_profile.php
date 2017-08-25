@@ -1,3 +1,4 @@
+
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -91,6 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				break;
 		}
 ?>
+
 </nav>
 	<div class="row" style="margin-top:30px;" ng-app="myApp" ng-controller="myCtrl">
 		<div class="col-lg-10 col-lg-offset-1">
@@ -113,6 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<ul class="nav nav-tabs" role="tablist">
 			    <li role="presentation" class="active"><a href="#myAccount" aria-controls="home" role="tab" data-toggle="tab"><?php echo $this->lang->line('manage');?> <?php echo $this->lang->line('account');?></a></li>
 			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><?php echo $this->lang->line('profile')?></a></li>
+			    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"><?php echo $this->lang->line('trash')?></a></li>
 			    <li role="presentation"><a href="#setting" aria-controls="setting" role="tab" data-toggle="tab"><?php echo $this->lang->line('setting')?></a></li>
 			    <li role="presentation" class="navbar-right" style="margin-right: 0px;">
 			    	<i class="fa fa-users" aria-hidden="true" style="color: #026aa7;"></i>
@@ -211,7 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 																	echo "<span class='glyphicon glyphicon-ok-circle' style='color:#5cb85c' data-toggle='tooltip' title='Enable'></span>";
 																}
 																else
-																	echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
+																echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
 															?>
 														</td>
 														<td><?php echo $row->p_name?></td>
@@ -222,7 +225,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<td><?php echo substr($row->p_desc, 0,40)?></td>
 														<td>
 															<a href="<?php echo base_url('admin/memberLogin/editService/'.$row->p_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Service"><span class=" glyphicon glyphicon-pencil"></span></a>
-
 														</td>
 													</tr>
 													<?php $i=$i+1; }?>
@@ -266,11 +268,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<td><?php echo $i+1;?></td>
 														<td>
 															<?php
-														if($row->p_status==1){
-															echo "<span class='glyphicon glyphicon-ok-circle' style='color:#5cb85c' data-toggle='tooltip' title='Enable'></span>";
-														}
-														else
-															echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
+															if($row->p_status==1){
+																echo "<span class='glyphicon glyphicon-ok-circle' style='color:#5cb85c' data-toggle='tooltip' title='Enable'></span>";
+															}
+															else
+																echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
 														?>
 														</td>
 														<td><?php echo $row->p_code?></td>
@@ -491,15 +493,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div><!-- row Promotion-->
 						</div><!-- Class Promotion -->
 
-
 						<div class="<?php echo $order?>">
+						
 						<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h3 class="panel-title"  id="order" style="cursor:pointer;"><?php echo $this->lang->line('menu12')?></h3>
 										</div>
-										<div class="panel-body" id="order_body" style="display:none;">
+										<div class="panel-body" id="order_body" style="display: none;">
 											<table class="table table-striped">
 												<thead>
 													<tr>
@@ -512,21 +514,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach ($order as $key => $value) {?>
-													<tr>
+													<?php
+													 foreach ($order1 as $key => $value) {
+													 	if($value->ord_status!="trash"){
+													 	?>
+													<tr>	
 														<td><?php echo $key+1 ?></td>
 														<td><?php echo $value->ord_code ?></td>
 														<td><?php echo $value->ord_date ?></td>
 														<td><?php echo $value->mem_name ?></td>
 														<td><?php echo $value->ord_status ?></td>
-														<td>
-																<button class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="get_order_id('<?php echo $value->ord_id?>')"><?php echo $this->lang->line('update')?> <?php echo $this->lang->line('status')?></button>
-																<a href="<?php echo base_url()?>profile/view/<?php echo $value->ord_code?>" class="btn btn-default"><?php echo $this->lang->line('view')?> <?php echo $this->lang->line('detail')?></a>
+														<td><a href="<?php echo base_url()?>profile/view/<?php echo $value->ord_code?>" class="btn btn-default btn-sm"><?php echo $this->lang->line('view')?> <?php echo $this->lang->line('detail')?></a>
+															<a href="<?php echo base_url()?>admin/memberlogin/get_order_update/<?php echo $value->ord_id?>" class="btn btn-success btn-sm"><?php echo $this->lang->line('update')?></a>
+															<a href="<?php echo base_url()?>admin/memberlogin/trash_order/<?php echo $value->ord_code?>" class="btn btn-danger btn-sm"><?php echo $this->lang->line('trash')?></a>
 														</td>
 													</tr>
-													<?php } ?>
+													<?php }} ?>
 												</tbody>
-										</table>
+											</table>
 										</div>
 									</div>
 								</div><!-- col-lg-12-->
@@ -558,7 +563,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<label for="">Date of Birth</label>
 											<?php echo form_input("txtDob",$profile->dob,"class='form-control' readonly"); ?>
 									</div>
-
 									<div class="form-group">
 											<label for="">Place of Birth</label>
 											<?php echo form_input("txtPob",$profile->pob,"class='form-control' readonly"); ?>
@@ -576,6 +580,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control' readonly"); ?>
 									</div>
 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="trash">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="row">
+										<div class="panel-body" id="order_body">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>No.</th>
+														<th>Order Code</th>
+														<th>Date Order</th>
+														<th>Customer Name</th>
+														<th>Status</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+													 foreach ($order1 as $key => $value) {
+													 	if($value->ord_status=="trash"){
+													 	?>
+													<tr>	
+														<td><?php echo $key+1 ?></td>
+														<td><?php echo $value->ord_code ?></td>
+														<td><?php echo $value->ord_date ?></td>
+														<td><?php echo $value->mem_name ?></td>
+														<td><?php echo $value->ord_status ?></td>
+														<td>
+															<a href="<?php echo base_url()?>admin/memberlogin/untrash_order/<?php echo $value->ord_code?>" class="btn btn-danger btn-sm"><?php echo $this->lang->line('untrash')?></a>
+														</td>
+													</tr>
+													<?php }} ?>
+												</tbody>
+											</table>
+										</div>
+									
+						</div><!-- row Promotion-->
 								</div>
 							</div>
 						</div>
@@ -734,6 +782,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>memberLogin/change_password");
 
 	});
+	$("#get_order").click(function(){
+
+		window.location.assign("<?php echo base_url()?>admin/memberLogin/get_order_update/$");
+
+	});
 	
 	$("#btnAddProduct").click(function(){
 
@@ -776,8 +829,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope,$http) {
 		$scope.get_order_id = function(id){
-			$scope.ord_id = id;
+			alert($scope.ord_id = id);
 		}
+
 		$scope.get_ddl = function(status){
 			$scope.ord_status = status;
 		}

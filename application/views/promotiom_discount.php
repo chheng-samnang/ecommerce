@@ -46,7 +46,6 @@ $str_id=$this->session->userdata["promotion"][6];
                               </div>
                             </div>
                           </div>
-
                           <div class="row">
                          <!--==check all product -->
                           <div class="col-lg-4">

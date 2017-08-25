@@ -15,35 +15,33 @@ $scope.msg = "Form Validated";
 			</div>
 			<div class="panel-body">
 				 <form method="post" action="" name="personForm" novalidate ng-submit="personForm.$valid &&sendForm()">
-					<?php if(form_error('txt_product')){?>
-	                    	<div class="alert alert-danger alert-dismissible" role="alert">
-	                        	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                        	<strong>Warning!</strong> <?php echo form_error('txt_product');?>
-	                    	</div>
-	                <?php }elseif (form_error('txt_category')) {?>
-	                		<div class="alert alert-danger alert-dismissible" role="alert">
-	                        	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                        	<strong>Warning!</strong> <?php echo form_error('txt_category');?>
-	                    	</div>
-	                <?php }elseif (form_error('txt_brand')) {?>
-
-	                		<div class="alert alert-danger alert-dismissible" role="alert">
-	                        	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                        	<strong>Warning!</strong> <?php echo form_error('txt_brand');?>
-	                    	</div>
-	                <?php }elseif (form_error('txt_price')) {?>
-
-	                		<div class="alert alert-danger alert-dismissible" role="alert">
-	                        	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                        	<strong>Warning!</strong> <?php echo form_error('txt_price');?>
-	                    	</div>
-	                <?php }?>
-					
+					<div class="row">
+					<div class="col-lg-12">
+					<?php
+						if(!empty($error) OR validation_errors())
+						{
+					?>
+						<div class="alert alert-danger" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							  <span aria-hidden="true">&times;</span>
+							</button>
+							<strong>Attention!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
+						</div>
+					<?php }?>
+					</div>
+				</div>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Product Code</label>
-								<input type="text" name="txt_product_code"   class="form-control input-sm" placeholder="Product Code">
+								<label>Product Code</label><?php  ?>
+								 <div class="input-group">
+							      <input  type="text" name="type_pro_code" id="type_pro_code" class="form-control input-sm" placeholder="Product Code" >
+							      <?php 
+							      	$rest = substr($pro_code->p_code, -6);
+							      ?>
+							      <input type="hidden" value="<?php if($pro_code->p_code!=""){ echo "P".str_pad($rest+1, 6, "0", STR_PAD_LEFT);}else{ echo "P000001";}?>" name="txt_product_code" id="txt_product_code">
+							      <span class="input-group-addon"><?php if($pro_code->p_code!=""){ echo "P".str_pad($rest+1, 6, "0", STR_PAD_LEFT);}else{ echo "P000001";}?></span>
+							    </div>
 							</div>
 						</div>
 						<div class="col-lg-6">
