@@ -40,7 +40,7 @@
 							"date_crea"	=>	date("Y-m-d")
 				);
 			$this->db->insert("tbl_order_hdr",$data);
-			
+
 			foreach ($_SESSION["product"] as $key => $value) {
 				$data = array(
 								"ord_code"	=>	$ord_code,
@@ -204,7 +204,7 @@
 			if($pro_id!==""){
 
 				$query=$this->db->query("SELECT * FROM tbl_promotion AS pro INNER JOIN tbl_promotion_det AS pd ON pro.`pro_id`=pd.`pro_id` RIGHT JOIN tbl_product AS p ON p.`p_id`=pd.`p_id` LEFT JOIN tbl_category AS c ON p.`cat_id`=c.`cat_id` LEFT JOIN tbl_media AS m ON m.`p_id`=p.`p_id` LEFT JOIN tbl_store AS s ON s.`str_id`=p.`str_id` LEFT JOIN tbl_brand AS b ON b.`brn_id`=p.`brn_id` WHERE p.p_id={$pro_id} GROUP BY m.p_id ASC");
-				
+
 
 				//$query=$this->db->query("SELECT p.p_id, p.p_name, p.price, p.model, p.date_release, p.dimension, p.size, p.color, p.p_desc, m.p_id, m.path, c.cat_id, c.cat_name, b.brn_name, s.str_id, s.str_name, pro.pro_type, pd.pro_id, pro.pro_id,p.p_type FROM tbl_promotion AS pro INNER JOIN tbl_promotion_det AS pd ON pro.`pro_id`=pd.`pro_id` RIGHT JOIN tbl_product AS p ON p.`p_id`=pd.`p_id` LEFT JOIN tbl_category AS c ON p.`cat_id`=c.`cat_id` LEFT JOIN tbl_media AS m ON m.`p_id`=p.`p_id` LEFT JOIN tbl_store AS s ON s.`str_id`=p.`str_id` LEFT JOIN tbl_brand AS b ON b.`brn_id`=p.`brn_id` WHERE p.p_id={$pro_id} GROUP BY m.p_id ASC");
 

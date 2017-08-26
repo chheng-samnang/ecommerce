@@ -29,7 +29,7 @@
 				<div class="form-group">
 					<label>Transaction Type</label>
 					<?php echo form_dropdown("ddlType",$type,$transaction->tran_type,"class='form-control'")?>
-					
+
 				</div>
 				<div class="form-group">
 					<label>Amount</label>
@@ -38,6 +38,14 @@
 				<div class="form-group">
 					<label>Transaction Date</label>
 					<input type="text" name="txtTranDate" class="form-control datetimepicker" value="<?php echo set_value('txtTranDate',$transaction->tran_date)?>" placeholder="Click here to pick a date">
+				</div>
+				<div class="form-group">
+					<label>Status</label>
+					<select class="form-control" name="ddlStatus">
+						<option value="-1" <?php echo $transaction->tran_status=="-1"?"selected":"" ?>>Choose one</option>
+						<option value="1" <?php echo $transaction->tran_status=="1"?"selected":"" ?>>Enable</option>
+						<option value="0" <?php echo $transaction->tran_status=="0"?"selected":"" ?>>Disable</option>
+					</select>
 				</div>
 				<hr>
 				<div class="form-group">
