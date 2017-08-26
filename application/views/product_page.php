@@ -71,17 +71,17 @@
     text-overflow: ellipsis;
 }
 
-	
+
 
     .item1 {
       position: relative;
       //margin: 2%;
       overflow: hidden;
-      
+
     }
     .item1 img {
       max-width: 100%;
-      
+
       -moz-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s;
@@ -96,21 +96,21 @@
 <div class="container" ng-cloak>
 	<div class="row">
 	    <div class="col-sm-2">
-	    	<?php 
-	    		foreach ($advertisement as $value) 
+	    	<?php
+	    		foreach ($advertisement as $value)
 	    		{
 	    			if($value->position=="left" and $value->page=="Products")
 	    			{
 	    	?>
 	      				<a href="<?php echo $value->url?>" target="blnk" >
-					      	<img class="img-responsive" style="width: 195px; margin-bottom: 10px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+					      	<img class="img-responsive" style="width: 195px; margin-bottom: 10px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 					    </a>
-			<?php 
+			<?php
 					}
 				}
 			?>
 	    </div>
-	    
+
 	    <div class="shrink pic">
 			<div class="col-md-8" id="products" style=" padding: 10px; background: white;">
 				<div class="col-xs-2 col-md-3" style="padding: 0px;">
@@ -118,25 +118,25 @@
 					    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By Category <b class="caret"></b></a>
 					    <ul class="dropdown-menu">
 					       	<a href="<?php echo base_url('Product');?>" class="list-group-item">All Category</a>
-					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a> 
+					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a>
 					    </ul>
 					</li>
 				</div>
-	 		
+
 				<div class="col-md-9">
 					<div class="row navbar-right">
 				 	<strong>Display</strong>
 			        <div class="btn-group">
 			            <a href="#" id="list" class="btn btn-default btn-sm">
 			            	<span class="glyphicon glyphicon-th-list"></span>List
-			            </a> 
+			            </a>
 			            <a href="#" id="grid" class="btn btn-default btn-sm">
 			            	<span class="glyphicon glyphicon-th"></span>Grid
 			            </a>
 			        </div>
 			    </div>
 			    </div>
-	
+
 			 	<div class="row">
 					<div class="col-lg-12"><h4 style="padding:5px;background: #ff9800;color:white; height: 40px; line-height: 2"> Product Listing</h4></div>
 				</div>
@@ -144,7 +144,7 @@
 			        <div class="item  col-xs-12 col-md-6 col-lg-3" ng-repeat="x in get_product | filter:searchBox ">
 			        	<a class="" href="<?php echo base_url('product/product_page_detail/'.'{{x.P_id}}')?>">
 				            <div class="thumbnail">
-				            	
+
 				            	<div class="item1">
 				                <img class="" style="height: 160px;" class="group list-group-image" title="{{x.P_name}}" src="<?php echo base_url('assets/uploads/{{x.Path}}');?>"/>
 				                </div>
@@ -152,7 +152,7 @@
 				                	<p class="group inner list-group-item-heading product_name" style=" color: #006190;">{{x.P_name}}</p>
 				                    <div class="row">
 				                        <div class="col-xs-12 col-md-6">
-				                            <p class="lead">${{x.Price}}dfgdfg</p>
+				                            <p class="lead">${{x.Price}}</p>
 				                        </div>
 				                         <div class="col-xs-12 col-md-6">
 				                         	<del><p class="lead" style="color: red">{{x.Dis}}</p></del>
@@ -168,25 +168,25 @@
 		    	<!-- <div class="row">
 			    	<div class="mix cats col-sm-12">
 			    			<a href="<?php echo base_url('Product');?>"><h5  class="well well-sm" style="text-align: center;">View all</h5></a>
-			    	</div> 
+			    	</div>
 			    </div> -->
 			</div>
 		</div>
 	    <div class="col-sm-2">
 	    	<?php
-	    	 	foreach($advertisement as  $value) 
+	    	 	foreach($advertisement as  $value)
 	    	 	{
 	    		 	if($value->position=="right" and $value->page=="Products")
 	    		 	{
 	    	?>
 				    	<a href="<?php echo $value->url?>" target="blnk" >
-					      	<img class="img-responsive" style="width: 195px; margin-bottom: 10px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+					      	<img class="img-responsive" style="width: 195px; margin-bottom: 10px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 					    </a>
-	    	<?php 
+	    	<?php
 	    			}
 	    		}
-	    	?> 
-	    </div>    
+	    	?>
+	    </div>
 	</div>
 </div>
 
@@ -227,30 +227,30 @@
 		$scope.loadProduct_by_Cat = function(values)
 		{
 		$http.get("/ecommerce/ng/loadProduct_by_Cat.php?cat_id="+values)
-		.then(function (response) {$scope.get_product = response.data.records;}); 
+		.then(function (response) {$scope.get_product = response.data.records;});
 		}
 
 		$scope.btnAdd = function(name,id,qty,str)
 		{
 			var xmlhttp = new XMLHttpRequest();
 			var xmlhttp2 = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() 
+			xmlhttp.onreadystatechange = function()
 			 {
-	            if (this.readyState == 4 && this.status == 200) 
+	            if (this.readyState == 4 && this.status == 200)
 	            {
 	                document.getElementById("itemNum").innerHTML = this.responseText;
 	            }
 	        };
 	        xmlhttp2.onreadystatechange = function()
 	        {
-	        	if (this.readyState == 4 && this.status == 200) 
+	        	if (this.readyState == 4 && this.status == 200)
 	        	{
 	       			document.getElementById("display_cart").innerHTML = this.responseText;
 			    }
 	    	}
 
 	    	xmlhttp.open("GET", "<?php echo base_url()?>product_c/add_to_cart/"+ name + "/" + id+"/"+qty+"/"+str, true);
-			xmlhttp.send(); 
+			xmlhttp.send();
 
 	        xmlhttp2.open("GET", "<?php echo base_url()?>product_c/display_cart", true);
 	       	xmlhttp2.send();
@@ -268,7 +268,7 @@
 });
 </script>
 <script type="text/javascript">
-	   
+
 	function itemRemove(id)
 	{
 		var xmlhttp = new XMLHttpRequest();
