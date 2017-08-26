@@ -13,7 +13,7 @@ class memberLogin_model extends CI_Model
 		$this->str = isset($this->session->str)?$this->session->str:"1";
 		$this->userCrea = isset($this->session->userLogin)?$this->session->userLogin:"N/A";
 	}
-	
+
 	public function change_password(){
 		$data = array("mem_password"=>$this->input->post("Newpassword"));
 		$mem_code=$this->input->post("mem_code");
@@ -21,7 +21,7 @@ class memberLogin_model extends CI_Model
 		$query=$this->db->update("tbl_member",$data);
 		if($query){return true;}
 
-	}	
+	}
 
 
 
@@ -49,33 +49,33 @@ class memberLogin_model extends CI_Model
 	// public function validate_member_email($email)
 	// {
 	// 	//echo $email;
-	// 	if ($email!="") 
+	// 	if ($email!="")
 	// 	{
 	// 		$this->db->where("mem_email",$email);
 	// 		$query = $this->db->get("tbl_member");
 	// 		//$query = $this->db->get_where('tbl_member', array('mem_email'=>$email));
-	// 		if ($query->num_rows()>0) 
+	// 		if ($query->num_rows()>0)
 	// 		{
 	// 			return true;
 	// 		}else
 	// 		{
 	// 			return 0;
 	// 		}
-	// 	}	
+	// 	}
 	// }
 	// public function validate_member_password($pwd)
 	// {
-	// 	if ($pwd!="") 
+	// 	if ($pwd!="")
 	// 	{
 	// 		$query = $this->db->get_where('tbl_member', array('mem_password'=>$pwd));
-	// 		if ($query->num_rows()>0) 
+	// 		if ($query->num_rows()>0)
 	// 		{
 	// 			return true;
 	// 		}else
 	// 		{
 	// 			return 0;
 	// 		}
-	// 	}	
+	// 	}
 	// }
 
 	public function updateOrderStatus($id,$status)
@@ -771,16 +771,16 @@ class memberLogin_model extends CI_Model
 
 	public function promotion($id)
 	{
-		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN 
-		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS 
-		p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id` 
+		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN
+		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS
+		p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id`
 		LEFT JOIN tbl_account AS a ON st.`acc_id`=a.`acc_id` WHERE st.`acc_id`='$id'");
 		return $query->result();
 	}
 
 	public function promotion_det($id)
 	{
-		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN 
+		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN
 		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id` LEFT JOIN tbl_account AS a ON st.`acc_id`=a.`acc_id` WHERE det.`pro_det_id`='$id'");
 		return $query->row();
 	}

@@ -380,7 +380,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<tr>
 														<td><?php echo $i+1;?></td>
 														<td><?php echo "$".$row->tran_amt?></td>
-														<td><?php echo $row->tran_type?></td>
+														<td><?php echo $row->tran_type=="cash_in"?"Cash In":"Cash Out"?></td>
 														<td><?php echo $row->tran_date?></td>
 														<td>
 															<?php
