@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 
 </style>
-<?php 
+<?php
     if(!isset($this->session->memLogin))
     {
         redirect("admin/memberLogin/Logout");
@@ -16,20 +16,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <?php
 
-	$acc->acc_type=="Bussiness";
-	$acc->acc_type=="Agent";
-	$acc->acc_type=="Shop-owner";
-	$acc->acc_type=="General";
-	$acc->acc_type=="Association";
+	// $acc->acc_type=="Bussiness";
+	// $acc->acc_type=="Agent";
+	// $acc->acc_type=="Shop-owner";
+	// $acc->acc_type=="General";
+	// $acc->acc_type=="Association";
 
 		switch ($acc->acc_type)
 		{
 			case "Bussiness":
 			{
+
 				$products  = "display";
 				$fund      = "display";
 				$promotion = "display";
-				$order = "display";
+				$order2 = "display";
 
 				$service   = "none";
 				$Inventory = "none";
@@ -57,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$fund      = "display";
 				$Inventory = "display";
 				$promotion = "display";
-				$order = "display";
+				$order2 = "display";
 				$members   = "none";
 				$account   = "none";
 
@@ -73,6 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$products  = "none";
 					$promotion = "none";
 					$members   = "none";
+					$order2 = "none";
 			}
 				break;
 
@@ -148,7 +150,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</thead>
 												<tbody>
 													<?php $i=0; foreach($active_account as $row){?>
-														<?php 
+														<?php
 															$acc_img = $row->acc_img;
 															if(empty($acc_img)) $acc_img = "default.png";
 														?>
@@ -453,7 +455,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 										<div class="panel-body" id="promotion_body" style="display:none;">
 											<table class="table table-striped">
-											
+
 												<thead>
 													<tr>
 														<th>No.</th>
@@ -492,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div><!-- Class Promotion -->
 
 
-						<div class="<?php echo $order?>">
+						<div class="<?php echo $order2?>">
 						<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
@@ -540,7 +542,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-lg-7">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<?php 
+									<?php
 											$poto = $profile->acc_img;
 												if(empty($poto)) $poto = "default.png";
 											?>
@@ -588,7 +590,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<form action="<?php echo base_url()?>memberLogin/change_password" method="post">
-									<?php 
+									<?php
 											$poto = $profile->acc_img;
 												if(empty($poto)) $poto = "default.png";
 											?>
@@ -734,7 +736,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>memberLogin/change_password");
 
 	});
-	
+
 	$("#btnAddProduct").click(function(){
 
 		window.location.assign("<?php echo base_url()?>memberLogin/addProduct");
