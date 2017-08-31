@@ -17,7 +17,7 @@ class Wallet_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->lang->line('wallet');					
 		$data["action_url"]=array("{$this->page_redirect}/add","{$this->page_redirect}/edit","{$this->page_redirect}/delete","{$this->page_redirect}/transaction");
-		$data["tbl_hdr"]=array("Member name","Account code","Wallet code","Description","Status","User creat","Date create");		
+		$data["tbl_hdr"]=array($this->lang->line("member_name"),$this->lang->line("account_code"),$this->lang->line("wallet_code"),$this->lang->line("descr"),$this->lang->line("status"),$this->lang->line("user_create"),$this->lang->line("date_create"));		
 		$row=$this->wallet_m->index();		
 		$i=0;
 		if($row==TRUE)
@@ -137,7 +137,7 @@ class Wallet_c extends CI_Controller
 	}	
 	public function add($error="")
 	{
-		$option = array('1'=>'Enable','0'=>'Disable');
+		$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 		$data['error']=$error;
 		$row=$this->wallet_m->select_account();				
 		if($row==TRUE)
@@ -178,7 +178,7 @@ class Wallet_c extends CI_Controller
 			$row=$this->wallet_m->index($id);			
 			if($row==TRUE)
 			{					
-				$option = array('1'=>'Enable','0'=>'Disable');
+				$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 				$data['error']=$error;
 				$row1=$this->wallet_m->select_account();				
 				if($row1==TRUE)
@@ -248,17 +248,17 @@ class Wallet_c extends CI_Controller
 									'option'=>$option1,
 									'selected'=>$row==""?NULL:$row4,
 									'class'=>'class="form-control"',
-									'label'=>'Member name',									
+									'label'=>$this->lang->line("member_name"),									
 								),
 							array(
 									'type'=>'text',
 									'name'=>'txtWalCode',
 									'id'=>'txtWalCode',
 									'value'=>$row==""? set_value("txtWalCode") : $row1,
-									'placeholder'=>'Enter Wallet code here...',
+									'placeholder'=>$this->lang->line("wallet_code"),
 									'required'	=>'required',
 									'class'=>'form-control',
-									'label'=>'Wallet code'
+									'label'=>$this->lang->line("wallet_code")
 								),
 							array(
 									'type'=>'dropdown',
@@ -267,13 +267,13 @@ class Wallet_c extends CI_Controller
 									'option'=>$option,
 									'selected'=>$row==""?NULL:$row2,
 									'class'=>'class="form-control"',
-									'label'=>'Status',									
+									'label'=>$this->lang->line("status"),									
 								),																			
 							array(
 									'type'=>'textarea',
 									'name'=>'txtDesc',
 									'value'=>$row==""? set_value("txtDesc") : $row3,
-									'label'=>'Description'
+									'label'=>$this->lang->line("descr")
 								)
 					);
 			return $ctrl;

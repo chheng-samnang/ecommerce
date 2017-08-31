@@ -39,7 +39,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if($bl_id!="")
 			{
-				
 				$data["blog_comment"]=$this->bm->blog_comment($bl_id);
 				$data['de_blog']=$this->bm->blog_detail($bl_id);
 				$data['popular_blog']=$this->bm->popular_blog();

@@ -54,14 +54,12 @@ class marqueeController extends CI_Controller
 	public function createCtrl()
 	{
 		$ctrl = array(
-						
 						array(
 								"type"			=>	"textarea",
 								"name"			=>	"txtDesc",
 								"id"			=>	"txtDesc",
 								"class"			=> 	"form-control",
 								"label"			=> 	"Description",
-								
 							)
 			);
 		return $ctrl;
@@ -83,12 +81,28 @@ class marqueeController extends CI_Controller
 			);
 		return $ctrl;
 	}
+	public function validation(){
+		$this->form_validation->set_rules('txtDesc','Text Run','trim|required');												
+		if($this->form_validation->run()==TRUE){return TRUE;}
+		else{return FALSE;}
+	}
 	public function add_marquee()
 	{
 		if(isset($_POST['btnSubmit']))
 		{
-			$this->am->insert_marquee();
-			redirect("marquee");
+			if($this->validation()==TRUE){
+				$this->am->insert_marquee();
+				redirect("marquee");
+			}else{
+				$data['action'] = "marquee/add";
+				$data['pageHeader'] = $this->lang->line('marquee');
+				$data['ctrl'] = $this->createCtrl();
+				$data['cancel'] = $this->cancel;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_add',$data);
+				$this->load->view('template/footer');
+			}
 		}
 		elseif (isset($_POST["btnCancel"])) 
 		{
@@ -107,13 +121,24 @@ class marqueeController extends CI_Controller
 		}
 	}
 	public function edit_marquee($id="")
-	{
+	{	
 		if($id!="")
 		{
 			if (isset($_POST['btnSubmit'])) 
 			{
-				$this->am->update_marquee($id);
-				redirect("marquee");
+				if($this->validation()==TRUE){
+					$this->am->update_marquee($id);
+					redirect("marquee");
+				}else{
+					$data['action'] = "marquee/edit/".$id;
+					$data['pageHeader'] = $this->lang->line('marquee');
+					$data['ctrl'] = $this->editCtrl($id);
+					$data['cancel'] = $this->cancel;
+					$this->load->view('template/header');
+					$this->load->view('template/left');
+					$this->load->view('admin/page_edit',$data);
+					$this->load->view('template/footer');
+				}
 			}
 			elseif (isset($_POST["btnCancel"])) 
 			{

@@ -16,10 +16,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->itemNum = isset($this->session->product)?count($this->session->product):0;
 		}
 
-		public function test()
-		{
-			$this->pm->process_transaction('','','');
-		}
 	    public function index()
 		{
 				$data["template"]=$this->hm->get_template();
@@ -35,7 +31,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	    public function product_page_detail($pro_id)
 	    {
-
 			if($pro_id!==""){
 				$data["template"]=$this->hm->get_template();
 				$data["de_value"]=$this->pm->product_page_detail($pro_id);
@@ -204,7 +199,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{	echo $payment_method_id;
 			if($payment_method_id!=""){
 				$ballance = $this->pm->get_wallet_bal($payment_method_id);
-				var_dump($ballance);
 				if($ballance->tran_amt!=null)
 				{
 					if(isset($_SESSION['product']))

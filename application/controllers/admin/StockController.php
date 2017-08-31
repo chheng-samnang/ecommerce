@@ -20,7 +20,7 @@ class StockController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('stock');
-		$data['tbl_hdr'] = array('Product Name','Quantity','Type','Description','User Create','Date Create');
+		$data['tbl_hdr'] = array($this->lang->line("product_name"),$this->lang->line("qty"),$this->lang->line("type"),$this->lang->line("descr"),$this->lang->line("user_create"),$this->lang->line("date_create"));
 
 		$row = $this->sm->get_stock();
 		$i = 0;

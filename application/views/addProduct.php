@@ -33,24 +33,19 @@ $scope.msg = "Form Validated";
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Product Code</label><?php  ?>
-								 <div class="input-group">
-							      <input  type="text" name="type_pro_code" id="type_pro_code" class="form-control input-sm" placeholder="Product Code" >
-							      <?php 
+								<label>Product Code</label>
+								<?php 
 							      	$rest = substr($pro_code->p_code, -6);
 							      ?>
-							      <input type="hidden" value="<?php if($pro_code->p_code!=""){ echo "P".str_pad($rest+1, 6, "0", STR_PAD_LEFT);}else{ echo "P000001";}?>" name="txt_product_code" id="txt_product_code">
-							      <span class="input-group-addon"><?php if($pro_code->p_code!=""){ echo "P".str_pad($rest+1, 6, "0", STR_PAD_LEFT);}else{ echo "P000001";}?></span>
-							    </div>
+							      <input  type="text" name="type_pro_code" id="type_pro_code" class="form-control input-sm" value="<?php if($pro_code->p_code!="" && $pro_code->p_id!=""){ echo "P".str_pad($rest+$pro_code->p_id, 6, "0", STR_PAD_LEFT);}else{ echo "P00000".$pro_code->p_id; }?>" placeholder="Product Code" >
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Store Name</label>
-								<input type="" readonly="readonly" class="form-control input-sm" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>">
+								<input type="" readonly="readonly"  class="form-control input-sm" value="<?php if($store->str_name){echo $store->str_name;}else echo "No Shop!";?>">
 							</div>
 						</div>
-						
 					</div><!-- class Row-->
 					<div class="row">
 						<div class="col-lg-6">
@@ -58,7 +53,7 @@ $scope.msg = "Form Validated";
 								<input type="hidden" name="txt_acc_id" value="<?php echo $account->acc_id;?>">
 								<input type="hidden" name="txt_str_id" value="<?php if($store->str_id){echo $store->str_id;}else echo "0"; ?>">
 								<label>Product Name</label>
-								<input type="text" name="txt_product"  class="form-control input-sm" placeholder="Product Name">
+								<input type="text" autofocus="autofocus" name="txt_product"  class="form-control input-sm" placeholder="Product Name">
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -94,7 +89,6 @@ $scope.msg = "Form Validated";
 							</div>
 						</div>
 					</div><!-- class Row-->
-
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">

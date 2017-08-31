@@ -16,7 +16,8 @@ class Member_c extends CI_Controller
 		$this->load->view('template/left');
 		$data['pageHeader'] = $this->lang->line('member');	
 		$data["action_url"]=array("{$this->page_redirect}/add","{$this->page_redirect}/edit","{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array("Member Code","Name","Address","Phone","Email","Date","Status","Description","Valid code");
+		$data["tbl_hdr"]=array($this->lang->line("member").$this->lang->line("code"),$this->lang->line("name"),$this->lang->line("address"),$this->lang->line("phone"),$this->lang->line("email"),$this->lang->line("date"),$this->lang->line("status"),$this->lang->line("descr"),$this->lang->line("valid").$this->lang->line("code"));
+		
 		$row=$this->member_m->index();
 		$i=0;
 		if($row==TRUE)
@@ -158,39 +159,39 @@ class Member_c extends CI_Controller
 									'name'=>'txtMemberCode',
 									'id'=>'txtMemberCode',
 									'value'=>$row==""? set_value("txtMemberCode") : $row1,
-									'placeholder'=>'Enter Member code here...',
+									'placeholder'=>$this->lang->line("code").$this->lang->line("member")."......",
 									'class'=>'form-control',
-									'label'=>'Member code',
+									'label'=>$this->lang->line("code").$this->lang->line("member"),
 								),
 							array(
 									'type'=>'text',
 									'name'=>'txtMemberName',
 									'id'=>'txtMemberName',
 									'value'=>$row==""? set_value("txtMemberName") : $row2,
-									'placeholder'=>'Enter Member name here...',
+									'placeholder'=>$this->lang->line("name").$this->lang->line("member")."......",
 									'required'=>'required',
 									'class'=>'form-control',
-									'label'=>'Member name'
+									'label'=>$this->lang->line("name").$this->lang->line("member"),
 								),
 							array(
 								'type'=>'text',
 								'name'=>'txtMemberPhone',
 								'id'=>'txtMemberPhone',
 								'value'=>$row==""? set_value("txtMemberPhone") : $row3,
-								'placeholder'=>'Enter Member phone here...',
+								'placeholder'=>$this->lang->line("phone").$this->lang->line("member")."......",
 								'required'=>'required',
 								'class'=>'form-control',
-								'label'=>'Member phone',
+								'label'=>$this->lang->line("phone").$this->lang->line("member"),
 							),
 							array(
 								'type'=>'email',
 								'name'=>'txtMemberEmail',
 								'id'=>'txtMemberEmail',
 								'value'=>$row==""? set_value("txtMemberEmail") : $row4,
-								'placeholder'=>'Enter Member email here...',
+								'placeholder'=>$this->lang->line("email")."......",
 								'required'=>'required',
 								'class'=>'form-control',
-								'label'=>'Member email',
+								'label'=>$this->lang->line("email"),
 							),
 							array(
 								'type'=>'date',
@@ -199,16 +200,16 @@ class Member_c extends CI_Controller
 								'value'=>$row==""? set_value("txtRegisterDate") : $row5,
 								'placeholder'=>'Enter Register date here...',
 								'class'=>'form-control datetimepicker',
-								'label'=>'Register date',
+								'label'=>$this->lang->line("register").$this->lang->line("date"),
 							),
 							array(
 								'type'=>'text',
 								'name'=>'txtValidCode',
 								'id'=>'txtValidCode',
 								'value'=>$row==""? set_value("txtValidCode") : $row6,
-								'placeholder'=>'Enter Valid Code here...',
+								'placeholder'=>$this->lang->line("code").$this->lang->line("valid").".....",
 								'class'=>'form-control',
-								'label'=>'Valid Code',
+								'label'=>$this->lang->line("valid").$this->lang->line("code"),
 							),
 							array(
 									'type'=>'dropdown',
@@ -217,19 +218,19 @@ class Member_c extends CI_Controller
 									'option'=>$option,
 									'selected'=>$row==""? NULL : $row10,
 									'class'=>'class="form-control"',
-									'label'=>'Status',
+									'label'=>$this->lang->line("status"),
 								),
 							array(
 									'type'=>'textarea',
 									'name'=>'txtAddr',
 									'value'=>$row==""? set_value("txtAddr") : $row8,
-									'label'=>'Address'
+									'label'=>$this->lang->line("address")
 								),
 							array(
 									'type'=>'textarea',
 									'name'=>'txtDesc',
 									'value'=>$row==""? set_value("textarea") : $row9,
-									'label'=>'Description'
+									'label'=>$this->lang->line("descr")
 								),
 							);
 			return $ctrl;

@@ -20,7 +20,7 @@ class AdvertiseController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('advertisement');
-		$data['tbl_hdr'] = array('Ad. Name','Description','Image','Advertiser','Position','Price');
+		$data['tbl_hdr'] = array('Ad. Name','Image','Advertiser','Position','Price');
 
 		$query = $this->am->get_advertise();
 		$i=0;
@@ -31,7 +31,7 @@ class AdvertiseController extends CI_Controller
 				if(empty($poto)) $poto = "default.png";
 				$data["tbl_body"][$i] = array(
 											$value->ad_name,
-											$value->ad_desc,
+											//$value->ad_desc,
 											"<img class='img-thumbnail' src='".base_url('assets/uploads/'.$poto)."' width='50' >",
 											$value->advertiser,
 											$value->position,
@@ -54,13 +54,50 @@ class AdvertiseController extends CI_Controller
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
 	}
+	public function validation(){
+		$this->form_validation->set_rules("txtAdName","Advertiser Name","required");
+		$this->form_validation->set_rules("txtUrl","Url","required");
+		$this->form_validation->set_rules("ddlPosition","Position","required");
+		$this->form_validation->set_rules("txtPage","Page","required");
+		$this->form_validation->set_rules("txtPrice","Price","required");
+		$this->form_validation->set_rules("txtHeight","Height","required");
+		$this->form_validation->set_rules("txtAdvertiser","Advertiser","required");
+		$this->form_validation->set_rules("txtUpload","Image","required");
+		if($this->form_validation->run()==TRUE){
+			return TRUE;
+		}else{return FALSE;}
+	}
+	public function validation1(){
+		$this->form_validation->set_rules("txtAdName","Advertiser Name","required");
+		$this->form_validation->set_rules("txtUrl","Url","required");
+		$this->form_validation->set_rules("ddlPosition","Position","required");
+		$this->form_validation->set_rules("txtPage","Page","required");
+		$this->form_validation->set_rules("txtPrice","Price","required");
+		$this->form_validation->set_rules("txtHeight","Height","required");
+		$this->form_validation->set_rules("txtAdvertiser","Advertiser","required");
+		if($this->form_validation->run()==TRUE){
+			return TRUE;
+		}else{return FALSE;}
+	}
 
 	function add_advertise()
 	{
 		if(isset($_POST['btnSubmit']))
 		{	
-			$this->am->insert_advertise();
-			redirect("advertise");	
+			if($this->validation()==TRUE){
+				$this->am->insert_advertise();
+				redirect("advertise");	
+			}else{
+				$data['action'] = $this->action;
+				$data['pageHeader'] = $this->lang->line('advertisement');
+				$data['ctrl'] = $this->createCtrl();
+				$data['cancel'] = $this->cancel;
+				$data['multipart'] = true;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_add',$data);
+				$this->load->view('template/footer');
+			}
 		}else
 		{
 			$data['action'] = $this->action;
@@ -80,15 +117,25 @@ class AdvertiseController extends CI_Controller
 		if($id!="")
 		{
 			if(isset($_POST['btnSubmit']))
-			{	
-				$this->am->update_advertise($id);
-				redirect("advertise");	
+			{	if($this->validation1()==TRUE){
+					$this->am->update_advertise($id);
+					redirect("advertise");	
+				}else{
+					$data['action'] = "advertise/edit/".$id;
+					$data['pageHeader'] = $this->lang->line('advertisement');
+					$data['ctrl'] = $this->editCtrl($id);
+					$data['cancel'] = $this->cancel;
+					$data['multipart'] = true;
+					$this->load->view('template/header');
+					$this->load->view('template/left');
+					$this->load->view('admin/page_edit',$data);
+					$this->load->view('template/footer');
+				}
 			}
 			elseif (isset($_POST["btnCancel"])) 
 			{
 				redirect('advertise');
 			}
-
 			else
 			{
 				$data['action'] = "advertise/edit/".$id;
@@ -127,7 +174,6 @@ class AdvertiseController extends CI_Controller
 							"placeholder"	=>	"Enter Ad Name here...",
 							"value"	=>	set_value("txtAdName",$query->ad_name),
 							"label"	=>	"Ad. Name",
-							"required"	=> "required"
 						),
 					array(
 							"type"	=>	"text",
@@ -137,7 +183,6 @@ class AdvertiseController extends CI_Controller
 							"placeholder"	=>	"Enter URL here...",
 							"value"	=>	set_value("txtUrl",$query->url),
 							"label"	=>	"URL",
-							"required"	=> "required"	
 						),
 					array(
 							'type'	=>	'dropdown',
@@ -166,7 +211,6 @@ class AdvertiseController extends CI_Controller
 							'placeholder'	=>	'Enter price here...',
 							'label'	=>	'Price',
 							'value'	=> set_value("txtPrice",$query->price),
-							"required"	=> "required"
 						),
 					array(
 							'type'	=>	'text',
@@ -176,7 +220,6 @@ class AdvertiseController extends CI_Controller
 							'placeholder'	=>	'Enter height here...',
 							'label'	=>	'Height',
 							"value"	=>	set_value("txtHeight",$query->height),
-							"required"	=> "required"	
 						),
 					array(
 							'type'	=>	'text',
@@ -216,7 +259,6 @@ class AdvertiseController extends CI_Controller
 							"class"	=>	"form-control",
 							"placeholder"	=>	"Enter Ad Name here...",
 							"label"	=>	"Ad. Name",
-							"required"	=> "required"
 						),
 					array(
 							"type"	=>	"text",
@@ -225,7 +267,7 @@ class AdvertiseController extends CI_Controller
 							"class"	=>	"form-control",
 							"placeholder"	=>	"Enter URL here...",
 							"label"	=>	"URL",
-							"required"	=> "required"	
+						
 						),
 					array(
 							'type'	=>	'dropdown',
@@ -242,7 +284,7 @@ class AdvertiseController extends CI_Controller
 							'class'	=>	'form-control',
 							'placeholder'	=>	'Enter page name here...',
 							'label'	=>	'Page Name',
-							'required'	=>	''
+						
 						),
 					array(
 							'type'	=>	'text',
@@ -251,7 +293,6 @@ class AdvertiseController extends CI_Controller
 							'class'	=>	'form-control',
 							'placeholder'	=>	'Enter price here...',
 							'label'	=>	'Price',
-							"required"	=> "required"
 						),
 					array(
 							'type'	=>	'text',
@@ -260,7 +301,6 @@ class AdvertiseController extends CI_Controller
 							'class'	=>	'form-control',
 							'placeholder'	=>	'Enter height here...',
 							'label'	=>	'Height',
-							"required"	=> "required"	
 						),
 					array(
 							'type'	=>	'text',

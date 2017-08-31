@@ -68,7 +68,6 @@ class Blog_m extends CI_Model
 		
 		$query = $this->db->query("SELECT b.bl_id, c.comment FROM  tbl_comment AS c INNER JOIN tbl_blog AS b ON c.bl_id=b.bl_id WHERE b.bl_id={$bl_id}");
 		 $count = count($query->result()); 
-		echo "<b style='position: absolute; margin-left: 710px; z-index: 899; margin-top: 121px;'>".$count."</b>";
 		return $query->result();
 
 			# code...

@@ -36,27 +36,24 @@ $str_id=$this->session->userdata["promotion"][6];
                                     <h3 class="panel-title"><?php echo $this->lang->line('promotion_list')?></h3>
                                 </div>
                                 <div class="panel-body" style="overflow:scroll; height:360px">
-                                  <div class="row">                                   
-                                    <div class="col-lg-4" ng-repeat="x in product" ng-click="validation(x.P_id,x.P_name,x.Path)">
+                                  <div class="col-lg-4" ng-repeat="x in product" ng-click="validation(x.P_id,x.P_name,x.Path)">
                                       <div class="row"  style="margin:1px">
-                                        <div class="panel panel-default">
-                                          <div class="panel-body">
+                                        <div class="panel-default">
                                             <table>
                                               <tr>
-                                                <td><img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="width:100px; height:60px;"></td>
-                                                <td><div class="col-lg-2" style="font-size:10.5px">{{x.P_name}}</div></td>
+                                                <td>
+                                                  <img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="height:80px;">
+                                                </td>
+                                                <td><div style="font-size:10.5px;">Name:{{x.P_name}}</div></td>
                                               </tr>
                                             </table>
-                                          </div>
                                         </div>
                                       </div>
-                                    </div>                                   
-                                  </div>
+                                    </div> 
                                 </div>
                             </div>
                            </div>
                          </div>
-
                          <div class="row">
                          <!--==check all product -->
                          <div class="col-lg-4">
@@ -92,21 +89,19 @@ $str_id=$this->session->userdata["promotion"][6];
                                         <div class="row">                                        
                                           <div class="col-lg-4" ng-repeat="x in promotion_selected" ng-click="remove($index)">
                                             <div class="panel panel-default">
-                                              <div class="panel-body">
                                                 <table>
                                                   <tr>
                                                     <td> 
                                                       <input type="hidden" ng-value="{{x[0]}}" ng-model="txtP_id" name="txtP_id">
                                                       <input type="hidden" ng-value="{{x[3]}}" ng-model="txtPercent">                                                                                                                                                                                    
-                                                      <img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>"  style="width:100px; height:60px;"> 
+                                                      <img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>"  style="height:80px;"> 
                                                     </td>
                                                     <td>
-                                                      <span class="pull-left" style="width:100px">{{x[1]}}</span>
-                                                      <span style="color:red;">{{x[3]}}%</span>
+                                                      <span class="pull-left" style="font-size:10.5px">Name:{{x[1]}}</span>
+                                                      <span style="color:red; font-size:10.5px">Discount:{{x[3]}}%</span>
                                                     </td>
                                                   </tr>
                                                 </table>
-                                              </div>
                                             </div>
                                           </div>                                                                                    
                                           <input type="text" name="str" ng-model="str" id="str" value="" style="visibility: hidden;">

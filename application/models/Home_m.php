@@ -105,7 +105,7 @@
 		{
 			$query = $this->db->query("SELECT key_id, key_type, key_data, key_data1 FROM tbl_sysdata WHERE key_type='template' and key_data=1");
 			if($query==TRUE){return $query->row();
-}		
+			}		
 		}
 
 

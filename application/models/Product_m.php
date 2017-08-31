@@ -15,13 +15,14 @@ class Product_m extends CI_Model
 		$result = "";
 		if($query->num_rows()>0)
 		{
-			$max = $this->db->query("SELECT MAX(p_code) AS p_code FROM tbl_product");
+			$max = $this->db->query("SELECT MAX(p_code) AS p_code,MAX(p_id) AS p_id FROM tbl_product");
 			$p_code = $max->row()->p_code;
-			$tmp = intval(substr($p_code,1,strlen($p_code)-1))+1;
+			$p_id = $max->row()->p_id;
+			$tmp = intval(substr($p_code,1,strlen($p_code)-1))+$p_id;
 			$result = "P".str_pad($tmp, 7, '0', STR_PAD_LEFT);
 		}else
 		{
-			$result = "P0000001";
+			$result = "P000000"+$p_id;
 		}
 		return $result;
 	}
@@ -29,7 +30,7 @@ class Product_m extends CI_Model
 	{
 		if($id=="")
 		{
-			$query=$this->db->query("SELECT p_code,str.str_name,cat.cat_name,brn.brn_name,p_id,p_name,p_desc,short_desc,price,color,size,model,date_release,dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt FROM tbl_product AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id ORDER BY p.p_id DESC");
+			$query=$this->db->query("SELECT p_code,str.str_name,cat.cat_name,brn.brn_name,p_id,p_name,p_desc,short_desc,price,color,size,model,date_release,dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt,p.p_status FROM tbl_product AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id ORDER BY p.p_id DESC");
 			$result=$query->result();
 			if($result){return $result;}
 		}
@@ -77,7 +78,7 @@ class Product_m extends CI_Model
 						"p_type" => "product",				
 						"user_crea" => $this->userLog,
 						"date_crea" => date('Y-m-d')
-						 );
+						);
 		$query=$this->db->insert("tbl_product",$data);
 		#media
 		$query1=$this->db->query("SELECT p_id FROM tbl_product ORDER BY p_id DESC");

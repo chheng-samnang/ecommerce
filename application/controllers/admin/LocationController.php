@@ -19,7 +19,7 @@ class LocationController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('location');
-		$data['tbl_hdr'] = array('Location Name','Description');
+		$data['tbl_hdr'] = array($this->lang->line("location_name"),$this->lang->line("descr"));
 		$query = $this->lm->get_location();
 		$i = 0;
 		foreach ($query as $key => $value) {
@@ -46,16 +46,16 @@ class LocationController extends CI_Controller
 								'type'			=>	'text',
 								'name'			=>	'txtLocationName',
 								'id'			=>	'txtLocationName',
-								'placeholder'	=>	'Enter Location name here...',
+								'placeholder'	=>	$this->lang->line("location_name"),
 								'class'			=> 	'form-control',
-								'label'			=>	'Location Name',
+								'label'			=>	$this->lang->line("location_name"),
 								'required'		=>	''
 							),
 						
 						array(
 								'type'	=>	'textarea',
 								'name'	=>	'txtDesc',
-								'label'	=>	'Description'
+								'label'	=>	$this->lang->line("descr")
 							)
 			);
 		return $ctrl;
@@ -68,9 +68,9 @@ class LocationController extends CI_Controller
 								'type'			=>	'text',
 								'name'			=>	'txtLocationName',
 								'id'			=>	'txtLocationName',
-								'placeholder'	=>	'Enter Location name here...',
+								'placeholder'	=>	$this->lang->line("location_name"),
 								'class'			=> 	'form-control',
-								'label'			=>	'Location Name',
+								'label'			=>	$this->lang->line("location_name"),
 								'value'			=>	$query->loc_name,
 								'required'		=>	''
 							),
@@ -78,7 +78,7 @@ class LocationController extends CI_Controller
 								'type'	=>	'textarea',
 								'name'	=>	'txtDesc',
 								'value'	=>	$query->loc_desc,
-								'label'	=>	'Description'
+								'label'	=>	$this->lang->line("descr")
 							)
 			);
 		return $ctrl;

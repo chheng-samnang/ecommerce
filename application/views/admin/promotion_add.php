@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 </nav>
-        <div class="container_fluid" style="margin:40px 25px 0px 25px;" ng-app="myApp" ng-controller="myCtrl">
+        <div class="container_fluid" style="margin:40px 25px 0px 25px;" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
             <div class="row">                                           
                 <div class="col-lg-12">
                     <?php if(isset($action)) echo form_open($action,"id='form'")?>
@@ -20,12 +20,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <!--====Error msg ===-->
                                   <div class="col-lg-12">
                                     <span ng-show="msg_error"> 
-                                          <div class="alert alert-warning" role="alert">
-                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                              </button>
-                                              <strong>Warning!</strong> Please input form.                                                               
-                                          </div>
+                                        <div class="alert alert-warning" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>Warning!</strong> Please input form.                                                               
+                                        </div>
                                     </span>
                                   </div>
                             <!--====End error msg ===-->

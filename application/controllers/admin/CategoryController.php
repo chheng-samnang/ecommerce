@@ -23,7 +23,7 @@ class CategoryController extends CI_Controller
 	{
 		$data['pageHeader'] = $this->lang->line('category');
 		
-		$data['tbl_hdr'] = array('Category EN','Category KH','Category CH','User Create','Date Create');
+		$data['tbl_hdr'] = array($this->lang->line("category").$this->lang->line("en"),$this->lang->line("kh"),$this->lang->line("category").$this->lang->line("ch"),$this->lang->line('user').$this->lang->line('create'),$this->lang->line('date').$this->lang->line('create'),$this->lang->line('user').$this->lang->line('update'),$this->lang->line('date').$this->lang->line('update'));
 		$i = 0;
 		$row = $this->cm->get_category();
 
@@ -37,6 +37,8 @@ class CategoryController extends CI_Controller
 												$value->cat_name_ch,
 												$value->user_crea,
 												$value->date_crea,
+												$value->user_updt,
+												$value->date_updt,
 												$value->cat_id
 										);
 				$i++;
@@ -60,26 +62,26 @@ class CategoryController extends CI_Controller
 								"type"			=>	"text",
 								"name"			=>	"txtCatName",
 								"id"			=>	"txtCatName",
-								"placeholder"	=>	"Enter Category Name here...",
+								"placeholder"	=>	$this->lang->line("category").$this->lang->line("en")."...",
 								"class"			=> 	"form-control",
 								"required"		=>	"",
-								"label"			=> "Category EN"
+								"label"			=> $this->lang->line("category").$this->lang->line("en")
 							),
 						array(
 								"type"			=>	"text",
 								"name"			=>	"txtCatNameKh",
 								"id"			=>	"txtCatNameKh",
-								"placeholder"	=>	"Enter Category Name here...",
+								"placeholder"	=>	$this->lang->line("category").$this->lang->line("en")."...",
 								"class"			=> 	"form-control",
-								"label"			=> "Category KH"
+								"label"			=> 	$this->lang->line("category").$this->lang->line("kh")
 							),
 						array(
 								"type"			=>	"text",
 								"name"			=>	"txtCatNameCh",
 								"id"			=>	"txtCatNameCh",
-								"placeholder"	=>	"Enter Category Name here...",
+								"placeholder"	=>	$this->lang->line("category").$this->lang->line("en")."...",
 								"class"			=> 	"form-control",
-								"label"			=> "Category CH"
+								"label"			=>  $this->lang->line("category").$this->lang->line("ch")
 							),
 						array(
 								"type"			=>	"textarea",

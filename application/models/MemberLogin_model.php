@@ -22,9 +22,6 @@ class memberLogin_model extends CI_Model
 		if($query){return true;}
 
 	}	
-
-
-
 	function validate_member($email,$password)
 	{
 		$result = false;
@@ -45,39 +42,6 @@ class memberLogin_model extends CI_Model
 		}else
 		{ return $msg = "User Name and Password cannot be empty.";}
 	}
-
-	// public function validate_member_email($email)
-	// {
-	// 	//echo $email;
-	// 	if ($email!="") 
-	// 	{
-	// 		$this->db->where("mem_email",$email);
-	// 		$query = $this->db->get("tbl_member");
-	// 		//$query = $this->db->get_where('tbl_member', array('mem_email'=>$email));
-	// 		if ($query->num_rows()>0) 
-	// 		{
-	// 			return true;
-	// 		}else
-	// 		{
-	// 			return 0;
-	// 		}
-	// 	}	
-	// }
-	// public function validate_member_password($pwd)
-	// {
-	// 	if ($pwd!="") 
-	// 	{
-	// 		$query = $this->db->get_where('tbl_member', array('mem_password'=>$pwd));
-	// 		if ($query->num_rows()>0) 
-	// 		{
-	// 			return true;
-	// 		}else
-	// 		{
-	// 			return 0;
-	// 		}
-	// 	}	
-	// }
-
 	public function updateOrderStatus($id,$status)
 	{
 		$data = array("ord_status"=>$status);
@@ -88,7 +52,6 @@ class memberLogin_model extends CI_Model
 	{
 		$query = $this->db->query("SELECT * FROM tbl_member WHERE mem_id={$id}");
 		return $query->row();
-
 	}
 	public function get_member($mem_id="")
 	{
@@ -131,7 +94,7 @@ class memberLogin_model extends CI_Model
 			);
 		$this->db->insert("tbl_account", $data);
 	}
-	public function updateAccount($id)
+	public function updateAccount($id="")
 	{
 		$row=$this->get_product_validation($id);
 		if($this->input->post('txtImgName')!=""){
@@ -163,15 +126,14 @@ class memberLogin_model extends CI_Model
 		}
 		$this->db->where('acc_id', $id);
 		$this->db->update('tbl_account', $data);
+
 	}
 
 	public function addProduct()
-	{		if($this->input->post("type_pro_code")==""){
-					$pro_code=$this->input->post('txt_product_code');
-				}else{$pro_code=$this->input->post("type_pro_code");}
+	{		
 			$data = array(
 					"p_name"=>$this->input->post('txt_product'),
-					"p_code"=>$pro_code,
+					"p_code"=>$this->input->post("type_pro_code"),
 					"p_type"=>"product",
 					"str_id"=>$this->input->post('txt_str_id'),
 					"acc_id"=>$this->input->post('txt_acc_id'),
@@ -305,16 +267,50 @@ class memberLogin_model extends CI_Model
 					'p_id'	=>	$id,
 					'stk_id'=>$this->input->post('txt_stk_id'),
 					'qty'=>$this->input->post('txtStockQty')
-
-
 					);
-				var_dump($data);
 				$this->db->where("stk_id",$id);
 				$this->db->update("tbl_stock",$data);
 			}
 		}
 	}
 
+	public function saveProfile(){
+		$acc_id=$this->input->post("acc_id");
+		if($this->input->post("txtImgName"))
+		{	
+			if($this->input->post("oldImg")){
+				unlink("assets/uploads/".$this->input->post("oldImg"));
+			}
+			$data = array(
+				"sex"=>$this->input->post('ddlGender'),
+				"company"=>$this->input->post('txtCompanyName'),
+				"dob"=>$this->input->post('txtDob'),
+				"pob"=>$this->input->post('txtPob'),
+				"position"=>$this->input->post('txtPosition'),
+				"acc_img"=>$this->input->post('txtImgName'),
+				"contact_phone"=>$this->input->post('txtContact'),
+				"loc_id"=>$this->input->post('ddlLocation'),
+				"date_updt"=> date('Y-m-d'));
+		}else{
+			$data = array(
+				"sex"=>$this->input->post('ddlGender'),
+				"company"=>$this->input->post('txtCompanyName'),
+				"dob"=>$this->input->post('txtDob'),
+				"pob"=>$this->input->post('txtPob'),
+				"position"=>$this->input->post('txtPosition'),
+				"contact_phone"=>$this->input->post('txtContact'),
+				"loc_id"=>$this->input->post('ddlLocation'),
+				"date_updt"=> date('Y-m-d'));
+			}
+			$this->db->where("acc_id",$this->input->post("acc_id"));
+			$row=$this->db->update('tbl_account',$data);
+				if($row==TRUE){
+					$data=array("mem_name"=>$this->input->post("txtName"),);	
+					$this->db->where("mem_id",$this->input->post("mem_id"));
+					$row=$this->db->update("tbl_member",$data);
+					if($row==TRUE){return TRUE;}
+				}
+	}
 	public function updatePassword($id)
 	{
 		$data = array(
@@ -471,11 +467,13 @@ class memberLogin_model extends CI_Model
 		$this->db->where('str_id', $id);
 		$this->db->update('tbl_store', $data);
 	}
-
+	public function mem_id(){
+		$query = $this->db->query("SELECT mem_id FROM tbl_member ORDER BY mem_id DESC");
+		return $query->row();
+	}
 	public function addMember()
 	{
 		$data = array(
-
 					"mem_code"=>$this->input->post('txt_mem_code'),
 					"mem_name"=>$this->input->post('txt_mem_name'),
 					"mem_phone"=>$this->input->post('txt_mem_phone'),
@@ -487,7 +485,9 @@ class memberLogin_model extends CI_Model
 					"mem_password"=>$this->input->post('password'),
 					"reg_date"=>date('Y-m-d')
 			);
-		$this->db->insert('tbl_member',$data);
+		$row=$this->db->insert('tbl_member',$data);
+		if($row==TRUE){
+			return TRUE;}
 	}
 
 	public function editMember($id)
@@ -687,11 +687,8 @@ class memberLogin_model extends CI_Model
 		$this->db->where("tbl_order_hdr.mem_id",$mem_id);
 		$query = $this->db->get();
 		if($query->num_rows()>0)
-		{
-			return $query->result();
-		}else {
-			array();
-		}
+		{return $query->result();
+		}else{array();}
 	}
 
 	public function get_order_det($ord_code)
@@ -768,7 +765,7 @@ class memberLogin_model extends CI_Model
 	}
 	public function insertInventory()
 	{
-	$data = array(
+			$data = array(
 					"p_code"	=>	$this->input->post("txtCode"),
 					"acc_id"	=>	$this->session->acc_id,
 					"cat_id"	=>	$this->input->post("ddlCat"),

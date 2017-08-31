@@ -58,7 +58,6 @@
 						</div>
 					</div>
 				</div><hr style="margin-bottom: 0px;">
-				
 			<?php } ?>
 			<div align="center"><?php echo $page_link;?></div>
 		</div><!-- this col-xs-12 col-sm-6 col-md-9 -->
@@ -76,7 +75,7 @@
 						<a href="<?php echo base_url('blog/blog_detail/'.$value->bl_id.'/'.$value->title);?>"><?php echo $value->title;?></a>
 					</div>
 					<div class="item-snippet" style="text-align: justify;">
-						<?php echo substr($value->bl_desc, 0, 100)."......";?>
+						<?php echo substr($value->bl_desc, 0, 0)."......";?>
 					</div>
 				</div><hr />
 			<?php } ?>

@@ -31,7 +31,7 @@
 								<input type="hidden" name="txt_str_id" value="<?php echo $product->str_id;?>">
 								<input type="hidden" name="txt_stk_id" value="<?php echo $product->stk_id;?>">
 								<label>Product Code</label>
-								<input type="text" value="<?php echo $product->p_code?>" name="txt_product_code" class="form-control input-sm" placeholder="Product Code">
+								<input type="text" readonly="readonly" value="<?php echo $product->p_code?>" name="txt_product_code" class="form-control input-sm" placeholder="Product Code">
 							</div>
 						</div>
 						<div class="col-lg-6">

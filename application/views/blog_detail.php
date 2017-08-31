@@ -182,27 +182,28 @@
 					</div>
 				</div><!-- class row comment -->
 			</div><!--col-xs-12 col-sm-6 col-md-9-->
-			//
-			
-		  	<!-- <div class="col-xs-12 col-md-3" style="background: #e2e0e0;">
-		  		<h4>Popular Posts</h4><hr />
-		  		<?php foreach ($popular_blog as  $value) { ?>
+
+		  	<div class="col-xs-12 col-md-3" style="background: #e2e0e0;">
+		  		<h4>Popular Posts</h4><hr/>
+	 	  		<?php foreach ($popular_blog as  $value) { ?>
 			  		<div class="item-content">
-						<div class="item-thumbnail" style="float: left;">
+						<div class="item-thumbnail" style="float:left;">
 							<a href="<?php echo base_url('blog/blog_detail/'.$value->bl_id.'/'.$value->title);?>">
 								<img style=" margin-right: 10px; width: 90px;" src="<?php echo base_url('assets/uploads/'.$value->img);?>">
 							</a>
 						</div>
 						<div class="item-title">
-							<a href="<?php echo base_url('blog/blog_detail/'.$value->bl_id.'/'.$value->title);?>"><?php echo $value->title;?></a>
+							<a href="<?php echo base_url('blog/blog_detail/'.$value->bl_id.'/'.$value->title);?>">
+								<?php echo $value->title;?>
+							</a>
 						</div>
-						<div class="item-snippet">
-							<?php echo substr($value->bl_desc, 0, 100)."......";?>
+						<div >
+							<a href="<?php echo base_url('blog/blog_detail/'.$value->bl_id.'/'.$value->title);?>">
+							</a>
+							<?php echo substr($value->bl_desc, 0, 0)."......";?>
 						</div>
 					</div><hr />
 				<?php } ?>
-		  	</div><!-- col-xs-12 col-md-3 for Popular Posts --> -->
-			//
-
+		  	</div><!-- col-xs-12 col-md-3 for Popular Posts -->
 		</div><!-- class row -->
 	</div><!-- class container -->

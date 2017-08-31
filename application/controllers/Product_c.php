@@ -12,20 +12,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 	    public function index()
 		{	
-			
-			
-				
-				$data['advertisement']=$this->hm->adv();
-				$data['category']=$this->hm->category();
-				$data['itemNum'] = $this->itemNum;
-			
-					$this->load->view('layout_site/header_top');
-					$this->load->view('layout_site/nav',$data);
-					//$this->load->view('layout_site/category',$data);
-					$this->load->view('product_page', $data);
-					$this->load->view('layout_site/footer');
-				
-					
+			$data['advertisement']=$this->hm->adv();
+			$data['category']=$this->hm->category();
+			$data['itemNum'] = $this->itemNum;
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav',$data);
+				//$this->load->view('layout_site/category',$data);
+				$this->load->view('product_page', $data);
+				$this->load->view('layout_site/footer');
 		}
 
 	    public function product_page_detail($pro_id)

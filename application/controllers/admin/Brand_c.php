@@ -20,7 +20,7 @@
 			$page="admin/Brand_c";
 			$data['pageHeader'] = $this->lang->line('brand');				
 			$data["action_url"]=array("{$page}/add","{$page}/edit","{$page}/delete"/*,"{$page}/change_password"*/);
-			$data["tbl_hdr"]=array("Brand name","Description","User create","Date create","User update","Date update",);		
+			$data["tbl_hdr"]=array($this->lang->line('brand'),$this->lang->line('descr'),$this->lang->line('user').$this->lang->line('create'),$this->lang->line('date').$this->lang->line('create'),$this->lang->line('user').$this->lang->line('update'),$this->lang->line('date').$this->lang->line('update'));
 			$row=$this->bm->index($brn_id);		
 			$i=0;		
 			foreach($row as $value):			
@@ -138,7 +138,7 @@
 										'value'=>$row1? $row1:NULL,
 										'placeholder'=>'Enter Brand name here...',
 										'class'=>'form-control',
-										'label'=>'Brand Name',
+										'label'=>$this->lang->line("brand").$this->lang->line("name"),
 										'onClick'=>'alertName()'
 									),
 
@@ -160,16 +160,16 @@
 										'name'=>'txtBrandname',
 										'id'=>'txtBrandname',
 										'required'=>'',
-										'placeholder'=>'Enter Brand name here...',
+										'placeholder'=>$this->lang->line("name").$this->lang->line("brand").'...',
 										'class'=>'form-control',
-										'label'=>'Brand Name',
+										'label'=>$this->lang->line("name").$this->lang->line("brand"),
 										'onClick'=>'alertName()'
 									),
 
 								array(
 										'type'=>'textarea',
 										'name'=>'txtBrandDesc',
-										'label'=>'Description',
+										'label'=>$this->lang->line("descr"),
 										'rows'=>'6'
 									)
 								);

@@ -15,7 +15,7 @@ class Product_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->lang->line('product');						
 		$data["action_url"]=array("{$this->page_redirect}/add","{$this->page_redirect}/edit","{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array("Product name","Product Code","Store Name","Price","Date release","User create","Date create");		
+		$data["tbl_hdr"]=array($this->lang->line("name").$this->lang->line('product'),$this->lang->line('code').$this->lang->line('product'),$this->lang->line("name").$this->lang->line('store'),$this->lang->line("status"),$this->lang->line("price"),$this->lang->line('user').$this->lang->line('create'),$this->lang->line('date').$this->lang->line('create'));		
 		$row=$this->product_m->index();		
 		$i=0;
 		if($row==TRUE)
@@ -25,10 +25,10 @@ class Product_c extends CI_Controller
 										"<a href=".base_url($this->page_redirect.'/p_detail/'.$value->p_id)." title='Product Detail'>".$value->p_name."</a>",
 										$value->p_code,
 										$value->str_name,
+										$value->p_status=="0"?"Enable":"Disable",
 										$value->price."$",
-										date("d-m-Y",strtotime($value->date_release)),
 										$value->user_crea,
-										$value->date_crea,							
+										date("d-m-Y",strtotime($value->date_release)),
 										$value->p_id
 									);
 			$i=$i+1;
@@ -62,7 +62,7 @@ class Product_c extends CI_Controller
 			$store=$this->product_m->select_tables("tbl_store");			
 			if($store==TRUE)
 			{
-				$option1[0]	=	"Choose One";
+				$option1[0]	=$this->lang->line("choose_one");
 				foreach($store as $value):						
 				$option1[$value->str_id]=$value->str_name;								
 			endforeach;
@@ -71,7 +71,7 @@ class Product_c extends CI_Controller
 			$category=$this->product_m->select_tables("tbl_category");		
 			if($category==TRUE)
 			{
-				$option2[0]	= "Choose One";
+				$option2[0]	= $this->lang->line("choose_one");
 				foreach($category as $value):						
 				$option2[$value->cat_id]=$value->cat_name;								
 			endforeach;
@@ -80,12 +80,12 @@ class Product_c extends CI_Controller
 			$brand=$this->product_m->select_tables("tbl_brand");			
 			if($brand==TRUE)
 			{
-				$option3[0]	= "Choose One";
+				$option3[0]	= $this->lang->line("choose_one");
 				foreach($brand as $value):						
 				$option3[$value->brn_id]=$value->brn_name;								
 			endforeach;
 			}	
-			$option4= array('1'=>'Enable','0'=>'Disable');				
+			$option4= array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));				
 		$data['ctrl'] = $this->createCtrl($row="",$option1,$option2,$option3,$option4,$p_code);		
 		$data['action'] = "{$this->page_redirect}/add_value";
 		$data['pageHeader'] = $this->lang->line('product');		
@@ -140,7 +140,7 @@ class Product_c extends CI_Controller
 			endforeach;
 			}			
 			$row=$this->product_m->index($id);		
-			$option4 = array('1'=>'Enable','0'=>'Disable');		
+			$option4 = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));		
 			if($row==TRUE)
 			{																																		
 				$data['ctrl'] = $this->createCtrl($row,$option1,$option2,$option3,$option4,$row->p_code);		
@@ -208,10 +208,10 @@ class Product_c extends CI_Controller
 									'name'=>'txtProCode',
 									'id'=>'txtProCode',
 									'value'=>$row==""?set_value("txtProCode",$row15):$row15,
-									'placeholder'=>'Enter Product Code here....',
+									'placeholder'=>$this->lang->line("product").$this->lang->line("code"),
 									'class'=>'form-control',
 									'readonly'=>'readonly',
-									'label'=>'Product Code'
+									'label'=>$this->lang->line("product").$this->lang->line("code")
 								),
 							array(
 									'type'=>'dropdown',
@@ -220,7 +220,8 @@ class Product_c extends CI_Controller
 									'option'=>$option1,
 									'selected'=>$row==""?NULL:$row1,
 									'class'=>'class="form-control"',
-									'label'=>'Store name',									
+									'label'=>$this->lang->line("name").$this->lang->line("store"),
+									'autofocus'=>'autofocus',
 								),
 							array(
 									'type'=>'dropdown',
@@ -229,7 +230,7 @@ class Product_c extends CI_Controller
 									'option'=>$option2,
 									'selected'=>$row==""?NULL:$row2,
 									'class'=>'class="form-control"',
-									'label'=>'Category name',									
+									'label'=>$this->lang->line("category"),									
 								),
 							array(
 									'type'=>'dropdown',
@@ -238,36 +239,36 @@ class Product_c extends CI_Controller
 									'option'=>$option3,
 									'selected'=>$row==""?NULL:$row3,
 									'class'=>'class="form-control"',
-									'label'=>'Brand name',									
+									'label'=>$this->lang->line("name").$this->lang->line("brand"),									
 								),
 							array(
 									'type'=>'text',
 									'name'=>'txtPName',
 									'id'=>'txtPName',									
 									'value'=>$row==""? set_value("txtPName") : $row4,					
-									'placeholder'=>'Enter Product name here...',
+									'placeholder'=>$this->lang->line("name").$this->lang->line("product"),
 									'required'=>'required',									
 									'class'=>'form-control',
-									'label'=>'Product name',									
+									'label'=>$this->lang->line("name").$this->lang->line("product"),									
 								),
 							array(
 									'type'	=>	'text',
 									'name'	=>	'txtStockQty',
 									'id'	=>	'txtStockQty',
 									'value'	=>	$row==""?set_value("txtStockQty"):$row6,
-									'placeholder'	=>	'Enter stock quantity here...',
+									'placeholder'	=>$this->lang->line("stock").$this->lang->line("qty"),
 									'class'	=>	'form-control',
-									'label'	=>	'Stock Quantity'
+									'label'	=>	$this->lang->line("stock").$this->lang->line("quantity")
 								),
 							array(
 									'type'=>'text',
 									'name'=>'txtPrice',
 									'id'=>'txtPrice',									
 									'value'=>$row==""? set_value("txtPrice") : $row5,					
-									'placeholder'=>'Enter Price here...',
+									'placeholder'=>$this->lang->line("price"),
 									'required'=>'required',									
 									'class'=>'form-control',
-									'label'=>'Price',									
+									'label'=>$this->lang->line("price"),									
 								),
 							array(
 									'type'=>'dropdown',
@@ -276,52 +277,51 @@ class Product_c extends CI_Controller
 									'option'=>$option4,
 									'selected'=>$row==""?NULL:$row16,	
 									'class'=>'class="form-control"',
-									'label'=>'Status',									
+									'label'=>$this->lang->line("status"),									
 								),
 							array(
 									'type'=>'text',
 									'name'=>'txtColor',
 									'id'=>'txtColor',
 									'value'=>$row==""? set_value("txtColor") : $row7,
-									'placeholder'=>'Enter Color here...',									
+									'placeholder'=>$this->lang->line("color"),									
 									'class'=>'form-control',
-									'label'=>'Color'
+									'label'=>$this->lang->line("color")
 								),							
 							array(
 								'type'=>'text',
 								'name'=>'txtSize',
 								'id'=>'txtSize',
 								'value'=>$row==""? set_value("txtSize") : $row8,
-								'placeholder'=>'Enter Size here...',																																																											
+								'placeholder'=>$this->lang->line("size"),																																																											
 								'class'=>'form-control',
-								'label'=>'Size',									
+								'label'=>$this->lang->line("size"),									
 							),							
 							array(
 								'type'=>'text',
 								'name'=>'txtModel',
 								'id'=>'txtModel',
 								'value'=>$row==""? set_value("txtModel") : $row9,
-								'placeholder'=>'Enter Model here...',																																																										
+								'placeholder'=>$this->lang->line("model"),																																																										
 								'class'=>'form-control',
-								'label'=>'Model',									
+								'label'=>$this->lang->line("model"),									
 							),
 							array(
 								'type'=>'date',
-								'name'=>'txtDateRelease',
+								'name'=>'txtDateRelease',	
 								'id'=>'txtDateRelease',
 								'value'=>$row==""? set_value("txtDateRelease") : date("m/d/Y",strtotime($row10)),
-								'placeholder'=>'Enter Date release here...',																																																			
 								'class'=>'form-control datetimepicker',
-								'label'=>'Date release',									
+								'label'=>$this->lang->line("date").$this->lang->line(""),									
 							),
 							array(
 								'type'=>'text',
 								'name'=>'txtDimensoin',
 								'id'=>'txtDimensoin',
 								'value'=>$row==""? set_value("txtDimensoin") : $row11,
-								'placeholder'=>'Enter Dimensoin here...',																																																			
+								'placeholder'=>$this->lang->line("dimensoin"),																																																			
 								'class'=>'form-control',
-								'label'=>'Dimensoin',									
+								'label'=>$this->lang->line("dimensoin"),									
 							),
 							array(
 									'type'=>'upload',
@@ -329,20 +329,20 @@ class Product_c extends CI_Controller
 									'id'=>'txtUpload',
 									'value'=>$row==""? set_value("txtUpload") : $row3,																		
 									'class'=>'form-control',
-									'label'=>'Image',
+									'label'=>$this->lang->line("image"),
 									"img"=>$row==""? set_value("txtUpload") :"<img class='img-thumbnail' src='".base_url("assets/uploads/".$row14)."' style='width:70px;' />",										
 								),
 							array(
 									'type'=>'textarea',
 									'name'=>'txtShortDesc',
 									'value'=>$row==""? set_value("txtShortDesc") : $row12,
-									'label'=>'Short Description'
+									'label'=>$this->lang->line("descr").$this->lang->line("short")
 								),														
 							array(
 									'type'=>'textarea',
 									'name'=>'txtPdesc',
 									'value'=>$row==""? set_value("txtPdesc") : $row13,
-									'label'=>'Product Description'
+									'label'=>$this->lang->line("descr").$this->lang->line("product")
 								),
 								array(
 									'type'=>'hidden',

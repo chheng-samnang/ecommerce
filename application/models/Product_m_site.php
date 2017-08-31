@@ -274,7 +274,6 @@
 							'mem_addr'	=>	$this->input->post('txtAddr'),
 							'mem_status'=>	'0',
 							'reg_date'	=>	date('Y-m-d')
-
 				);
 			$this->db->insert('tbl_member',$data);
 
@@ -285,8 +284,8 @@
 				$data = array(
 								"acc_code"	=>	$acc_code,
 								"mem_id"	=>	$mem_id,
-								"acc_type"	=>	"general",
-								"loc_id"	=>	"0",
+								"acc_type"	=>	"General",
+								"loc_id"	=>	"1",
 								"user_crea"	=>	$this->session->memLogin,
 								"date_crea"	=>	date("Y-m-d")
 					);

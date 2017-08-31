@@ -15,7 +15,12 @@ class Store_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->lang->line('store');						
 		$data["action_url"]=array("{$this->page_redirect}/add","{$this->page_redirect}/edit","{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array("Store code","Account code","Member name","Store name","Store type","Description","Image","User create","Date create","User update","Date update",);		
+		
+		$data["tbl_hdr"]=array($this->lang->line("stor_code")
+			,$this->lang->line("account_code"),$this->lang->line("member_name")
+			,$this->lang->line("stor_name"),$this->lang->line("stor_type")
+			,$this->lang->line("descr"),$this->lang->line("image"),$this->lang->line("user_create")
+			,$this->lang->line("date_create"),$this->lang->line("user_update"),$this->lang->line("date_update"));		
 		$row=$this->store_m->index();		
 		$i=0;
 		if($row==TRUE)
@@ -38,7 +43,7 @@ class Store_c extends CI_Controller
 										$value->str_id
 									);
 			$i=$i+1;
-		endforeach;
+			endforeach;
 		}											
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');

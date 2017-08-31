@@ -21,8 +21,7 @@ class AccountController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('account');
-		$data['tbl_hdr'] = array('Acc.Code','Member Name','Staus','Gender','Acc. Type','Acc. Image');
-
+		$data['tbl_hdr'] = array($this->lang->line("code").$this->lang->line("account"),$this->lang->line("name").$this->lang->line("member"),$this->lang->line("status"),$this->lang->line("gender"),$this->lang->line("type").$this->lang->line("account"),$this->lang->line("image"));
 		$query = $this->am->get_account();
 		$i=0;
 		if(!empty($query))
@@ -34,7 +33,7 @@ class AccountController extends CI_Controller
 			$data["tbl_body"][$i] = array(
 											$value->acc_code,
 											$value->mem_name,
-											$value->status=="1"?"Enable":"Disable",
+											$value->status=="1"?$this->lang->line("enable"):$this->lang->line("disable"),
 											$sex,
 											$value->acc_type,
 											"<img class='img-thumbnail' src='assets/uploads/".$poto."' style='width:43px;' />",
@@ -134,19 +133,19 @@ class AccountController extends CI_Controller
 		$query = $this->am->loadMember();
 
 		foreach ($query as $key => $value) {
-			$option1[0] = 'Choose One';
+			$option1[0] = $this->lang->line("choose_one");
 			$option1[$value->mem_id] = $value->mem_name;
 		}
 		$location = $this->lm->get_location();
 		
 		foreach ($location as $key => $value) {
-			$option4[0]	=	"Choose One";
+			$option4[0]	=	$this->lang->line("choose_one");
 			$option4[$value->loc_id] = $value->loc_name;
 		}
 		$acc = date('s');
-		$option2 = array('0'=>'Choose One','F'=>'Female','M' =>'Male');
-		$option5 = array('1'=>'Enable','0'=>'Disable');
-		$option3 = array('General'=>'General','Agent'=>'Agent','Shop-owner'=>'Shop-owner','Bussiness'=>'Bussiness','Association'=>'Association','Individual'=>'Individual');
+		$option2 = array('0'=>$this->lang->line("choose_one"),'F'=>$this->lang->line("female"),'M' =>$this->lang->line("male"));
+		$option5 = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
+		$option3 = array('General'=>$this->lang->line("general"),'Agent'=>$this->lang->line("agent"),'Shop-owner'=>$this->lang->line("shop-owner"),'Bussiness'=>$this->lang->line("bussiness"),'Association'=>$this->lang->line("association"));
 		
 		$ctrl = array(
 						array(
@@ -154,27 +153,27 @@ class AccountController extends CI_Controller
 								'name'	=>	'txtAccCode',
 								'id'	=>	'txtAccCode',
 								'readonly'=>'readonly',
-								'placeholder'	=>	'Enter Account Code here...',
+								'placeholder'=>$this->lang->line("account").$this->lang->line("code")."....",
 								'value'	=>	"acc00".$acc,
 								'class'	=>	'form-control',
-								'label'	=>	'Account Code'
+								'label'	=>	$this->lang->line("account").$this->lang->line("code")
 							),
 						array(
 								'type'	=>	'password',
 								'name'	=>	'txtPassword',
 								'id'	=>	'txtPassword',
-								'placeholder'=>'Enter Password here...',
+								'placeholder'=>$this->lang->line("password")."....",
 								'class'	=>	'form-control',
-								'label'	=>	'Password',
+								'label'	=>	$this->lang->line("password"),
 								'required'	=>	''
 							),
 						array(
 								'type'	=>	'password',
 								'name'	=>	'txtConfirm',
 								'id'	=>	'txtConfirm',
-								'placeholder'	=>	'Confirm Password here...',
+								'placeholder'=>$this->lang->line("con​firm").$this->lang->line("password")."....",
 								'class'	=>	'form-control',
-								'label'	=>	'Confirm Password',
+								'label'	=>	$this->lang->line("con​firm").$this->lang->line("password"),
 								'required'	=>	''
 							),
 						array(
@@ -183,7 +182,7 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlMember',
 								'option'=>	$option1,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Member'
+								'label'	=>	$this->lang->line("member")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -191,16 +190,16 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlGender',
 								'option'=>	$option2,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Gender'
+								'label'	=>	$this->lang->line("gender")
 							),
 
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDob',
 								'id'	=>	'txtDob',
-								'placeholder'	=>	'Click to pick a date',
+								'placeholder'=>$this->lang->line("con​firm").$this->lang->line("password")."....",
 								'class'	=>	'form-control datetimepicker',
-								'label'	=>	'Date of Birth',
+								'label'	=>	$this->lang->line("dateOfBirth"),
 								'value'	=>	set_value('txtDob',''),
 								'required'	=>	''
 							),
@@ -210,7 +209,7 @@ class AccountController extends CI_Controller
 								'id'	=>	'txtPob',
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtPob',''),
-								'label'	=>	'Place of Birth'
+								'label'	=>	$this->lang->line("placeOfBirth")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -218,34 +217,34 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlAccType',
 								'option'=>	$option3,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Account Type'	
+								'label'	=>	$this->lang->line("type").$this->lang->line("account")	
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtCompany',
 								'id'	=>	'txtCompany',
-								'placeholder'	=>	'Enter Company name here...',
+								'placeholder'=>$this->lang->line("companey")."....",
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtCompany',''),
-								'label'	=>	'Company'
+								'label'	=>	$this->lang->line("companey")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtPosition',
 								'id'	=>	'txtPosition',
-								'placeholder'	=>	'Enter Position here...',
+								'placeholder'=>$this->lang->line("position")."....",
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtPosition',''),
-								'label'	=>	'Position'
+								'label'	=>	$this->lang->line("position")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtContact',
 								'id'	=>	'txtContact',
-								'placeholder'	=>	'Enter Contact Number here...',
+								'placeholder'=>$this->lang->line("phone")."....",
 								'class'	=>	'form-control',
 								'value'	=>	set_value("txtContact",""),
-								'label'	=>	'Contact Number'
+								'label'	=>	$this->lang->line("phone")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -253,7 +252,7 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlLocation',
 								'option'=>	$option4,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Location'
+								'label'	=>	$this->lang->line("location")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -261,14 +260,14 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlStatus',
 								'option'=>	$option5,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Staus'
+								'label'	=>	$this->lang->line("status")
 							),
 						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
-								'label'	=>	'Image'
+								'label'	=>	$this->lang->line("image")
 							),
 			);
 		return $ctrl;
@@ -280,18 +279,18 @@ class AccountController extends CI_Controller
 		$query = $this->am->loadMember();
 
 		foreach ($query as $key => $value) {
-			$option1[0] = 'Choose One';
+			$option1[0] = $this->lang->line("choose_one");
 			$option1[$value->mem_id] = $value->mem_name;
 		}
 		$location = $this->lm->get_location();
 		
 		foreach ($location as $key => $value) {
-			$option4[0]	=	"Choose One";
+			$option4[0]	=	$this->lang->line("choose_one");
 			$option4[$value->loc_id] = $value->loc_name;
 		}
-		$option5 = array('1'=>'Enable','0'=>'Disable');
-		$option2 = array('0'=>'Choose One','F'=>'Female','M' =>'Male');
-		$option3 = array('General'=>'General','Agent'=>'Agent','Shop-owner'=>'Shop-owner','Bussiness'=>'Bussiness','Association'=>'Association','Individual'=>'Individual');
+		$option2 = array('0'=>$this->lang->line("choose_one"),'F'=>$this->lang->line("female"),'M' =>$this->lang->line("male"));
+		$option5 = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
+		$option3 = array('General'=>$this->lang->line("general"),'Agent'=>$this->lang->line("agent"),'Shop-owner'=>$this->lang->line("shop-owner"),'Bussiness'=>$this->lang->line("bussiness"),'Association'=>$this->lang->line("association"));
 		
 		$ctrl = array(
 						array(
@@ -299,10 +298,10 @@ class AccountController extends CI_Controller
 								'name'	=>	'txtAccCode',
 								'id'	=>	'txtAccCode',
 								'readonly'=>'readonly',
-								'placeholder'	=>	'Enter Account Code here...',
+								'placeholder'=>$this->lang->line("account").$this->lang->line("code")."...",
 								'value'	=>	set_value('txtAccCode',$account->acc_code),
 								'class'	=>	'form-control',
-								'label'	=>	'Account Code'
+								'label'	=>	$this->lang->line("account").$this->lang->line("code")
 							),
 						
 						array(
@@ -312,7 +311,7 @@ class AccountController extends CI_Controller
 								'option'=>	$option1,
 								'selected'	=>	$account->mem_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Member'
+								'label'	=>	$this->lang->line("member")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -321,15 +320,15 @@ class AccountController extends CI_Controller
 								'option'=>	$option2,
 								'selected'	=>	$account->sex,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Gender'
+								'label'	=>	$this->lang->line("gender")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDob',
 								'id'	=>	'txtDob',
-								'placeholder'	=>	'Click to pick a date',
+								'placeholder'=>$this->lang->line("dateOfBirth")."...",
 								'class'	=>	'form-control datetimepicker',
-								'label'	=>	'Date of Birth',
+								'label'	=>	$this->lang->line("dateOfBirth"),
 								'value'	=>	set_value('txtDob',$account->dob),
 								'required'	=>	''
 							),
@@ -340,34 +339,34 @@ class AccountController extends CI_Controller
 								'option'=>	$option3,
 								'selected'	=>	$account->acc_type,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Account Type'	
+								'label'	=>	$this->lang->line("type").$this->lang->line("account")	
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtCompany',
 								'id'	=>	'txtCompany',
-								'placeholder'	=>	'Enter Company name here...',
+								'placeholder'=>$this->lang->line("company")."...",
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtCompany',$account->company),
-								'label'	=>	'Company'
+								'label'	=>	$this->lang->line("companey")
 							),
 							array(
 								'type'	=>	'text',
 								'name'	=>	'txtPosition',
 								'id'	=>	'txtPosition',
-								'placeholder'	=>	'Enter Position here...',
+								'placeholder'=>$this->lang->line("position")."...",
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtPosition',$account->position),
-								'label'	=>	'Position'
+								'label'	=>	$this->lang->line("position")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtContact',
 								'id'	=>	'txtContact',
-								'placeholder'	=>	'Enter Contact Number here...',
+								'placeholder'=>$this->lang->line("phone")."...",
 								'class'	=>	'form-control',
 								'value'	=>	set_value("txtContact",$account->contact_phone),
-								'label'	=>	'Contact Number'
+								'label'	=>	$this->lang->line("contact")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -376,7 +375,7 @@ class AccountController extends CI_Controller
 								'option'=>	$option4,
 								'selected'	=>	$account->loc_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Location'
+								'label'	=>	$this->lang->line("location")
 							),
 						array(
 								'type'	=>	'textarea',
@@ -384,16 +383,16 @@ class AccountController extends CI_Controller
 								'id'	=>	'txtPob',
 								'class'	=>	'form-control',
 								'value'	=>	set_value('txtPob',$account->pob),
-								'label'	=>	'Place of Birth'
+								'label'	=>	$this->lang->line("PlaseOfBirth")
 							),
 						array(
 								'type'	=>	'dropdown',
 								'name'	=>	'ddlStatus',
 								'id'	=>	'ddlStatus',
 								'option'=>	$option5,
-								'selected'	=>	$account->status,
+								'selected'=>$account->status,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Staus'
+								'label'	=>	$this->lang->line("status")
 							),	
 						
 						array(
@@ -401,7 +400,7 @@ class AccountController extends CI_Controller
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
-								'label'	=>	'Image'
+								'label'	=>	$this->lang->line("account")
 							)
 			);
 		return $ctrl;

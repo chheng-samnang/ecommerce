@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class InventoryController extends CI_Controller
-{
-	var $pageHeader,$page_redirect,$action,$cancel;
+{	
+	var $pageHeader,$page_redirect,$action,$cancel,$choose;
 	function __construct()
-	{
+	{	
 		parent::__construct();
 		$this->page_redirect = "inventory";
 		$this->action="inventory/add";
@@ -13,15 +13,10 @@ class InventoryController extends CI_Controller
 		$this->load->model("inventoryModel","im");
 		$this->load->model("accountModel","am");
 	}
-
-	function test()
-	{
-		var_dump($this->im->get_inventory());
-	}
 	function index()
 	{
 		$data['pageHeader'] = $this->pageHeader;
-		$data['tbl_hdr'] = array('Product Code','Product Name','Image','Date Release','Status');
+		$data['tbl_hdr'] = array($this->lang->line("account_code"),$this->lang->line("product_name"),$this->lang->line("image"),$this->lang->line("date").$this->lang->line("release"),$this->lang->line("status"));
 
 		$query = $this->im->get_inventory();
 		$i=0;
@@ -57,12 +52,13 @@ class InventoryController extends CI_Controller
 	public function validation()
 	{		
 		$this->form_validation->set_rules('txtInvCode','Inventory Code','required');
-		$this->form_validation->set_rules('ddlAccount', '', 'required');
+		$this->form_validation->set_rules('ddlAccount', 'Account', 'required');
 		$this->form_validation->set_rules('ddlStore','Stor Name','required');	
 		$this->form_validation->set_rules('ddlCat','Category','required');
 		$this->form_validation->set_rules('ddlBrand', 'Brand', 'required');
 		$this->form_validation->set_rules('txtInvName','Inventory Name','required');
-		$this->form_validation->set_rules('txtPrice','Price','numeric');												
+		$this->form_validation->set_rules('txtPrice','Price','numeric');
+
 		if($this->form_validation->run()==TRUE){return TRUE;}
 		else{return FALSE;}
 	}	
@@ -105,9 +101,9 @@ class InventoryController extends CI_Controller
 	}
 
 	public function editInventory($id)
-	{
+	{	
 		if($id!="")
-		{
+		{	
 			if(isset($_POST['btnSubmit']))
 			{
 				$this->im->updateInventory($id);
@@ -122,7 +118,7 @@ class InventoryController extends CI_Controller
 				$data['multipart'] = true;
 				$data['pageHeader'] = $this->pageHeader;
 				$data['ctrl'] = $this->editCtrl($id);
-				//$data['cancel'] = $this->cancel;
+				$data['cancel'] = $this->cancel;
 				$this->load->view('template/header');
 				$this->load->view('template/left');
 				$this->load->view('admin/page_edit',$data);
@@ -141,44 +137,42 @@ class InventoryController extends CI_Controller
 	}
 
 	function createCtrl()
-	{
-
+	{	$choose=$this->lang->line("choose_one");
 		$invCode = $this->im->generateItemCode();
 		$account = $this->am->get_account();
 		$store = $this->im->get_store();
 		$category = $this->im->get_category();
 		$brand = $this->im->get_brand();
-
 		foreach ($account as $key => $value) {
-			$option1[0] = 'Choose One';
+			$option1[0] = $choose;
 			$option1[$value->acc_id] = $value->acc_code;
 		}
 
 		foreach ($store as $key => $value) {
-			$option2[0] = 'Choose One';
+			$option2[0] = $choose;
 			$option2[$value->str_id] = $value->str_name;
 		}
 
 		foreach ($category as $key => $value) {
-			$option3[0] = 'Choose One';
+			$option3[0] = $choose;
 			$option3[$value->cat_id] = $value->cat_name;	
 		}
 
 		foreach ($brand as $key => $value) {
-			$option4[0] = 'Choose One';
+			$option4[0] = $choose;
 			$option4[$value->brn_id] = $value->brn_name;
 		}
-		$option5 = array("1"=>"Enable","0"=>"Disable");
+		$option5 = array("1"=>$this->lang->line("enable"),"0"=>$this->lang->line("disable"));
 		$ctrl = array(
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtInvCode',
 								'id'	=>	'txtInvCode',
-								'placeholder'	=>	'Enter Inventory Code here...',
+								'placeholder'	=>	$this->lang->line("inventory_code"),
 								'value'	=>	set_value('txtInvCode',$invCode),
 								'class'	=>	'form-control',
 								'readonly'	=>'readonly',
-								'label'	=>	'Inventory Code'
+								'label'	=>	$this->lang->line("inventory_code")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -187,7 +181,7 @@ class InventoryController extends CI_Controller
 								'value'	=>	set_value('ddlAccount',''),
 								'option'=>	$option1,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Account Code'
+								'label'	=>	$this->lang->line("account_code")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -196,7 +190,7 @@ class InventoryController extends CI_Controller
 								'option'=>	$option2,
 								'value'	=>	set_value('ddlStore',''),
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Store Name'
+								'label'	=>	$this->lang->line("store_name")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -205,7 +199,7 @@ class InventoryController extends CI_Controller
 								'value'	=>	set_value('ddlCat',''),
 								'option'=>	$option3,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Category'
+								'label'	=>	$this->lang->line("category")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -214,70 +208,70 @@ class InventoryController extends CI_Controller
 								'value'	=>	set_value('ddlBrand',''),
 								'option'=>	$option4,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Brand'
+								'label'	=>	$this->lang->line("brand")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtInvName',
 								'id'	=>	'txtInvName',
-								'placeholder'	=>	'Enter Inventory Name here...',
+								'placeholder'	=>$this->lang->line("inventory_name"),
 								'value'	=>	set_value('txtInvName',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Inventory Name'
+								'label'	=>	$this->lang->line("inventory_name")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtPrice',
 								'id'	=>	'txtPrice',
-								'placeholder'=>	'Enter Price  here...',
+								'placeholder'=>	$this->lang->line("price"),
 								'value'	=>	set_value('txtPrice',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Price'
+								'label'	=>	$this->lang->line("price")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtColor',
 								'id'	=>	'txtColor',
-								'placeholder'	=>	'Enter Color  here...',
+								'placeholder'	=>$this->lang->line("color"),
 								'value'	=>	set_value('txtColor',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Color'
+								'label'	=>	$this->lang->line("color")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtSize',
 								'id'	=>	'txtSize',
-								'placeholder'	=>	'Enter Size here...',
+								'placeholder'	=>	$this->lang->line("size"),
 								'value'	=>	set_value('txtSize',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Size'
+								'label'	=>	$this->lang->line("size")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtModel',
 								'id'	=>	'txtModel',
-								'placeholder'	=>	'Enter Model here...',
+								'placeholder'	=>	$this->lang->line("model"),
 								'value'	=>	set_value('txtModel',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Model'
+								'label'	=>	$this->lang->line("model")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDateRelease',
 								'id'	=>	'txtDateRelease',
-								'placeholder'	=>	'Click here to pick a date',
+								'placeholder'	=>	$this->lang->line("date release"),
 								'value'	=>	set_value('txtDateRelease',''),
 								'class'	=>	'form-control datetimepicker',
-								'label'	=>	'Date Release'
+								'label'	=>	$this->lang->line("date")." ".$this->lang->line("release")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDimension',
 								'id'	=>	'txtDimension',
-								'placeholder'	=>	'Enter Dimension here....',
+								'placeholder'	=>	$this->lang->line("dimension"),
 								'value'	=>	set_value('txtDimension',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Dimension'
+								'label'	=>	$this->lang->line("dimension")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -285,14 +279,14 @@ class InventoryController extends CI_Controller
 								'id'	=>	'ddlStatus',
 								'option'=>	$option5,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Status',
+								'label'	=>	$this->lang->line("status"),
 							),
 						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
-								'label'	=>	'Image'
+								'label'	=>	$this->lang->line("image")
 							),
 						array(
 								'type'	=>	'textarea',
@@ -300,14 +294,14 @@ class InventoryController extends CI_Controller
 								'id'	=>	'txtDesc',
 								'value'	=>	set_value('txtDesc',''),
 								'class'	=>	'form-control',
-								'label'	=>	'Description'
+								'label'	=>	$this->lang->line("descr")
 							),
 			);
 		return $ctrl;
 	}
 
 	function editCtrl($id)
-	{
+	{	$choose=$this->lang->line("choose_one");
 		$item = $this->im->get_inventory($id);
 		$invCode = $item->p_code;
 		$account = $this->am->get_account();	
@@ -316,36 +310,35 @@ class InventoryController extends CI_Controller
 		$brand = $this->im->get_brand();	
 
 		foreach ($account as $key => $value) {	#Load data into ddlAccount
-			$option1[0] = 'Choose One';
+			$option1[0] = $choose;
 			$option1[$value->acc_id] = $value->acc_code;
 		}
 
 		foreach ($store as $key => $value) {	#Load data into ddlStore
-			$option2[0] = 'Choose One';
+			$option2[0] = $choose;
 			$option2[$value->str_id] = $value->str_name;
 		}
 
 		foreach ($category as $key => $value) {	#Load data into ddlCat
-			$option3[0] = 'Choose One';
+			$option3[0] = $choose;
 			$option3[$value->cat_id] = $value->cat_name;	
 		}
 
 		foreach ($brand as $key => $value) {	#Load Data into ddlBrand
-			$option4[0] = 'Choose One';
+			$option4[0] = $choose;
 			$option4[$value->brn_id] = $value->brn_name;
 		}
-		$option5 = array("1"=>"Enable","0"=>"Disable");
+		$option5 = array("1"=>$this->lang->line("enable"),"0"=>$this->lang->line("disable"));
 		$ctrl = array(
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtInvCode',
 								'id'	=>	'txtInvCode',
 								'placeholder'	=>	'Enter Inventory Code here...',
-								'value'=>$row==""?set_value("txtProCode",$row15):$row15,
 								'value'	=>	set_value('txtInvCode',$invCode),
 								'class'	=>	'form-control',
 								'readonly'	=>	'readonly',
-								'label'	=>	'Inventory Code'
+								'label'	=>	$this->lang->line("inventory_code")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -354,7 +347,7 @@ class InventoryController extends CI_Controller
 								'option'=>	$option1,
 								'selected'	=>	$item->acc_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Account Code'
+								'label'	=>	$this->lang->line("account_code")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -363,7 +356,7 @@ class InventoryController extends CI_Controller
 								'option'=>	$option2,
 								'selected'	=>	$item->str_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Store Name'
+								'label'	=>	$this->lang->line("store_name")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -372,7 +365,7 @@ class InventoryController extends CI_Controller
 								'option'=>	$option3,
 								'selected'	=>	$item->cat_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Category'
+								'label'	=>	$this->lang->line("category")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -381,7 +374,7 @@ class InventoryController extends CI_Controller
 								'option'=>	$option4,
 								'selected'	=>	$item->brn_id,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Brand'
+								'label'	=>	$this->lang->line("brand")
 							),
 						array(
 								'type'	=>	'text',
@@ -390,61 +383,61 @@ class InventoryController extends CI_Controller
 								'placeholder'	=>	'Enter Inventory Name here...',
 								'value'	=>	set_value('txtInvName',$item->p_name),
 								'class'	=>	'form-control',
-								'label'	=>	'Inventory Name'
+								'label'	=>	$this->lang->line("inventory_name")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtPrice',
 								'id'	=>	'txtPrice',
-								'placeholder'	=>	'Enter Price  here...',
+								'placeholder'=>$this->lang->line("price"),
 								'value'	=>	set_value('txtPrice',$item->price),
 								'class'	=>	'form-control',
-								'label'	=>	'Price'
+								'label'	=>	$this->lang->line("status")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtColor',
 								'id'	=>	'txtColor',
-								'placeholder'	=>	'Enter Color  here...',
+								'placeholder'	=>	$this->lang->line("color"),
 								'value'	=>	set_value('txtColor',$item->color),
 								'class'	=>	'form-control',
-								'label'	=>	'Color'
+								'label'	=>	$this->lang->line("color")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtSize',
 								'id'	=>	'txtSize',
-								'placeholder'	=>	'Enter Size here...',
+								'placeholder'	=>	$this->lang->line("size"),
 								'value'	=>	set_value('txtSize',$item->size),
 								'class'	=>	'form-control',
-								'label'	=>	'Size'
+								'label'	=>	$this->lang->line("size")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtModel',
 								'id'	=>	'txtModel',
-								'placeholder'	=>	'Enter Model here...',
+								'placeholder'	=>	$this->lang->line("model"),
 								'value'	=>	set_value('txtModel',$item->model),
 								'class'	=>	'form-control',
-								'label'	=>	'Model'
+								'label'	=>	$this->lang->line("model")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDateRelease',
 								'id'	=>	'txtDateRelease',
-								'placeholder'	=>	'Click here to pick a date',
+								'placeholder'	=>$this->lang->line("date").$this->lang->line("relrese"),
 								'value'	=>	set_value('txtDateRelease',$item->date_release),
 								'class'	=>	'form-control datetimepicker',
-								'label'	=>	'Date Release'
+								'label'	=>	$this->lang->line("date").$this->lang->line("release")
 							),
 						array(
 								'type'	=>	'text',
 								'name'	=>	'txtDimension',
 								'id'	=>	'txtDimension',
-								'placeholder'	=>	'Enter Dimension here....',
+								'placeholder'	=>	$this->lang->line("dimension"),
 								'value'	=>	set_value('txtDimension',$item->dimension),
 								'class'	=>	'form-control',
-								'label'	=>	'Dimension'
+								'label'	=>	$this->lang->line("dimension")
 							),
 						array(
 								'type'	=>	'dropdown',
@@ -453,14 +446,14 @@ class InventoryController extends CI_Controller
 								'option'=>	$option5,
 								'selected'	=>	$item->p_status,
 								'class'	=>	'class="form-control"',
-								'label'	=>	'Status',
+								'label'	=>	$this->lang->line("status"),
 							),
 						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
-								'label'	=>	'Image'
+								'label'	=>	$this->lang->line("image")
 							),
 						array(
 								'type'	=>	'textarea',
@@ -468,7 +461,7 @@ class InventoryController extends CI_Controller
 								'id'	=>	'txtDesc',
 								'value'	=>	set_value('txtDesc',$item->p_desc),
 								'class'	=>	'form-control',
-								'label'	=>	'Description'
+								'label'	=>	$this->lang->line("descr")
 							),
 			);
 		return $ctrl;

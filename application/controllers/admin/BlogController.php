@@ -41,25 +41,48 @@
 		} 
 
 		# ============== select brand =========================
-
+		public function validation(){
+			$this->form_validation->set_rules("txtblogName","Blog","required");
+			$this->form_validation->set_rules("txtUpload","Image","required");
+			if($this->form_validation->run()==TRUE){
+				return TRUE;
+			}else{return FALSE;}
+		}
+		public function validation1(){
+			$this->form_validation->set_rules("txtblogName","Blog","required");
+			if($this->form_validation->run()==TRUE){
+				return TRUE;
+			}else{return FALSE;}
+		}
 		public function add()
 		{
 			if(isset($_POST['btnSubmit']))
-		{	
-			$this->bm->insert_blog();
-			redirect("admin/blogController");	
-		}else
-		{
-			$data['action'] = "admin/blogController/add";
-			$data['pageHeader'] = $this->pageHeader;
-			$data['ctrl'] = $this->createCtrl();
-			$data['cancel'] = "admin/blogController";
-			$data['multipart'] = true;
-			$this->load->view('template/header');
-			$this->load->view('template/left');
-			$this->load->view('admin/page_add',$data);
-			$this->load->view('template/footer');
-		}
+			{	if($this->validation()==TRUE){
+					$this->bm->insert_blog();
+					redirect("admin/blogController");	
+				}else{
+					$data['action'] = "admin/blogController/add";
+					$data['pageHeader'] = $this->pageHeader;
+					$data['ctrl'] = $this->createCtrl();
+					$data['cancel'] = "admin/blogController";
+					$data['multipart'] = true;
+					$this->load->view('template/header');
+					$this->load->view('template/left');
+					$this->load->view('admin/page_add',$data);
+					$this->load->view('template/footer');
+				}
+			}else
+			{
+				$data['action'] = "admin/blogController/add";
+				$data['pageHeader'] = $this->pageHeader;
+				$data['ctrl'] = $this->createCtrl();
+				$data['cancel'] = "admin/blogController";
+				$data['multipart'] = true;
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_add',$data);
+				$this->load->view('template/footer');
+			}
 		} 
 
 		# ===================== add brand =================
@@ -67,33 +90,40 @@
 
 		public function edit($id="")
 		{
+				$row= $this->bm->get_blog($id);
+				$data['ctrl'] = $this->editCtrl($id);
+				$data['action'] = '';
+				$data['pageHeader'] = $this->pageHeader;
+				$data['panelTitle'] = $this->panelTitle;
+				$data['cancel'] = $this->cancelString;
 			
+			if(isset($_POST['btnSubmit']))
+			{
+				if($this->validation1){
+					$this->bm->update_blog($id);
+					redirect('admin/blogController');
+				}else{
 					$row= $this->bm->get_blog($id);
 					$data['ctrl'] = $this->editCtrl($id);
-					
 					$data['action'] = '';
 					$data['pageHeader'] = $this->pageHeader;
 					$data['panelTitle'] = $this->panelTitle;
-					$data['cancel'] = $this->cancelString;
+					$data['cancel'] = $this->cancelString;	
+				}
 				
-				if(isset($_POST['btnSubmit']))
-				{
-					echo "<script>alert('');</script>;";
-					$this->bm->update_blog($id);
-					redirect('admin/blogController');
-					
-				}elseif (isset($_POST["btnCancel"])) 
-				{
-					redirect('admin/blogController');
-				}
-			
-				else
-				{
-					$this->load->view('template/header');
-					$this->load->view('template/left');
-					$this->load->view('admin/page_edit',$data);
-					$this->load->view('template/footer');
-				}
+				
+			}elseif (isset($_POST["btnCancel"])) 
+			{
+				redirect('admin/blogController');
+			}
+		
+			else
+			{
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/page_edit',$data);
+				$this->load->view('template/footer');
+			}
 		
 		}
 
@@ -124,7 +154,6 @@
 							"placeholder"	=>	"Enter Ad Name here...",
 							"value"	=>	set_value("txtAdName",$query->title),
 							"label"	=>	"Blog Name",
-							"required"	=> "required"
 						),
 					
 					array(
@@ -168,7 +197,6 @@
 							"class"	=>	"form-control",
 							"placeholder"	=>	"Enter Blog Name here...",
 							"label"	=>	"Blog Name",
-							"required"	=> "required"
 						),
 					
 					array(

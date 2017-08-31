@@ -12,23 +12,20 @@ class MemberLogin extends CI_Controller
 		$this->pageHeader='Member';		
 		$this->page_redirect="admin/memberLogin";							
 		$this->load->model("promotion_m", "pm");
-
+		$this->load->model("locationModel");
 		$this->load->model("memberLogin_model","ml");
 		$this->load->model("Wallet_m","wm");
 		$this->load->model("home_m","hm");
 		
 		$this->msg = "";
-		
 	}
 
 	public function index()
 	{
-
 		$validate = false;
 		$data["msg"] = $this->msg;
 		$this->form_validation->set_rules("txtUser","User","required");
 		$this->form_validation->set_rules("txtPass","Password","required|max_length[100]");
-
 		if(isset($_POST["btnLogin"])&&$this->form_validation->run()===true)
 		{
 			$email = $this->input->post("txtUser");
@@ -42,7 +39,6 @@ class MemberLogin extends CI_Controller
 			{
 				$data["template"]=$this->hm->get_template();
 				$data["account"] = $this->ml->get_account($this->session->memLogin);
-				
 				$data["member"] = $this->ml->get_member($this->session->memLogin);
 				$this->load->view("layout_site/header_top1", $data);
 				$this->load->view("layout_site/nav",$data);
@@ -88,7 +84,6 @@ class MemberLogin extends CI_Controller
 		{
 			$this->session->unset_userdata("promotion");
 			$this->session->acc_id = $acc_id;
-
 			$data["template"]=$this->hm->get_template();
 			$data["acc_id"] = $acc_id;
 			$mem_id = $this->ml->get_mem_id($acc_id);
@@ -107,6 +102,7 @@ class MemberLogin extends CI_Controller
 			$data["profile"] = $this->ml->get_account_validation($acc_id);
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
+			$data["location"] = $this->locationModel->get_location();
 			$data["error"]=$error;
 			$this->load->view("layout_site/header_top1",$data);
 			$this->load->view("layout_site/nav");
@@ -126,8 +122,32 @@ class MemberLogin extends CI_Controller
 		if($this->form_validation->run()==TRUE){
 			return true;
 		}else{return false;}
+	}	
+	public function pro_validation(){ 	
+		$this->form_validation->set_rules("txtName","Account Name","required");
+		$this->form_validation->set_rules("ddlGender","Gender","required");
+		$this->form_validation->set_rules("ddlLocation","location","required");
+		$this->form_validation->set_rules("txtContact","Conract-Us","trim|required|regex_match[/^[0-9\-\+]{9,15}+$/]");
+		if($this->form_validation->run()==TRUE){
+			return true;
+		}else{return false;}
 	}
 
+	public function edit_profile()
+	{
+		if($this->pro_validation()==TRUE)
+		{
+			$row=$this->ml->saveProfile();
+				if($row==TRUE){
+					$acc_id=$this->input->post("acc_id");
+			 		$this->profile($acc_id);
+				}
+		}else{
+			$acc_id=$this->input->post("acc_id");
+		 	$this->profile($acc_id);
+		}
+	
+	}
 	 public function change_password(){
 		 	if($this->validation()==TRUE){
 		 		if($this->input->post("Newpassword")==$this->input->post("ConPassword")){
@@ -146,6 +166,7 @@ class MemberLogin extends CI_Controller
 		 		$this->profile($acc_id);
 		 	}
 	}
+	
 	public function addInventory()
 	{
 		$data["itemCode"] = $this->ml->get_inventory_code();
@@ -229,48 +250,45 @@ class MemberLogin extends CI_Controller
 		$this->load->view('editAccount',$data);
 		$this->load->view('layout_site/footer');
 	}
-
-	public function addProduct()
-	{	
+	public function validation1(){
 		$this->form_validation->set_rules('txt_price','Input Your Price','required');
+		$this->form_validation->set_rules('type_pro_code','product_code alredy input','required|is_unique[tbl_product.p_code]');
 		$this->form_validation->set_rules('txt_product','Input Your Product Name','required');
 		$this->form_validation->set_rules('txt_category','Chose category','required');
 		$this->form_validation->set_rules('txt_brand','Chose Brand','required');
-		if($this->form_validation->run()==TRUE)
+		if($this->form_validation->run()==TRUE){
+			return TRUE;
+		}else{return FALSE;}
+	}
+	public function addProduct()
+	{	
+		if($this->validation1()==TRUE)
 		{  
-			if($this->input->post("type_pro_code")!=""){
-				if($this->ml->check_pr_code($this->input->post("type_pro_code"))==TRUE){
-					$this->ml->addProduct();
-					redirect('profile/'.$this->session->acc_id);
-				}
-				else{
-					$data["error"]="your product_code alredy input";
-					$data["template"]=$this->hm->get_template();
-					$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-					$data["brand"] = $this->ml->get_brand();
-					$data["store"]=$this->ml->val_store($this->session->acc_id);
-					$data["category"] = $this->ml->get_category();
-					$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-					$this->load->view('layout_site/header_top');
-					$this->load->view('layout_site/nav');
-					$this->load->view('addProduct', $data);
-					$this->load->view('layout_site/footer');
-				}
-			}else{
-				$this->ml->addProduct();
-				redirect('profile/'.$this->session->acc_id);
+			if($this->input->post("type_pro_code")!="")
+			{
+				$data["template"]=$this->hm->get_template();
+				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+				$data["brand"] = $this->ml->get_brand();
+				$data["store"]=$this->ml->val_store($this->session->acc_id);
+				$data["category"] = $this->ml->get_category();
+				$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav');
+				$this->load->view('addProduct', $data);
+				$this->load->view('layout_site/footer');
 			}
+		}else{
+			$data["template"]=$this->hm->get_template();
+			$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+			$data["brand"] = $this->ml->get_brand();
+			$data["store"]=$this->ml->val_store($this->session->acc_id);
+			$data["category"] = $this->ml->get_category();
+			$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/nav');
+			$this->load->view('addProduct', $data);
+			$this->load->view('layout_site/footer');
 		}
-		$data["template"]=$this->hm->get_template();
-		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-		$data["brand"] = $this->ml->get_brand();
-		$data["store"]=$this->ml->val_store($this->session->acc_id);
-		$data["category"] = $this->ml->get_category();
-		$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-		$this->load->view('layout_site/header_top');
-		$this->load->view('layout_site/nav');
-		$this->load->view('addProduct', $data);
-		$this->load->view('layout_site/footer');
 	}
 
 	public function editProduct($id)
@@ -279,7 +297,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_price','Input Your Price','required');
 		$this->form_validation->set_rules('txt_product','Input Your Product Name','required');
 		if($this->form_validation->run()==TRUE)
-		{
+		{	
 			$this->ml->updateProduct($id);
 		    redirect('profile/'.$this->session->acc_id);
 		}

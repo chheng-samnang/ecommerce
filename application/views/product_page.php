@@ -144,21 +144,20 @@
 			        <div class="item  col-xs-12 col-md-6 col-lg-3" ng-repeat="x in get_product | filter:searchBox ">
 			        	<a class="" href="<?php echo base_url('product/product_page_detail/'.'{{x.P_id}}')?>">
 				            <div class="thumbnail">
-				            	
 				            	<div class="item1">
-				                <img class="" style="height: 160px;" class="group list-group-image" title="{{x.P_name}}" src="<?php echo base_url('assets/uploads/{{x.Path}}');?>"/>
+				                	<img class="" style="height: 160px;" class="group list-group-image" title="{{x.P_name}}" src="<?php echo base_url('assets/uploads/{{x.Path}}');?>"/>
 				                </div>
 				                <div class="caption" style="border-top: 1px solid #f1f1f1;">
 				                	<p class="group inner list-group-item-heading product_name" style=" color: #006190;">{{x.P_name}}</p>
 				                    <div class="row">
 				                        <div class="col-xs-12 col-md-6">
-				                            <p class="lead">${{x.Price}}dfgdfg</p>
+				                            <p class="lead">${{x.Price}}</p>
 				                        </div>
-				                         <div class="col-xs-12 col-md-6">
+				                        <div class="col-xs-12 col-md-6">
 				                         	<del><p class="lead" style="color: red">{{x.Dis}}</p></del>
 				                         	<p></p>
 				                         	<p>{{x.Date_to}}</p>
-				                         </div>
+				                        </div>
 				                    </div><!-- class row -->
 				                </div><!-- class caption -->
 				            </div>
@@ -178,7 +177,7 @@
 	    	 	{
 	    		 	if($value->position=="right" and $value->page=="Products")
 	    		 	{
-	    	?>
+	    		?>
 				    	<a href="<?php echo $value->url?>" target="blnk" >
 					      	<img class="img-responsive" style="width: 195px; margin-bottom: 10px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
 					    </a>
@@ -213,7 +212,7 @@
     $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
 });
-</script>s
+</script>
 <script>
 	var app = angular.module('myApp',[]);
 	app.controller('myCtrl',function($scope,$http){

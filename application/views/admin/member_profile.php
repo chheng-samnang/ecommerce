@@ -17,11 +17,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <?php
 
-	$acc->acc_type=="Bussiness";
-	$acc->acc_type=="Agent";
-	$acc->acc_type=="Shop-owner";
-	$acc->acc_type=="General";
-	$acc->acc_type=="Association";
+	// $acc->acc_type=="Bussiness";
+	// $acc->acc_type=="Agent";
+	// $acc->acc_type=="Shop-owner";
+	// $acc->acc_type=="General";
+	// $acc->acc_type=="Association";
 
 		switch ($acc->acc_type)
 		{
@@ -30,14 +30,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products  = "display";
 				$fund      = "display";
 				$promotion = "display";
-				$order = "display";
-
+				$order2    = "display";
 				$service   = "none";
 				$Inventory = "none";
 				$members   = "none";
 				$account   = "none";
 			}
-				break;
+			break;
 
 			case "Agent":
 			{
@@ -48,8 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$promotion = "none";
 				$members   = "none";
 				$account   = "none";
+				$order2    = "none";
 			}
-				break;
+			break;
 
 			case "Shop-owner":
 			{
@@ -58,24 +58,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$fund      = "display";
 				$Inventory = "display";
 				$promotion = "display";
-				$order = "display";
+				$order2    = "display";
 				$members   = "none";
 				$account   = "none";
-
 			}
-				break;
+			break;
 
 			case "General":
 			{
-					$account   = "display";
-					$service   = "display";
-					$Inventory = "display";
-					$fund      = "display";
-					$products  = "none";
-					$promotion = "none";
-					$members   = "none";
+				$account   = "display";
+				$service   = "display";
+				$Inventory = "display";
+				$fund      = "display";
+				$products  = "none";
+				$promotion = "none";
+				$members   = "none";
+				$order2    = "none";
 			}
-				break;
+			break;
 
 			case "Association":
 			{
@@ -86,10 +86,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products  = "none";
 				$fund      = "none";
 				$account   = "none";
+				$order2    = "none";
 			}
-				break;
+			break;
 			default:
-				break;
+			break;
 		}
 ?>
 
@@ -97,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="row" style="margin-top:30px;" ng-app="myApp" ng-controller="myCtrl">
 		<div class="col-lg-10 col-lg-offset-1">
 			  <!-- Nav tabs -->
-			  <div class="row">
+			    <div class="row">
 					<div class="col-lg-12">
 					<?php
 						if(!empty($error) OR validation_errors())
@@ -107,12 +108,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Attention!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
+							<?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
 						</div>
 					<?php }?>
 					</div>
 				</div>
-			<ul class="nav nav-tabs" role="tablist">
+			<ul class="nav nav-tabs" role="tablist" style="margin-bottom:10px">
 			    <li role="presentation" class="active"><a href="#myAccount" aria-controls="home" role="tab" data-toggle="tab"><?php echo $this->lang->line('manage');?> <?php echo $this->lang->line('account');?></a></li>
 			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><?php echo $this->lang->line('profile')?></a></li>
 			    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"><?php echo $this->lang->line('trash')?></a></li>
@@ -493,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div><!-- row Promotion-->
 						</div><!-- Class Promotion -->
 
-						<div class="<?php echo $order?>">
+						<div class="<?php echo $order2?>">
 						
 						<div class="row">
 								<div class="col-lg-12">
@@ -545,41 +546,130 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-lg-7">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<?php 
+									<form action="<?php echo base_url()?>admin/memberlogin/edit_profile" method="post">
+										<?php 
 											$poto = $profile->acc_img;
-												if(empty($poto)) $poto = "default.png";
-											?>
-									<img src="<?php echo base_url()?>assets/uploads/<?php echo $poto?>" class="img-thumbnail" width="110" alt=""><br>
-									<h6>Code: <?php echo $profile->acc_code ?></h6>
-									<div class="form-group">
-											<label for="">Name</label>
-											<?php echo form_input("txtName",$profile->mem_name,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Gender</label>
-											<?php echo form_input("txtGender",$profile->sex,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Date of Birth</label>
-											<?php echo form_input("txtDob",$profile->dob,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Place of Birth</label>
-											<?php echo form_input("txtPob",$profile->pob,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Company Name</label>
-											<?php echo form_input("txtCompanyName",$profile->company,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Position</label>
-											<?php echo form_input("txtPosition",$profile->position,"class='form-control' readonly"); ?>
-									</div>
-									<div class="form-group">
-											<label for="">Contact Phone</label>
-											<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control' readonly"); ?>
-									</div>
-
+											if(empty($poto)) $poto = "default.png";
+										?>	
+										<div class="row">
+											<div class="col-lg-6">
+												<input type="hidden" value="<?php if(isset($profile->acc_img)){echo $profile->acc_img;}?>" name="oldImg">
+												<img src="<?php echo base_url()?>assets/uploads/<?php echo $poto?>" class="img-thumbnail" width="110" alt=""><br>
+												<h6>Code: <?php echo $profile->acc_code ?></h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+												<input type="hidden" value="<?php echo $profile->mem_id; ?>" name="mem_id">
+												<input type="hidden" value="<?php echo $acc_id; ?>" name="acc_id" id="acc_id">
+												<label for="">Name</label>
+												<?php echo form_input("txtName",$profile->mem_name,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Gender</label>
+													<select class="form-control input-sm" name="ddlGender"  id=ddlGender>
+														<option value="M" <?php echo $value->loc_id=="M"?"selected":""; ?> >Male</option>
+														<option value="F" <?php echo $value->loc_id=="F"?"selected":""; ?> >Female</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Company Name</label>
+													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6"> 
+												<div class="form-group">
+													<label for="">Date of Birth</label>
+													 <div class="input-group">
+													    <input id="txtDob" type="text" class="form-control datetimepicker input-sm" value="<?php echo $profile->dob; ?>" name="txtDob" placeholder="Email">
+													     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													  </div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+												<label for="">Place of Birth</label>
+												<?php echo form_input("txtPob",$profile->pob,"class='form-control input-sm'"); ?>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Position</label>
+													<?php echo form_input("txtPosition",$profile->position,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Location</label>
+													<select class="form-control input-sm" name="ddlLocation" id="ddlLocation">
+														<?php
+															foreach ($location as $value){
+														?>
+														<option value="<?php echo $value->loc_id;?>" <?php echo $value->loc_id==$profile->loc_id?"selected":""; ?> > <?php echo $value->loc_name;?></option>
+														<?php }?>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<label for="">Status</label>
+												<input type="text" name="txtStatus" class="form-control input-sm" value="<?php echo $profile->status=="1"?"Enable":"Disable";?>" readonly="">
+											</div>
+											<div class="col-lg-6">
+												<label for="">Account Type</label>
+												<input type="text" class="form-control input-sm" value="<?php echo $profile->acc_type ?>" name="txtAccType" readonly="">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Contact Phone</label>
+													<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group"><br />
+													<button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="pull-right">
+												<button id="btnSaveProfile" type="submit" class="btn btn-success btn-sm">Update</button>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+														   <div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title" id="myModalLabel">Browse Image</h4>
+														   </div>
+														   <div class="modal-body">
+																<input	type="file" name="txtUpload" />
+																<input type="hidden" id="txtImgName" name="txtImgName" />
+																<div id="response" style="margin-top:10px;color:green;font-weight:bold;"></div>
+														   </div>
+														   <div class="modal-footer">
+																<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary btn-sm" onclick="uploadFile()">Upload</button>
+														   </div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -605,25 +695,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</thead>
 												<tbody>
 													<?php
-													 foreach ($order1 as $key => $value) {
-													 	if($value->ord_status=="trash"){
-													 	?>
-													<tr>	
-														<td><?php echo $key+1 ?></td>
-														<td><?php echo $value->ord_code ?></td>
-														<td><?php echo $value->ord_date ?></td>
-														<td><?php echo $value->mem_name ?></td>
-														<td><?php echo $value->ord_status ?></td>
-														<td>
-															<a href="<?php echo base_url()?>admin/memberlogin/untrash_order/<?php echo $value->ord_code?>" class="btn btn-danger btn-sm"><?php echo $this->lang->line('untrash')?></a>
-														</td>
+														
+															 foreach ($order1 as $key => $value) {
+															 	if($value->ord_status=="trash" && $acc->acc_type!="Agent" ){
+															 	?>
+															<tr>	
+																<td><?php echo $key+1 ?></td>
+																<td><?php echo $value->ord_code ;?></td>
+																<td><?php echo $value->ord_date ?></td>
+																<td><?php echo $value->mem_name ?></td>
+																<td><?php echo $value->ord_status ?></td>
+																<td>
+																	<a href="<?php echo base_url()?>admin/memberlogin/untrash_order/<?php echo $value->ord_code?>" class="btn btn-danger btn-sm"><?php echo $this->lang->line('untrash')?></a>
+																</td>
 													</tr>
 													<?php }} ?>
 												</tbody>
 											</table>
 										</div>
-									
-						</div><!-- row Promotion-->
+									</div><!-- row Promotion-->
 								</div>
 							</div>
 						</div>
@@ -670,42 +760,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- end setting -->
+				</div><!-- end setting -->
 		    </div><!-- tab-content -->
 		</div><!-- col-lg-10 col-lg-offset-1-->
-<!-- Modal -->
-		<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line('update')?> <?php echo $this->lang->line('status')?></h4>
-		      </div>
-		      <div class="modal-body">
-						<div class="form-group">
-							<label>Status</label>
-							<select class="form-control" ng-model="ddlStatus" ng-change="get_ddl(ddlStatus)">
-								<option value="pending">Pending</option>
-								<option value="delivering">Delivering</option>
-								<option value="complete">Complete</option>
-							</select>
-						</div>
-
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" ng-click="updateStatus(ord_id,ord_status)"><?php echo $this->lang->line('update')?></button>
-		      </div>
-		    </div>
-		  </div>
-		</div> -->
-
-	</div><!-- row-->
-
-
-
-
+<script>
+	function uploadFile() {
+		var formData = new FormData();
+		formData.append('image', $('input[type=file]')[0].files[0]); 
+		$.ajax({
+			url: '<?php echo base_url()?>ng/upload.php',
+			data: formData,
+			type: 'POST',
+			// THIS MUST BE DONE FOR FILE UPLOADING
+			contentType: false,
+			processData: false,
+			// ... Other options like success and etc
+			
+			success: function(data) {
+				document.getElementById("response").innerText = "Upload Complete!"; 
+				document.getElementById("txtImgName").value = data;
+			}			
+		});
+		
+	}
+</script>
 <script>
 	$(document).ready(function(){
 
@@ -762,7 +840,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    });
 
 	});
-
 	/*tooltip*/
 	$(document).ready(function(){
 
@@ -823,6 +900,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$("#btnAddMember").click(function(){
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/addMember");
 	});
+/*	$("#btnSaveProfile").click(function(){
+		window.location.assign("<?php echo base_url()?>admin/memberlogin/edit_profile")
+	});*/
+	
 </script>
 
 <script type="text/javascript">

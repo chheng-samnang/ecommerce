@@ -121,23 +121,26 @@ class InventoryModel extends CI_Model
 						"p_status"	=>	$this->input->post("ddlStatus"),
 						"user_crea"	=>	$this->session->memLogin,
 						"date_crea"	=>	date("Y-m-d")
-
 			);
 
 		$query=$this->db->insert("tbl_product",$data);
-		if($query==TRUE){return TRUE;}
+		if($query==TRUE){
 
-		if($img!="")
-		{			
-		    $id = $this->get_inventory_id($this->input->post("txtInvCode"));
-			$data = array(
-							'p_id'	=>	$id,
-							'path'	=>	$img,
-							'media_type'	=>	'inventory',
-							'user_crea'	=>	$this->session->memLogin,
-							'date_crea'	=>	date("Y-m-d")
-			);
-			$this->db->insert("tbl_media",$data);
+			if($img!="")
+			{			
+			    $id = $this->get_inventory_id($this->input->post("txtInvCode"));
+				$data = array(
+								'p_id'	=>	$id,
+								'path'	=>	$img,
+								'media_type'	=>	'inventory',
+								'user_crea'	=>	$this->session->memLogin,
+								'date_crea'	=>	date("Y-m-d")
+				);
+				$this->db->insert("tbl_media",$data);
+				if($query==TRUE){
+					return TRUE;
+				}
+			}
 		}
 	}
 
