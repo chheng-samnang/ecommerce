@@ -18,13 +18,12 @@ class StockModel extends CI_Model
 		if($id=="")
 		{
 			$query = $this->db->query("SELECT s.p_id,p_name,qty,stk_type,stk_desc,s.user_crea,s.date_crea FROM tbl_stock s INNER JOIN tbl_product p ON s.p_id=p.p_id ORDER BY stk_id DESC");
-			
 			if($query->num_rows()>0)
 			{
 				return $query->result();
 			}
 		}else
-		{
+		{	
 			$query = $this->db->query("SELECT s.p_id,p_name,qty,stk_type,stk_desc,s.user_crea,s.date_crea FROM tbl_stock s INNER JOIN tbl_product p ON s.p_id=p.p_id where s.p_id=$id and s.str_id='$this->str_id'");
 			if($query->num_rows()>0)
 			{

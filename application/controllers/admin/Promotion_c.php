@@ -20,27 +20,25 @@ class Promotion_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->lang->line('promotion');		
 		$data["action_url"]=array(0=>"{$this->page_redirect}/add",/*1=>"{$this->page_redirect}/edit",*/2=>"{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array("Product name","Category","Image","Promotion type","Promotion name","Date from","Date to");		
+		$data["tbl_hdr"]=array($this->lang->line("product_name"),$this->lang->line("category"),$this->lang->line("image"),$this->lang->line("promotion_type"),$this->lang->line("product_name"),$this->lang->line("date_from"),$this->lang->line("date_to"));	
 		$row=$this->promotion_m->index();		
 		$i=0;
 		if($row==TRUE)
 		{
 			foreach($row as $value):
-
 			$poto = $value->path; if(empty($poto)) $poto = "default.png";
 			$data["tbl_body"][$i]=array(
 										"<a href=".base_url($this->page_redirect.'/pro_detail/'.$value->pro_det_id)." title='Promotion Detail'>".$value->p_name."</a>",
 										$value->cat_name,																				
 										"<img class='img-thumbnail' src='".base_url("assets/uploads/".$poto)."' style='width:70px;' />",
-										$value->pro_type=='d' ? 'Discount' : ($value->pro_type=='a' ? 'Add product' : 'kupun'),																														
+										$value->pro_type=='d' ?$this->lang->line("discount"): ($value->pro_type=='a' ? $this->lang->line("add_product") : 'kupun'),			
 										$value->pro_name!=NULL ? $value->pro_name : $value->occ_name,																				
 										date("d-m-Y",strtotime($value->date_from)),
 										date("d-m-Y",strtotime($value->date_to)),										
 										$value->pro_det_id
-									
 									);
 			$i=$i+1;
-		endforeach;
+			endforeach;
 		}											
 		$this->load->view('admin/page_view', $data);
 		$this->load->view('template/footer');
@@ -64,14 +62,14 @@ class Promotion_c extends CI_Controller
 		$data['action'] = "{$this->page_redirect}/add_promotion";			
 		$data['pageHeader'] = $this->lang->line('promotion');		
 		$data['cancel'] = $this->page_redirect;				 		
-		$promotion1=array(																	
+		$promotion1=array(													
 							$this->input->post("txtFrom"),
 							$this->input->post("txtTo"),
 							$this->input->post("ddlCategory"),
 							$this->input->post("ddlOcc"),
 							$this->input->post("txtProName"),
 							$this->input->post("ddlType"),
-							$this->input->post("ddlStore")								
+							$this->input->post("ddlStore")					
 						);
 		$this->session->set_userdata("promotion",$promotion1);		
 		if($this->input->post("ddlType")=="d")
@@ -80,7 +78,6 @@ class Promotion_c extends CI_Controller
 			$this->load->view('admin/promotion_discount',$data);
 			$this->load->view('template/footer');
 		}
-		
 		elseif($this->input->post("ddlType")=="a")
 		{
 			$this->load->view('template/header');
@@ -104,6 +101,7 @@ class Promotion_c extends CI_Controller
 		}
 		else{return FALSE;}
 	}
+
 	public function pro_detail($id="")
 	{
 		$data["detail"]=$this->promotion_m->index($id);		

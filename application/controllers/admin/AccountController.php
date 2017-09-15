@@ -134,7 +134,7 @@ class AccountController extends CI_Controller
 
 		foreach ($query as $key => $value) {
 			$option1[0] = $this->lang->line("choose_one");
-			$option1[$value->mem_id] = $value->mem_name;
+			$mem_name= $value->mem_name;
 		}
 		$location = $this->lm->get_location();
 		
@@ -197,7 +197,7 @@ class AccountController extends CI_Controller
 								'type'	=>	'text',
 								'name'	=>	'txtDob',
 								'id'	=>	'txtDob',
-								'placeholder'=>$this->lang->line("con​firm").$this->lang->line("password")."....",
+								'placeholder'=>$this->lang->line("date")."....",
 								'class'	=>	'form-control datetimepicker',
 								'label'	=>	$this->lang->line("dateOfBirth"),
 								'value'	=>	set_value('txtDob',''),

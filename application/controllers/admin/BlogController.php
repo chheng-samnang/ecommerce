@@ -5,22 +5,20 @@
 		public function __construct()
 		{
 			parent::__construct();
-
-			$this->pageHeader='Blog';
-			$this->panelTitle='Blog';
+			$this->pageHeader=$this->lang->line("blog");
+			$this->panelTitle=$this->lang->line("blog");
 			$this->cancelString = 'blog';
 			$this->load->model('Blog_m','bm');
 		}
 
 		public function index($bl_id="")
 		{
-			
 			$this->load->view('template/header');
 			$this->load->view('template/left');
 			$page="admin/blogController";
 			$data['pageHeader'] = $this->pageHeader;					
 			$data["action_url"]=array("{$page}/add","{$page}/edit","{$page}/delete"/*,"{$page}/change_password"*/);
-			$data["tbl_hdr"]=array("Blog name","Images","Description","User create","Date create",);		
+			$data["tbl_hdr"]=array($this->lang->line("blog_name"),$this->lang->line("image"),$this->lang->line("image"),$this->lang->line("user_create"),$this->lang->line("date_create"));		
 			$row=$this->bm->index($bl_id);		
 			$i=0;		
 			foreach($row as $value):
@@ -196,7 +194,7 @@
 							"id"	=>	"txtblogName",
 							"class"	=>	"form-control",
 							"placeholder"	=>	"Enter Blog Name here...",
-							"label"	=>	"Blog Name",
+							"label"	=>	$this->lang->line("blog_name"),
 						),
 					
 					array(
@@ -205,7 +203,7 @@
 							'id'	=>	'ddlstatus',
 							'option'=>	$pos,
 							'class'	=>	'class="form-control"',
-							'label'	=>	'Status'
+							'label'	=>	$this->lang->line("status")
 						),
 					
 					array(
@@ -213,7 +211,7 @@
 								'name'	=>	'txtUpload',
 								'id'	=>	'txtUpload',
 								'img'	=>	'',
-								'label'	=>	'Image',
+								'label'	=>	$this->lang->Line("image"),
 								// "img"=>$row==""? set_value("txtUpload") :"<img class='img-thumbnail' src='".base_url("assets/uploads/".$row1)."' style='width:70px;' />",	
 						),
 					array(
@@ -221,7 +219,7 @@
 								'name'	=>	'txtDesc',
 								'id'	=>	'txtDesc',
 								'class'	=>	'form-control',
-								'label'	=>	'Description'
+								'label'	=>	$this->lang->line("descr")
 						)
 				);
 		return $ctrl;

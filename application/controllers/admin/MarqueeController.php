@@ -23,7 +23,7 @@ class marqueeController extends CI_Controller
 	{
 		$data['pageHeader'] = $this->lang->line('marquee');
 		
-		$data['tbl_hdr'] = array('Description');
+		$data['tbl_hdr'] = array($this->lang->line("descr"));
 		$i = 0;
 		$row = $this->am->get_marquee();
 
@@ -59,7 +59,7 @@ class marqueeController extends CI_Controller
 								"name"			=>	"txtDesc",
 								"id"			=>	"txtDesc",
 								"class"			=> 	"form-control",
-								"label"			=> 	"Description",
+								"label"			=> 	$this->lang->lang->line("descr"),
 							)
 			);
 		return $ctrl;
@@ -76,7 +76,7 @@ class marqueeController extends CI_Controller
 								"id"			=>	"txtDesc",
 								"value"			=>	$query->key_data1,
 								"class"			=> 	"form-control",
-								"label"			=> 	"Description"
+								"label"			=> 	$this->lang->line("descr")
 							)
 			);
 		return $ctrl;

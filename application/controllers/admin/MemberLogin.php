@@ -16,7 +16,6 @@ class MemberLogin extends CI_Controller
 		$this->load->model("memberLogin_model","ml");
 		$this->load->model("Wallet_m","wm");
 		$this->load->model("home_m","hm");
-		
 		$this->msg = "";
 	}
 
@@ -75,7 +74,6 @@ class MemberLogin extends CI_Controller
 			
 				$this->load->view('chage_password',$data);
 				$this->load->view('layout_site/footer');
-			
 	}
 
 	public function profile($acc_id="",$error="")
@@ -87,7 +85,6 @@ class MemberLogin extends CI_Controller
 			$data["template"]=$this->hm->get_template();
 			$data["acc_id"] = $acc_id;
 			$mem_id = $this->ml->get_mem_id($acc_id);
-
 			$data["services"] = $this->ml->get_service($this->session->acc_id);
 			$data["account"] = $this->ml->get_account($this->session->memLogin);
 			$data["active_account"]=$this->ml->get_active_account($this->session->acc_id);
@@ -95,6 +92,7 @@ class MemberLogin extends CI_Controller
 			$data["wallet_transaction"]=$this->ml->select_wallet_transaction($this->session->acc_id);
 			$data["acc"]=$this->ml->get_account_validation($this->session->acc_id);
 			$data["product"] = $this->ml->get_product($this->session->acc_id);
+			//$data["product1"] = $this->ml->get_product1($this->session->acc_id);
 			$data["shop"]=$this->ml->selectshop($acc_id);
 			$data["member"] = $this->ml->get_member($this->session->memLogin);
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
@@ -266,16 +264,10 @@ class MemberLogin extends CI_Controller
 		{  
 			if($this->input->post("type_pro_code")!="")
 			{
-				$data["template"]=$this->hm->get_template();
-				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-				$data["brand"] = $this->ml->get_brand();
-				$data["store"]=$this->ml->val_store($this->session->acc_id);
-				$data["category"] = $this->ml->get_category();
-				$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-				$this->load->view('layout_site/header_top');
-				$this->load->view('layout_site/nav');
-				$this->load->view('addProduct', $data);
-				$this->load->view('layout_site/footer');
+				$row=$this->ml->addProduct();	
+				if($row==TRUE){
+					redirect("admin/memberLogin");
+				}
 			}
 		}else{
 			$data["template"]=$this->hm->get_template();
@@ -290,6 +282,19 @@ class MemberLogin extends CI_Controller
 			$this->load->view('layout_site/footer');
 		}
 	}
+	public function addProduct1(){
+			$data["template"]=$this->hm->get_template();
+			$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+			$data["brand"] = $this->ml->get_brand();
+			$data["supplyer"] = $this->ml->get_supplyer();
+			$data["store"]=$this->ml->val_store($this->session->acc_id);
+			$data["category"] = $this->ml->get_category();
+			$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/nav');
+			$this->load->view('addProduct1', $data);
+			$this->load->view('layout_site/footer');
+	} /*========-------shop owner addProduct*/
 
 	public function editProduct($id)
 	{

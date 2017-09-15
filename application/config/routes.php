@@ -111,6 +111,7 @@ $route['memberLogin'] = 'admin/memberLogin';
 $route['memberLogout'] = 'admin/memberLogout';
 $route['memberLogin/addAccount'] = 'admin/memberLogin/addAccount';
 $route['memberLogin/addProduct'] = 'admin/memberLogin/addProduct';
+$route['memberLogin/addProduct1'] = 'admin/memberLogin/addProduct1';
 $route["promotion"] = 'admin/memberlogin/add_promotion';
 $route["Cancel"] = 'admin/MemberLogin/Cancel';
 $route['profile/(:num)'] = 'admin/memberLogin/profile/$1';
@@ -122,7 +123,6 @@ $route['inventory/edit/(:num)'] = 'admin/inventoryController/editInventory/$1';
 $route['inventory/delete/(:num)'] = 'admin/inventoryController/deleteInventory/$1';
 $route['profile/view/(:any)'] = 'admin/memberLogin/view_order_detail/$1';
 $route['contact'] = 'Home/contact';
-
 $route['about'] = 'Home/about';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

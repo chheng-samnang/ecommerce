@@ -50,36 +50,42 @@
 						return $result->result_array(); 	
 		 			}
 		public function user_create()
-					{
-		 			    $userLogin = isset($this->session->userLogin)?$this->session->userLogin:"N/A";
-		 				    $data = array(
-		 						'user_code'=>$this->input->post('txtUserCode'),
-		 						'user_name'=>$this->input->post('txtUsername'),
-		 						'user_pass'=>do_hash($this->input->post('txtPassword')),
-		 						'user_desc'=>$this->input->post('txtDesc'),
-		 						'user_type'=>$this->input->post('txtUsertype'),
-		 						'user_status'=>$this->input->post('ddlStatus'),
-		 						'user_crea'=>$userLogin,
-		 						'date_crea'=>date('Y-m-d')
-		 					);
-		 				    if($data!==""){
-		 				    	$this->db->insert('tbl_user',$data);
-		 				    }
-					}
+		{
+		    $userLogin = isset($this->session->userLogin)?$this->session->userLogin:"N/A";
+			    $data = array(
+					'user_code'=>$this->input->post('txtUserCode'),
+					'user_name'=>$this->input->post('txtUsername'),
+					'user_pass'=>do_hash($this->input->post('txtPassword')),
+					'user_desc'=>$this->input->post('txtDesc'),
+					'user_type'=>$this->input->post('txtUsertype'),
+					'user_status'=>$this->input->post('ddlStatus'),
+					'user_crea'=>$userLogin,
+					'date_crea'=>date('Y-m-d')
+				);
+			    if($data!==""){
+			    	$this->db->insert('tbl_user',$data);
+			    }
+		}
 	    public function delete($user_id){
 						$this->db->where('user_id',$user_id);
 						$result = $this->db->delete('tbl_user');
 						
 	    }
 				 //create new user.............
-		public function updatePassword($id)
-            {
-               if($id!==""){
-				   if($this->input->post('txtNewPassword')==$this->input->post('txtConfirm')){
-					$this->db->where('user_id',$id);
-					$data = array('user_pass'=>do_hash($this->input->post('txtNewPassword')));
-					$this->db->update('tbl_user',$data);
-				   }
+		public function check_passwd($id="",$user_passwd=""){
+				echo $passwd=do_hash($user_passwd);
+			$query = $this->db->query("SELECT user_id FROM tbl_user WHERE user_id='$id' AND user_pass='$passwd'");
+			if($query->num_rows()>0){
+			return TRUE;
+			}
+		}
+		public function updatePassword($id=""){
+			$id=$this->input->post("acc_id");
+           if($id!==""){
+           		$this->db->where('user_id',$id);
+				$data = array('user_pass'=>do_hash($this->input->post('txtNewPassword')));
+				$query=$this->db->update('tbl_user',$data);
+				if($query==TRUE){return TRUE;}
             }
 		}
 		public function user_edit($user_id)

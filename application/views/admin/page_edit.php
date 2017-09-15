@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
-							<strong>Attention!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
+							<strong><?php echo $this->lang->line("attention"); ?>!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
 						</div>
 					<?php }?>
 					</div>

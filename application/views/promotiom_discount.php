@@ -51,13 +51,13 @@ $str_id=$this->session->userdata["promotion"][6];
                           <div class="col-lg-4">
                             <div class="checkbox">
                               <label>
-                                <input type="checkbox" ng-model="check_all" ng-click="check_all1()" ng-disabled="enable"> Selecte promotion all.
+                                <input type="checkbox" ng-model="check_all" ng-click="check_all1()" ng-disabled="enable"> <?php //echo $this->lang->line("select_all_pro"); ?>
                               </label>
                             </div>
                           </div>
                          <!--==end check all product -->
                           <div class="col-lg-4">
-                            <span class="pull-right" style="color:red; margin-top:6px;" ng-show="error">Please enter percent just number only!</span>                        
+                            <span class="pull-right" style="color:red; margin-top:6px;" ng-show="error"><?php //echo $this->lang->line("ensert_only_num"); ?>!</span>                        
                           </div>
                           <div class="col-lg-4">
                             <div class='input-group'>

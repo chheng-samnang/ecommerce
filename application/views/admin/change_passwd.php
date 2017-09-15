@@ -14,6 +14,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="panel-body">
 						<div class="row">
+							<div class="col-lg-12">
+							<?php
+								if(!empty($error) OR validation_errors())
+								{
+							?>
+								<div class="alert alert-danger" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									  <span aria-hidden="true">&times;</span>
+									</button>
+									<strong>Attention!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
+								</div>
+							<?php }?>
+							</div>
+						</div>
+						<div class="row">
 						<?php
 							foreach ($ctrl as $row) {
 								if(!isset($row[0]['type']))
@@ -91,7 +106,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										echo "<div class='form-group'>";
 										foreach ($row as $value) 
 										{
-											
 											echo "<label>".$value['label']."</label>";
 											echo form_radio($value);
 										}
@@ -106,8 +120,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<hr />
 						<div class="row">
 							<div class="col-lg-12">
-								<?php echo form_submit('btnSubmit','Update','class="btn btn-success"');?>
-								<?php echo form_button('btnCancel','Cancel','id="btnCancel" class="btn btn-default"');?>
+								<?php echo form_submit('btnSubmit',$this->lang->line("update"),'class="btn btn-success"');?>
+								<?php echo form_button('btnCancel',$this->lang->line("cancel"),'id="btnCancel" class="btn btn-default"');?>
 							</div>
 						</div>
 					</div>
@@ -117,8 +131,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
-
-
 <script>
 	$("#btnCancel").click(function(){
     	window.location.assign('<?php echo $cancel?>');

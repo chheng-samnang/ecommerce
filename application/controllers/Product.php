@@ -181,8 +181,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			{
 				$this->pm->register_member();
 				$mem_id = $this->pm->get_member_id($this->input->post("txtEmail"));
-				if(!empty($mem_id))
-				{
+				if(!empty($mem_id)){
 					redirect("Product");
 				}
 			}

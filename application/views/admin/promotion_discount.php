@@ -44,7 +44,7 @@ $str_id=$this->session->userdata["promotion"][6];
                                                 <td>
                                                   <img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="height:80px;">
                                                 </td>
-                                                <td><div style="font-size:10.5px;">Name:{{x.P_name}}</div></td>
+                                                <td><div style="font-size:10.5px;"><?php echo $this->lang->line("name"); ?>:{{x.P_name}}</div></td>
                                               </tr>
                                             </table>
                                         </div>
@@ -59,17 +59,17 @@ $str_id=$this->session->userdata["promotion"][6];
                          <div class="col-lg-4">
                             <div class="checkbox">
                               <label>
-                                <input type="checkbox" ng-model="check_all" ng-click="check_all1()" ng-disabled="enable"> Selecte promotion all.
+                                <input type="checkbox" ng-model="check_all" ng-click="check_all1()" ng-disabled="enable"> <?php echo $this->lang->line("select_all_pro"); ?>.
                               </label>
                             </div>
                          </div>
                          <!--==end check all product -->
                           <div class="col-lg-4">
-                            <span class="pull-right" style="color:red; margin-top:6px;" ng-show="error">Please enter percent just number only!</span>                        
+                            <span class="pull-right" style="color:red; margin-top:6px;" ng-show="error"><?php echo $this->lang->line("ensert_only_num"); ?>!</span>                        
                           </div>
                           <div class="col-lg-4">
                             <div class='input-group'>
-                                 <?php echo form_input("txtPercent",set_value("txtPercent"),array("class"=>"form-control","placeholder"=>"Enter percent","ng-model"=>"percent","id"=>"set_focus"));?>                                          
+                                 <?php echo form_input("txtPercent",set_value("txtPercent"),array("class"=>"form-control","ng-model"=>"percent","id"=>"set_focus"));?>                                          
                                 <span class="input-group-addon">%</span>                                
                             </div>
                           </div> 
@@ -97,8 +97,8 @@ $str_id=$this->session->userdata["promotion"][6];
                                                       <img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>"  style="height:80px;"> 
                                                     </td>
                                                     <td>
-                                                      <span class="pull-left" style="font-size:10.5px">Name:{{x[1]}}</span>
-                                                      <span style="color:red; font-size:10.5px">Discount:{{x[3]}}%</span>
+                                                      <span class="pull-left" style="font-size:10.5px"><?php echo $this->lang->line("name"); ?>:{{x[1]}}</span>
+                                                      <span style="color:red; font-size:10.5px"><?php $this->lang->line("descount"); ?>:{{x[3]}}%</span>
                                                     </td>
                                                   </tr>
                                                 </table>
@@ -108,7 +108,7 @@ $str_id=$this->session->userdata["promotion"][6];
                                         </div>
                                       </div>
                                   </div>  
-                                </div>
+                                </div>  
                             </div>
                             <div class="row">                             
                               <div class="col-lg-12">

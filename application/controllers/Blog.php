@@ -55,23 +55,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 		}
 
-		// public function comment()
-		// {
-		// 	$this->form_validation->set_rules('title', 'Input Your comment', 'required');
-		// 	if($this->form_validation->run()==TRUE)
-		// 	{
-		// 		$this->bm->comment();
-		// 		redirect("blog_detail/".$bl_id);
-		// 	}
-		// 		$data["blog_comment"]=$this->bm->blog_comment($bl_id);
-		// 		$data['de_blog']=$this->bm->blog_detail($bl_id);
-		// 		$data['popular_blog']=$this->bm->popular_blog();
-				
-		// 		$this->load->view('layout_site/style');
-		// 		$this->load->view('blog_detail', $data);
-		// 		$this->load->view('layout_site/footer1');
-		// }
-
 		#================== blog detail =========================
 
 	}

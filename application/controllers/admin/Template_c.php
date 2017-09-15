@@ -17,14 +17,14 @@ class Template_c extends CI_Controller
 		$this->page_redirect = "template";
 		$this->action="template";
 		$this->pageHeader="Template";
-		$this->cancel = "template";
+		$this->cancel ="admin/Template_c";
 	}
 
 	public function index()
 	{
 		$data['pageHeader'] = $this->pageHeader;
 		
-		$data['tbl_hdr'] = array('Template Type','Image','Status');
+		$data['tbl_hdr'] = array($this->lang->line("template_type"),$this->lang->line("image"),$this->lang->line("status"));
 		$i = 0;
 		$row = $this->tm->select_template();
 
@@ -37,10 +37,8 @@ class Template_c extends CI_Controller
 				$data['tbl_body'][$i] = array(
 												$value->key_type,
 												"<img class='img-thumbnail' src='".base_url("assets/uploads/".$poto)."' style='width:70px;' />",	
-												$value->key_data==1?"<p style='color: blue;'>Enable</p>" : "<p style='color:red;'>Disable</p>",						
+												$value->key_data==1?"<p style='color: blue;'>".$this->lang->line("enable")."</p>" : "<p style='color:red;'>".$this->lang->line("disable")."</p>",						
 												$value->key_id
-												
-																						
 											);
 				$i++;
 			}
@@ -75,7 +73,7 @@ class Template_c extends CI_Controller
 		}
 		else
 		{
-			$option = array('1'=>'Enable','0'=>'Disable');
+			$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 			$data['action'] = "template/add";
 			$data['pageHeader'] = $this->pageHeader;
 			$data['ctrl'] = $this->createCtrl($row="",$option);
@@ -106,7 +104,7 @@ class Template_c extends CI_Controller
 			else
 			{
 				$row=$this->tm->select_template($id);
-				$option = array('1'=>'Enable','0'=>'Disable');
+				$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 				$data['action'] = "template/edit/".$id;
 				$data['pageHeader'] = $this->pageHeader;
 				$data['ctrl'] = $this->createCtrl($row,$option);
@@ -149,7 +147,7 @@ class Template_c extends CI_Controller
 								'option'=>$option,
 								'selected'=>$row==""? NULL : $row2,
 								'class'=>'class="form-control"',
-								'label'=>'Status'
+								'label'=>$this->lang->line("status")
 							),
 						array(
 								'type'=>'upload',
@@ -157,7 +155,7 @@ class Template_c extends CI_Controller
 								'id'=>'txtUpload',
 								'value'=>$row==""? set_value("txtUpload") : $row1,																		
 								'class'=>'form-control',
-								'label'=>'Template Image',
+								'label'=>$this->lang->line("image"),
 								"img"=>$row==""? set_value("txtUpload") :"<img class='img-thumbnail' src='".base_url("assets/uploads/".$row1)."' style='width:70px;' />",					
 								
 							)

@@ -49,8 +49,8 @@ class Member_c extends CI_Controller
 		if($this->form_validation->run()==TRUE){return TRUE;}
 		else{return FALSE;}
 	}
-	public function add()
-	{
+	public function add($error="")
+	{	$data["error"]=$error;
 		$option = array('1'=>'Enable','0'=>'Disable');
 		$data['ctrl'] = $this->createCtrl($row="",$option);
 		$data['action'] = "{$this->page_redirect}/add_value";
@@ -60,21 +60,22 @@ class Member_c extends CI_Controller
 		$this->load->view('template/left');
 		$this->load->view('admin/page_add',$data);
 		$this->load->view('template/footer');
-
 	}
+
 	public function add_value()
 	{
 		if(isset($_POST["btnSubmit"]))
 		{
-
 			if($this->validation()==TRUE)
-				{
+			{
+				if($this->input->post("txtPassword")==$this->input->post("txtConPassword")){
 					$row=$this->member_m->add();
 	                if($row==TRUE)
 	                {
-						redirect("{$this->page_redirect}/");
+					    redirect("{$this->page_redirect}/");
 	                }
-				}
+				}else{$this->add("password must by the same confirm password..!");}
+			}
 			else{$this->add();}
 		}
 		if(isset($_POST["btnCancel"]))
@@ -98,7 +99,6 @@ class Member_c extends CI_Controller
 				$this->load->view('template/left');
 				$this->load->view("admin/page_edit",$data);
 				$this->load->view('template/footer');
-
 			}
 		}
 		else{return FALSE;}
@@ -168,10 +168,10 @@ class Member_c extends CI_Controller
 									'name'=>'txtMemberName',
 									'id'=>'txtMemberName',
 									'value'=>$row==""? set_value("txtMemberName") : $row2,
-									'placeholder'=>$this->lang->line("name").$this->lang->line("member")."......",
+									'placeholder'=>$this->lang->line("member_name"),
 									'required'=>'required',
 									'class'=>'form-control',
-									'label'=>$this->lang->line("name").$this->lang->line("member"),
+									'label'=>$this->lang->line("member_name"),
 								),
 							array(
 								'type'=>'text',
@@ -219,6 +219,18 @@ class Member_c extends CI_Controller
 									'selected'=>$row==""? NULL : $row10,
 									'class'=>'class="form-control"',
 									'label'=>$this->lang->line("status"),
+								),
+							array(
+									'type'=>'password',
+									'name'=>'txtPassword',
+									'class'=>'form-control',
+									'label'=>$this->lang->line("password"),
+								),
+							array(
+									'type'=>'password',
+									'name'=>'txtConPassword',
+									'class'=>'form-control',
+									'label'=>$this->lang->line("con​firm"),
 								),
 							array(
 									'type'=>'textarea',

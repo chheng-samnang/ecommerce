@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$choose=$this->lang->line("choose_one");
 ?>
 </nav>
 <div ng-app="myApp" ng-controller="myCtrl" ng-cloak>
@@ -7,31 +8,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="col-lg-10 col-lg-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Order Listing</h3>
+					<h3 class="panel-title"><?php echo $this->lang->line("order_lish"); ?></h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-3">
-							  <label class="control-label">Member name</label>
+							  <label class="control-label"><?php echo $this->lang->line("member_name"); ?></label>
 							<select class="form-control" id="mem_id" ng-model="mem_id">
-								<option value="">Choose one</option>
+								<option value=""><?php echo $choose; ?></option>
 								<?php foreach($member as $mem){?>
 									<option value="<?php echo $mem->mem_id;?>"><?php echo $mem->mem_name;?></option>
 								<?php }?>
 							</select>
 						</div>
 						<div class="col-lg-3">
-							<label class="control-label">Order Status</label>
-							<select class="form-control" id="ord_status" ng-model="ord_status">
-								<option value="0">Choose one</option>
-								<option value="all">All</option>
+							<label class="control-label"><?php echo $this->lang->line("order_status");?></label>
+							<select class="form-control" id="ord_status" ng-model="order_status">
+								<option value="0"><?php echo $choose; ?></option>
+								<option value="all"><?php echo $this->lang->line("all");?></option>
 								<option value="pending">Pending</option>
 								<option value="deliver">Delivering</option>
 								<option value="complete">Complete</option>
 							</select>
 						</div>
 						<div class="col-lg-3">
-						  <label class="control-label">Order date From</label>
+						    <label class="control-label"><?php echo $this->lang->line("date_from");?></label>
 							<div class='input-group datetimepicker'>
 								<input type='text' class="form-control" name="txtFrom" required="required" id="d_from" ng-model="d_from" />
 								<span class="input-group-addon">
@@ -40,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</div>
 						<div class="col-lg-2">
-						  <label class="control-label">Order date To</label>
+						  	<label class="control-label"><?php echo $this->lang->line("date_to"); ?></label>
 							<div class='input-group datetimepicker'>
 								<input type='text' class="form-control" required="required" id="d_to"/>
 								<span class="input-group-addon">
@@ -59,19 +60,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="col-lg-6 col-lg-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Order Listing</h3>
+					<h3 class="panel-title"><?php echo $this->lang->line("order_lish"); ?></h3>
 				</div>
 				<div class="panel-body">
-					<button type="button" name="btnRefresh" id="btnRefresh"  ng-click="filterOrder()" class="btn btn-primary btn-sm"><?php echo $this->lang->line('refresh')?></button>
+					<button type="button" name="btnRefresh" id="btnRefresh" ng-click="filterOrder()" class="btn btn-primary btn-sm"><?php echo $this->lang->line('refresh')?></button>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>Order code</th>
-								<th>Order date  </th>
-								<th>Member name</th>
-								<th>Order Status</th>
-								<th>Action</th>
+								<th><?php echo $this->lang->line("no"); ?>.</th>
+								<th><?php echo $this->lang->line("order_code"); ?></th>
+								<th><?php echo $this->lang->line("order_dates"); ?></th>
+								<th><?php echo $this->lang->line("member_name"); ?></th>
+								<th><?php echo $this->lang->line("order_status"); ?></th>
+								<th><?php echo $this->lang->line("action"); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -81,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<td>{{ord.Date}}</td>
 								<td>{{ord.Name}}</td>
 								<td>{{ord.Status}}</td>
-								<td><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">Update Status </button></td>
+								<td><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal"><?php echo $this->lang->line("update_status"); ?></button></td>
 								<td>
 									<!-- Modal -->
 									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -89,11 +90,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" id="btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-													<h4 class="modal-title" id="myModalLabel">Update Status</h4>
+													<h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line("update_status");?></h4>
 												</div>
 												<div class="modal-body">
 													<div class="form-group">
-														<label>Status</label>
+														<label><?php $this->lang->line("status"); ?></label>
 														<select class="form-control" ng-model="ddlStatus">
 															<option value="pending">Pending</option>
 															<option value="deliver">Delivering</option>
@@ -103,8 +104,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary" ng-click="updateStatus(ord.ID,ddlStatus)">Save changes</button>
+													<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line("close");?></button>
+													<button type="button" class="btn btn-primary" ng-click="updateStatus(ord.ID,ddlStatus)"><?php echo $this->lang->line("save_change");?></button>
 												</div>
 											</div>
 										</div>
@@ -122,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="col-lg-12">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-							  <h3 class="panel-title">Order Detail</h3>
+							  <h3 class="panel-title"><?php echo $this->lang->line("order_detail"); ?></h3>
 							</div>
 							<div class="panel-body" style=" overflow: scroll; height: 230px;  overflow-x: hidden;">
 								<div class="row">
@@ -130,13 +131,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<table class="table table-hover">
 											<thead>
 												<tr>
-													<th>No.</th>
-													<th>Product</th>
-													<th>Quantity</th>
-													<th>Price</th>
+													<th><?php echo $this->lang->line("no"); ?></th>
+													<th><?php echo $this->lang->line("product"); ?></th>
+													<th><?php echo $this->lang->line("qty");?></th>
+													<th><?php echo $this->lang->line("price");?></th>
 													<!-- <th>Discount</th> -->
-													<th>Total</th>
-													<th>Action</th>
+													<th><?php echo $this->lang->line("total");?></th>
+													<th><?php echo $this->lang->line("action");?></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -159,19 +160,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="col-lg-12">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h3 class="panel-title">Contact Info</h3>
+								<h3 class="panel-title"><?php echo $this->lang->line("contact_info"); ?></h3>
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label>Phone</label>
+									<label><?php echo $this->lang->line("phone"); ?></label>
 									<input type="text" class="form-control" name="txtPhone" ng-model="phone" readonly>
 								</div>
 								<div class="form-group">
-									<label>Email</label>
+									<label><?php echo $this->lang->line("email"); ?></label>
 									<input type="text" class="form-control" name="txtEmail" ng-model="email" readonly>
 								</div>
 								<div class="form-group">
-									<label>Address</label>
+									<label><?php echo $this->lang->line("address"); ?></label>
 									<input type="text" class="form-control" name="txtAddr" ng-model="addr" readonly>
 								</div>
 							</div>

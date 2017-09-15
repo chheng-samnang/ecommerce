@@ -44,26 +44,26 @@ class Wallet_m extends CI_Model
 	}
 
 	public function get_wallet_transaction_by_status($status="",$tran_id="")
-		{	if($status!=""){
-					if($status=="all"){
-						$query = $this->db->get_where("tbl_wallet_transaction",array("wal_id"=>$tran_id));
-						if($query->num_rows()>0){return $query->result();
-						}else{ return array();}	
-					}
-					else{
-							$query=$this->db->query("SELECT * FROM tbl_wallet_transaction WHERE tran_type='$status' AND wal_id='$tran_id' ORDER BY wal_tran_id DESC ");
-							if($query->num_rows()>0)
-							{
-							return $query->result();
-							}else{ return array();}	
-				}
+	{	if($status!=""){
+			if($status=="all"){
+				$query = $this->db->get_where("tbl_wallet_transaction",array("wal_id"=>$tran_id));
+				if($query->num_rows()>0){return $query->result();
+				}else{ return array();}	
+			}
+			else{
+					$query=$this->db->query("SELECT * FROM tbl_wallet_transaction WHERE tran_type='$status' AND wal_id='$tran_id' ORDER BY wal_tran_id DESC ");
+					if($query->num_rows()>0)
+					{
+					return $query->result();
+					}else{ return array();}	
+			}
 		}			
 	}
 	public function update_transaction($wal_tran_id)
 	{
 		$data = array(
 						'tran_type'	=>	$this->input->post("ddlType"),
-						'tran_status' =>	$this->input->post("ddlStatus"),
+						'tran_status' =>$this->input->post("ddlStatus"),
 						'tran_amt'	=>	$this->input->post("txtAmt"),
 						'tran_date'	=>	$this->input->post("txtTranDate"),		
 			);

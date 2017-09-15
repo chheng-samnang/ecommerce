@@ -5,7 +5,7 @@ class Slide_c extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->pageHeader='Slideshow';		
+		$this->pageHeader="Slide Show";		
 		$this->page_redirect="admin/slide_c";							
 		$this->load->model("slide_m");
 	}
@@ -15,7 +15,7 @@ class Slide_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->pageHeader;					
 		$data["action_url"]=array("{$this->page_redirect}/add","{$this->page_redirect}/edit","{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array("Slide name","Description","URL","Image","Status","User create","Date create","User update","Date update",);		
+		$data["tbl_hdr"]=array($this->lang->line("slide_name"),$this->lang->line("descr"),"URL",$this->lang->line("image"),$this->lang->line("status"),$this->lang->line("user_create"),$this->lang->line("date_create"),$this->lang->line("user_update"),$this->lang->line("date_update"));		
 		$row=$this->slide_m->index();		
 		$i=0;
 		if($row==TRUE)
@@ -28,7 +28,7 @@ class Slide_c extends CI_Controller
 										$value->slide_desc,
 										$value->slide_url,
 										"<img class='img-thumbnail' src='".base_url("assets/uploads/".$poto)."' style='width:70px;' />",										
-										$value->slide_status==1?"Enable" : "Disable",										
+										$value->slide_status==1?$this->lang->line("enable") : $this->lang->line("disable"),										
 										$value->user_crea,										
 										$value->date_crea,
 										$value->user_updt,
@@ -49,7 +49,7 @@ class Slide_c extends CI_Controller
 	}	
 	public function add()
 	{		
-		$option = array('1'=>'Enable','0'=>'Disable');
+		$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 		$data['ctrl'] = $this->createCtrl($row="",$option);				
 		$data['action'] = "{$this->page_redirect}/add_value";
 		$data['multipart'] = true;
@@ -83,7 +83,7 @@ class Slide_c extends CI_Controller
 			$row=$this->slide_m->index($id);			
 			if($row==TRUE)
 			{											
-				$option = array('1'=>'Enable','0'=>'Disable');
+				$option = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 				$data['multipart'] = true;								
 				$data['ctrl'] = $this->createCtrl($row,$option);		
 				$data['action'] = "{$this->page_redirect}/edit_value/{$id}";
@@ -143,10 +143,9 @@ class Slide_c extends CI_Controller
 									'name'=>'txtSlidename',
 									'id'=>'txtSlidename',									
 									'value'=>$row==""? set_value("txtSlidename") : $row1,					
-									'placeholder'=>'Enter Slide name here...',
 									'required'	=>'required',
 									'class'=>'form-control',
-									'label'=>'Slide Name',
+									'label'=>$this->lang->line("slide_name"),
 									'onClick'=>'alertName()'
 								),
 							array(
@@ -154,19 +153,9 @@ class Slide_c extends CI_Controller
 									'name'=>'txtSlideUrl',
 									'id'=>'txtSlideUrl',
 									'value'=>$row==""? set_value("txtSlideUrl") : $row2,
-									'placeholder'=>'Enter Slide URL here...',
 									'class'=>'form-control',
 									'label'=>'URL'
 								),
-							array(
-									'type'=>'upload',
-									'name'=>'txtUpload',
-									'id'=>'txtUpload',
-									'value'=>$row==""? set_value("txtUpload") : $row3,																		
-									'class'=>'form-control',
-									'label'=>'Chose Image',
-									"img"=>$row==""? set_value("txtUpload") :"<img class='img-thumbnail' src='".base_url("assets/uploads/".$row3)."' style='width:70px;' />",										
-								),							
 							array(
 									'type'=>'dropdown',
 									'name'=>'ddlStatus',
@@ -174,42 +163,23 @@ class Slide_c extends CI_Controller
 									'option'=>$option,
 									'selected'=>$row==""? NULL : $row6,
 									'class'=>'class="form-control"',
-									'label'=>'Status',									
+									'label'=>$this->lang->line("status"),									
 								),
+							array(
+									'type'=>'upload',
+									'name'=>'txtUpload',
+									'id'=>'txtUpload',
+									'value'=>$row==""? set_value("txtUpload") : $row3,																		
+									'class'=>'form-control',
+									'label'=>$this->lang->line("image"),
+									"img"=>$row==""? set_value("txtUpload") :"<img class='img-thumbnail' src='".base_url("assets/uploads/".$row3)."' style='width:70px;' />",										
+								),			
 							array(
 									'type'=>'textarea',
 									'name'=>'txtDesc',
 									'value'=>$row==""? set_value("txtDesc") : $row5,
-									'label'=>'Description'
+									'label'=>$this->lang->line("descr")
 								)
-
-
-
-
-							/*
-							array(
-								array(
-										'type'=>'checkbox',
-										'name'=>'chkSex[]',
-										'value'=>'M',
-										'label'=>'Male',
-									'chkLabel'=>'Gender'
-										
-									),
-								array(
-										'type'=>'checkbox',
-										'name'=>'chkSex[]',
-										'value'=>'F',
-										'label'=>'Female',
-										'chkLabel'=>'Gender'
-										
-									)
-								),
-							array(
-							'type'=>'textarea',
-							'name'=>'txtDesc',
-							'label'=>'Description'
-							)*/
 					);
 			return $ctrl;
 		}

@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products  = "display";
 				$fund      = "display";
 				$promotion = "display";
-				$order2    = "display";
+				$order2    = "none";
 				$service   = "none";
 				$Inventory = "none";
 				$members   = "none";
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			case "Shop-owner":
 			{
 				$service   = "display";
-				$products  = "display";
+				$products1 = "display";
 				$fund      = "display";
 				$Inventory = "display";
 				$promotion = "display";
@@ -291,13 +291,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php $i=$i+1; }?>
 												</tbody>
 											</table>
-												<button class="btn btn-success btn-sm" id="btnAddProduct"><i class="fa fa-plus" aria-hidden="true"></i> <?php echo  $this->lang->line('add');?> <?php echo  $this->lang->line('product');?></button>
+											<button class="btn btn-success btn-sm" id="btnAddProduct"><i class="fa fa-plus" aria-hidden="true"></i> <?php echo  $this->lang->line('add');?> <?php echo  $this->lang->line('product');?></button>
 										</div>
 									</div>
 								</div><!-- col-lg-12-->
 							</div><!-- row product-->
 						</div><!-- class product-->
 
+						<div class="<?php echo $products?>">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 style="cursor: pointer;" class="panel-title" id="product"><?php echo  $this->lang->line('info');?> <?php echo  $this->lang->line('product');?></h3>
+										</div>
+										<div class="panel-body" id="product_body" style="display:none;">
+											<table class="table table-striped" id="datatable">
+												<thead>
+													<tr>
+														<th>No.</th>
+														<th>Status</th>
+														<th>Porduct Code</th>
+														<th>Supplyer Name</th>
+														<th>Product Name</th>
+														<th>Price</th>
+														<th>Store Qty</th>
+														<th>Image</th>
+														<th>Shop Name</th>
+														<th>Category</th>
+														<th>Brand</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php $i=0 ; foreach ($product1 as  $row) {?>
+													<?php $product_img = $row->path; if(empty($product_img)) $product_img = "default.png";?>
+													<tr>
+														<td><?php echo $i+1;?></td>
+														<td>
+															<?php
+															if($row->p_status==1){
+																echo "<span class='glyphicon glyphicon-ok-circle' style='color:#5cb85c' data-toggle='tooltip' title='Enable'></span>";
+															}
+															else
+																echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
+														?>
+														</td>
+														<td><?php echo $row->p_code?></td>
+														<td><?php echo $row->p_name?></td>
+														<td><?php echo "$".$row->price?>
+														<td><?php echo "$".$row->acc_name;?>
+														<td><?php echo $row->qty?></td>
+														<th><img style="width: 45px;" src="<?php echo base_url('assets/uploads/'.$product_img)?>"></th>
+														<td><?php if($row->str_name){echo $row->str_name;}else echo "<p style='color:red'>"."No Shop !"."</p>";?></td>
+														<td><?php echo $row->cat_name?></td>
+														<td><?php echo $row->brn_name?></td>
+														<td>
+															<a href="<?php echo base_url('admin/memberLogin/editProduct/'.$row->p_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Product"><span class=" glyphicon glyphicon-pencil"></span></a>
+														</td>
+													</tr>
+													<?php $i=$i+1; }?>
+												</tbody>
+											</table>
+											<button class="btn btn-success btn-sm" id="btnAddProduct"><i class="fa fa-plus" aria-hidden="true"></i> <?php echo  $this->lang->line('add');?> <?php echo  $this->lang->line('product');?></button>
+										</div>
+									</div>
+								</div><!-- col-lg-12-->
+							</div><!-- row product-->
+						</div><!-- class product-->
 						<div class="<?php echo $members?>">
 							<div class="row">
 								<div class="col-lg-12">
@@ -364,7 +425,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<h3 class="panel-title" style="cursor: pointer;" id="fund"><?php echo  $this->lang->line('info');?> <?php echo  $this->lang->line('fund');?></h3>
 										</div>
 										<div class="panel-body" id="fund_body" style="display:none;">
-
 											<table class="table table-striped">
 												<thead>
 													<tr>
@@ -396,8 +456,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													</tr>
 													<?php $i=$i+1; }?>
 												</tbody>
-										</table>
-												<button class="btn btn-success" id="AddFund"><?php echo  $this->lang->line('add');?> <?php echo  $this->lang->line('fund');?></button>
+											</table>
+											<button class="btn btn-success" id="AddFund"><?php echo  $this->lang->line('add');?> <?php echo  $this->lang->line('fund');?></button>
 										</div>
 									</div><!-- row Fund-->
 								</div><!-- col-lg-12 -->
@@ -470,6 +530,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<th>Action</th>
 													</tr>
 												</thead>
+												<?php var_dump($product1); ?>
 												<tbody>
 													<?php $i=0; foreach($pro as  $value) {?>
 													<?php $poto = $value->path; if(empty($poto)) $poto = "default.png"?>
@@ -866,10 +927,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	});
 	
 	$("#btnAddProduct").click(function(){
-
-		window.location.assign("<?php echo base_url()?>memberLogin/addProduct");
-
-	});
+		window.location.assign("<?php if($profile->acc_type=="Shop-owner"){echo base_url('memberLogin/addProduct1');}else{echo base_url('memberLogin/addProduct');}?>");
+	}); /*add product form Bussiness*/
 
 	$("#AddPromotion").click(function(){
 		window.location.assign("<?php echo base_url()?>admin/memberlogin/add_promotion")

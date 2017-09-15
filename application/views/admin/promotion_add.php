@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+ $choose=$this->lang->line("choose_one");
 ?>
 </nav>
         <div class="container_fluid" style="margin:40px 25px 0px 25px;" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
@@ -30,72 +31,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   </div>
                             <!--====End error msg ===-->
                                   <div class="col-lg-6">
-                                    <label class="control-label">Date From</label>
+                                    <label class="control-label"><?php echo $this->lang->line("date_from"); ?></label>
                                     <div class='input-group datetimepicker'>
-                                         <?php echo form_input("txtFrom","",array("class"=>"form-control datetimepicker","placeholder"=>"Date from","ng-model"=>"txtFrom","id"=>"txtFrom"));?>                                          
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>                                
-                                    </div>
-                                  </div>
-
-                                  <div class="col-lg-6">
-                                     <label class="control-label">Date To</label>
-                                    <div class='input-group datetimepicker'>
-                                         <?php echo form_input("txtTo","",array("class"=>"form-control datetimepicker","placeholder"=>"Date to","ng-model"=>"txtTo","id"=>"txtTo"));?>                                          
+                                         <?php echo form_input("txtFrom","",array("class"=>"form-control datetimepicker","ng-model"=>"txtFrom","id"=>"txtFrom"));?>                                          
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>                                
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <label class="control-label">Store Name</label>
-                                    <div class="form-group">                                  
-                                         <select class="form-control" id="ddlStore" name="ddlStore" ng-model="ddlStore" ng-change="store()">
-                                            <option value="" >Chose one</option>                                                                                                                                                                                                                                                                    
-                                            <?php foreach($stoe_name as $store){?>
-                                                <option value="<?php echo $store->str_id;?>"><?php echo $store->str_name;?></option>
-                                            <?php }?>                                            
-                                         </select>  
+                                     <label class="control-label"><?php echo $this->lang->line("date_to"); ?></label>
+                                    <div class='input-group datetimepicker'>
+                                        <?php echo form_input("txtTo","",array("class"=>"form-control datetimepicker","ng-model"=>"txtTo","id"=>"txtTo"));?>                                          
+                                        <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>                                
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <label class="control-label">Category</label>
+                                    <label class="control-label"><?php echo $this->lang->line("store_name"); ?></label>
                                     <div class="form-group">                                  
-                                         <select class="form-control" id="ddlCategory" name="ddlCategory" ng-model="ddlCategory" ng-change="category()">
-                                            <option value="" >Chose one</option>                                                                                                                                                                                                                                                                    
-                                            <?php foreach($product_cat as $product_cat1){?>
-                                                <option value="<?php echo $product_cat1->cat_id;?>"><?php echo $product_cat1->cat_name;?></option>
-                                            <?php }?>                                            
-                                         </select>  
+                                       <select class="form-control" id="ddlStore" name="ddlStore" ng-model="ddlStore" ng-change="store()">
+                                          <option value="" ><?php echo $choose; ?></option>                                                                                                                                                                                                                                                                    
+                                          <?php foreach($stoe_name as $store){?>
+                                              <option value="<?php echo $store->str_id;?>"><?php echo $store->str_name;?></option>
+                                          <?php }?>                                            
+                                       </select>  
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <label class="control-label">Promotion Occasion</label>
+                                    <label class="control-label"><?php echo $this->lang->line("category"); ?></label>
+                                    <div class="form-group">                                  
+                                        <select class="form-control" id="ddlCategory" name="ddlCategory" ng-model="ddlCategory" ng-change="category()">
+                                          <option value="" ><?php echo $choose; ?></option>                                                                                                                                                                                                                                                                    
+                                          <?php foreach($product_cat as $product_cat1){?>
+                                              <option value="<?php echo $product_cat1->cat_id;?>"><?php echo $product_cat1->cat_name;?></option>
+                                          <?php }?>                                            
+                                        </select>  
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <label class="control-label"><?php echo $this->lang->line("promotion_occasion");?></label>
                                     <div class="form-group">
-                                         <select class="form-control" name="ddlOcc" id="ddlOcc" ng-model="ddlOcc" ng-change="occasion()" ng-disabled="ddlOcc1">
-                                            <option value="">Chose one</option>
-                                             <?php foreach($pro_occasion as $pro_occasion1){?>
-                                                <option value="<?php echo $pro_occasion1->occ_id;?>"><?php echo $pro_occasion1->occ_name;?></option>
-                                            <?php }?>                                            
-                                         </select>   
+                                        <select class="form-control" name="ddlOcc" id="ddlOcc" ng-model="ddlOcc" ng-change="occasion()" ng-disabled="ddlOcc1">
+                                          <option value=""><?php echo $choose; ?></option>
+                                           <?php foreach($pro_occasion as $pro_occasion1){?>
+                                              <option value="<?php echo $pro_occasion1->occ_id;?>"><?php echo $pro_occasion1->occ_name;?></option>
+                                          <?php }?>                                            
+                                        </select>   
                                     </div>
                                   </div>
                                    <div class="col-lg-6">
-                                    <label class="control-label">Promotion Type</label>
+                                    <label class="control-label"><?php echo $this->lang->line("promotion_type");?></label>
                                     <div class="form-group">
-                                         <select class="form-control" name="ddlType" id="ddlType" ng-model="ddlType">
-                                            <option value="">Chose one</option>
-                                            <option value="d">Discount</option>
-                                            <option value="a">Add product</option>                                                                                        
-                                         </select>   
+                                       <select class="form-control" name="ddlType" id="ddlType" ng-model="ddlType">
+                                          <option value=""><?php echo $choose; ?></option>
+                                          <option value="d"><?php echo $this->lang->line("discount");?></option>
+                                          <option value="a"><?php echo $this->lang->line("add_product") ?></option>                                                                                        
+                                       </select>   
                                     </div>                                      
                                   </div>
-
                                   <div class="col-lg-6">
                                     <div class="form-group">
-                                      <label class="control-label">Promotion name</label>                                        
-                                      <?php echo form_input("txtProName","",array("class"=>"form-control","placeholder"=>"Enter promotion name","ng-disabled"=>"pro_name","ng-model"=>"pro_name1","ng-blur"=>"pro_name2()"));?>                                                                                
+                                      <label class="control-label"><?php echo $this->lang->line("promotion_name"); ?></label>                                        
+                                      <?php echo form_input("txtProName","",array("class"=>"form-control","placeholder"=>$this->lang->line("promotion_name"),"ng-disabled"=>"pro_name","ng-model"=>"pro_name1","ng-blur"=>"pro_name2()"));?>                                                                                
                                     </div>
                                   </div>  
                                   <div class="col-lg-12" style="margin-top:10px;">                                    

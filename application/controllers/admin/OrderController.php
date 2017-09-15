@@ -15,7 +15,7 @@ class OrderController extends CI_Controller
 	}
 
 	function index()
-	{
+	{	
 		$data['member'] = $this->om->get_member();
 		$this->load->view('template/header');
 		$this->load->view('admin/order_pos',$data);

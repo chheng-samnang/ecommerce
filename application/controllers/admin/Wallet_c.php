@@ -45,7 +45,7 @@ class Wallet_c extends CI_Controller
 		{
 			$data["transaction"] = $this->wallet_m->get_wallet_transaction_wal_tran_id($wal_tran_id);
 			$data["wal_tran_id"] = $wal_tran_id;
-			$data["type"] = array("none"=>"Choose One","cash_in"=>"Cash In","cash_out"=>"Cash Out");
+			$data["type"] = array("none"=>$this->lang->line("choose_one"),"cash_in"=>$this->lang->line("cash_in"),"cash_out"=>$this->lang->line("cash_out"));
 			$this->form_validation->set_rules("txtAmt","Amount","required|trim|numeric");
 			$this->form_validation->set_rules("txtTranDate","Transaction Date","required|trim");
 			if($this->form_validation->run()===false)

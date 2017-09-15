@@ -9,6 +9,7 @@ class AccountModel extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('security');
 		$this->userCrea = isset($this->session->userLogin)?$this->session->userLogin:"Admin";
 	}
 
@@ -21,30 +22,29 @@ class AccountModel extends CI_Model
 			return $query->result();
 		}
 	}
+
 	function get_account($id="")
 	{
 		if($id!="")
 		{
 			$query = $this->db->get_where("tbl_account",array("acc_id"=>$id));
 			if($query->num_rows()>0)
-			{
-				return $query->row();
-			}
+			{ return $query->row();}
 		}else
 		{
 			$query = $this->db->query('SELECT acc_code,mem_name,status,sex,acc_type,acc_img,acc_id FROM tbl_account a INNER JOIN tbl_member m ON a.mem_id=m.mem_id');
-
 			if($query->num_rows()>0)
-			{
-				return $query->result();
-			}
+			{ return $query->result();}
 		}
 	}
+
+	
+
 	function insert_account()
-	{
+	{	$passwd=$this->input->post('txtPassword');
 		$data = array(
 					'acc_code'	=>	$this->input->post('txtAccCode'),
-					'acc_password'	=>	$this->input->post('txtPassword'),
+					'acc_password'	=> do_hash($passwd),
 					'mem_id'	=>	$this->input->post('ddlMember'),
 					'sex'	=>	$this->input->post('ddlGender'),
 					'dob'	=>	$this->input->post('txtDob'),
@@ -62,14 +62,23 @@ class AccountModel extends CI_Model
 		$this->db->insert('tbl_account',$data);
 	}
 	public function changpassword()
-	{ 	$id=$this->input->post("acc_id");
+	{ 
+		$id=$this->input->post("acc_id");
 		if($id!=""){
-			$data= array('acc_password'=>	$this->input->post('newpassword'));
+			$data= array('acc_password'=>$this->input->post('newpassword'));
 			$this->db->where('acc_id',$id);
 			$query=$this->db->update('tbl_account',$data);
 			if($query){return true;}
 		}
 	}
+	
+	public function get_account_code(){
+		
+		$query = $this->db->query('SELECT acc_code FROM tbl_account ORDER BY acc_id DESC');
+		if($query->num_rows()>0)
+		{ return $query->row();}
+	}
+
 	function update_model($id)
 	{
 		if(!empty($this->input->post('txtImgName')))
@@ -111,9 +120,7 @@ class AccountModel extends CI_Model
 		$this->db->where('acc_id',$id);
 		$this->db->update('tbl_account',$data);
 	}
-	function member(){
-		
-	}
+
 	function delete_account($id)
 	{
 		$this->db->where('acc_id',$id);

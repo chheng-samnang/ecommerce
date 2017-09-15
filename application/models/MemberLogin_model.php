@@ -9,7 +9,6 @@ class memberLogin_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper("security");
 		$this->str = isset($this->session->str)?$this->session->str:"1";
 		$this->userCrea = isset($this->session->userLogin)?$this->session->userLogin:"N/A";
 	}
@@ -65,6 +64,11 @@ class memberLogin_model extends CI_Model
 			$query = $this->db->get_where("tbl_member", array("mem_id"=>$mem_id));
 			return $query->row();
 		}
+	}
+
+	public function get_supplyer(){
+		$query = $this->db->query("SELECT mem_name,acc_id FROM tbl_member AS mem INNER JOIN tbl_account AS acc ON mem.mem_id=acc.mem_id WHERE acc_type='Shop-owner'");
+		return $query->result();
 	}
 
 	public function check_member($id)
@@ -131,32 +135,30 @@ class memberLogin_model extends CI_Model
 
 	public function addProduct()
 	{		
-			$data = array(
-					"p_name"=>$this->input->post('txt_product'),
-					"p_code"=>$this->input->post("type_pro_code"),
-					"p_type"=>"product",
-					"str_id"=>$this->input->post('txt_str_id'),
-					"acc_id"=>$this->input->post('txt_acc_id'),
-					"cat_id"=>$this->input->post('txt_category'),
-					"brn_id"=>$this->input->post('txt_brand'),
-					"price"=>$this->input->post('txt_price'),
-					"model"=>$this->input->post('txt_model'),
-					"color"=>$this->input->post('txt_color'),
-					"size"=>$this->input->post('txt_size'),
-					"date_release"=>$this->input->post('txt_release'),
-					"dimension"=>$this->input->post('txt_dimension'),
-					"p_status"=>$this->input->post('txt_status'),
-					"p_desc"=>$this->input->post('txt_Desc'),
-					"date_crea"=> date('Y-m-d')
-				);
-			$this->db->insert("tbl_product", $data);
-			$query1=$this->db->query("SELECT p_id FROM tbl_product ORDER BY p_id DESC");
+		$data = array(
+			"p_name"=>$this->input->post('txt_product'),
+			"p_code"=>$this->input->post("type_pro_code"),
+			"p_type"=>"product",
+			"str_id"=>$this->input->post('txt_str_id'),
+			"acc_id"=>$this->input->post('txt_acc_id'),
+			"cat_id"=>$this->input->post('txt_category'),
+			"brn_id"=>$this->input->post('txt_brand'),
+			"price"=>$this->input->post('txt_price'),
+			"model"=>$this->input->post('txt_model'),
+			"color"=>$this->input->post('txt_color'),
+			"size"=>$this->input->post('txt_size'),
+			"date_release"=>$this->input->post('txt_release'),
+			"dimension"=>$this->input->post('txt_dimension'),
+			"p_status"=>$this->input->post('txt_status'),
+			"p_desc"=>$this->input->post('txt_Desc'),
+			"date_crea"=> date('Y-m-d')
+		);
+		$this->db->insert("tbl_product", $data);
+		$query1=$this->db->query("SELECT p_id FROM tbl_product ORDER BY p_id DESC");
 		$id=$query1->row()->p_id;
 		$data1 = array(
 						'p_id' =>$id,
 						'path'=>!empty($this->input->post('txtImgName'))?$this->input->post('txtImgName'):"",
-						// 'media_type'=>'txtMediaType',
-						// "user_crea" => $this->userLog,
 						"date_crea" => date('Y-m-d')
 						);
 		$this->db->insert("tbl_media",$data1);
@@ -180,14 +182,24 @@ class memberLogin_model extends CI_Model
 			{return false;}
 			else{return true;}
 	}
-	public function get_product($id)
+	public function get_product($id="")
 	{
 		$query = $this->db->query("SELECT tbl_media.path,str.str_name,str.str_id,cat.cat_name,cat.cat_id,brn.brn_id,brn.brn_name,p.p_id, p.p_code, p.p_status, p.p_name,
 			qty,p.p_desc,p.short_desc,p.price,p.color,p.size,p.model,p.date_release,p.dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt,p.p_type FROM tbl_product 
 			AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id RIGHT JOIN tbl_media
-			 ON p.p_id=tbl_media.p_id INNER JOIN tbl_stock s ON p.p_id=s.p_id  WHERE p.acc_id={$id} and p.p_type='product' ORDER BY p_id DESC");
+			ON p.p_id=tbl_media.p_id INNER JOIN tbl_stock s ON p.p_id=s.p_id  WHERE p.acc_id={$id} and p.p_type='product' ORDER BY p_id DESC");
 		return $query->result();
 	}
+    
+    public function get_product1($id=""){
+    	$query = $this->db->query("SELECT price,p_type,color,size,model,store_qty,shop_owner_status tbl_shop_owner_product AS sop INNER JOIN tbl_product AS p ON sop.p_id=p.p_id
+    	INNER JOIN tbl_account AS acc ON p.acc_id=acc.acc_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id INNER JOIN tbl_category ON p.cat_id=c.cat_id
+    	INNER JOIN tbl_brand AS br ON p.brn_id=br.brn_id
+    	");
+    	if($query->num_rows()>0){return result();}
+    }
+
+
 
 	public function updateProduct($id)
 	{	
@@ -484,10 +496,10 @@ class memberLogin_model extends CI_Model
 					"valid_code"=>$this->input->post('txt_validcode'),
 					"mem_password"=>$this->input->post('password'),
 					"reg_date"=>date('Y-m-d')
-			);
+			    );
 		$row=$this->db->insert('tbl_member',$data);
 		if($row==TRUE){
-			return TRUE;}
+		return TRUE;}
 	}
 
 	public function editMember($id)

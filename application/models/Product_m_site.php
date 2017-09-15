@@ -272,7 +272,7 @@
 							'mem_email'	=>	$this->input->post('txtEmail'),
 							'mem_password'	=>	$this->input->post('txtPassword'),
 							'mem_addr'	=>	$this->input->post('txtAddr'),
-							'mem_status'=>	'0',
+							'mem_status'=>	'2',
 							'reg_date'	=>	date('Y-m-d')
 				);
 			$this->db->insert('tbl_member',$data);

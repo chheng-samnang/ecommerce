@@ -31,10 +31,7 @@ class Log_controller extends CI_Controller {
 				if($result!=0)
 				{
 					$this->session->userLogin = $username;
-					$this->load->view('template/header');
-					$this->load->view('template/left');
-					$this->load->view('admin/main');
-					$this->load->view('template/footer');
+					redirect("admin/MainController");
 				}else
 				{
 					$data['msg'] = "Incorrect Password!!!";

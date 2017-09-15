@@ -11,8 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">                                           
           <div class="col-lg-12">
               <?php if(isset($action)) echo form_open($action,"id='form' name='form'")?>
-              <h1 class="page-header">Form Add <?php echo $pageHeader?></h1>
-        <!--==== start error =====-->
+              <h1 class="page-header">Form Add <?php echo $pageHeader?></h1><!--==== start error =====-->
               <div class="row">
                   <div class="col-lg-6 ">                      
                     <span ng-show="error_p_dublicate"> 
@@ -24,16 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                     </span>                        
                   </div>              
-              </div>                    
-        <!--==== end msg error =====-->                    
-              <div class="row">
-        <!--==== product list =====-->                    
+              </div><!--==== end msg error =====-->                    
+              <div class="row"><!--==== product list =====-->                    
                 <div class="col-lg-6">
                    <div class="row">
                      <div class="col-lg-12">
                         <div class="panel panel-primary">
                           <div class="panel-heading">
-                              <h3 class="panel-title">Prmotion List</h3>
+                              <h3 class="panel-title"><?php echo $this->lang->line("product_list"); ?></h3>
                           </div>
                           <div class="panel-body" style="overflow:scroll; height:360px">
                             <div class="row">                                   
@@ -44,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       <img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="width:100px; height:80px;">
                                     </div>
                                     <div class="col-lg-6">
-                                      <small style="font-size:10.5px">Name:{{x.P_name}}</small>
+                                      <small style="font-size:10.5px"><?php echo $this->lang->line("name"); ?>:{{x.P_name}}</small>
                                     </div>
                                   </div>
                                 </div>
@@ -59,43 +56,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                            <!--== form == -->
                             <div class="col-lg-4">
-                              <span class="pull-right" style="color:red; margin-top:30px;" ng-show="error">Please Enter form just number!</span>
+                              <span class="pull-right" style="color:red; margin-top:30px;" ng-show="error"><?php echo $this->lang->line("ensert_only_num"); ?>!</span>
                             </div>
                             <div class="col-lg-3">
                               <div class="form-group">
-                                <label>Buy Quantity</label>                                
-                                <?php echo form_input("txtBuyQty","",array("class"=>"form-control input-sm","placeholder"=>"Enter Quantity","ng-model"=>"txtBuyQty","id"=>"set_focus"));?>
+                                <label><?php echo $this->lang->line("buy").$this->lang->line("qty"); ?></label>                                
+                                <?php echo form_input("txtBuyQty","",array("class"=>"form-control input-sm","ng-model"=>"txtBuyQty","id"=>"set_focus"));?>
                               </div>
                             </div>
                             <div class="col-lg-3">
                               <div class="form-group">
-                                <label>Free Product</label>
+                                <label><?php echo $this->lang->line("free").$this->lang->line("product"); ?></label>
                                   <select class="form-control input-sm" name="ddlFree" id="txtFree" ng-model="ddlFree" ng-change="free_product(ddlFree)">
-                                    <option value="">Chose One</option>
+                                    <option value=""><?php echo $this->lang->line("choose_one"); ?></option>
                                     <option value="{{x.P_id}}" ng-repeat="x in product_free">{{x.P_name}}</option>                                    
                                   </select>
                               </div>
                             </div>  
                             <div class="col-lg-2">
                               <div class="form-group">
-                                <label>Quantity Free</label>
-                                <?php echo form_input("txtQtyFree","",array("class"=>"form-control input-sm","placeholder"=>"Enter Quantity","ng-model"=>"txtQtyFree"));?>
+                                <label><?php echo $this->lang->line("free").$this->lang->line("qty"); ?></label>
+                                <?php echo form_input("txtQtyFree","",array("class"=>"form-control input-sm","ng-model"=>"txtQtyFree"));?>
                               </div>
-                            </div>
-                           <!--==end form ==--> 
+                            </div><!--==end form ==--> 
                         </div>
                       </div>                        
                    </div>  
-                </div>
-        <!--=== end product list ==== -->
+                </div><!--=== end product list ==== -->
 
-        <!--==== product selected promotion =====-->                    
+                  <!--==== product selected promotion =====-->                    
                   <div class="col-lg-6">
                       <div class="row">
                           <div class="col-lg-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Promotion Selected Lists</h3>
+                                    <h3 class="panel-title"><?php echo $this->lang->line("select_list"); ?></h3>
                                 </div>
                                 <div class="panel-body" style="overflow:scroll; height:360px">
                                   <div class="row">                                        
@@ -132,8 +127,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                       <div class="row">                             
                         <div class="col-lg-12">
-                            <?php echo form_button("btnCancel","Cancel",array("class"=>"btn btn-defaul pull-right","style"=>"margin-left:10px","id"=>"btnCancel"))?>
-                            <?php echo form_button("btnAdd","Add",array("class"=>"btn btn-success pull-right","ng-click"=>"add_promotion()","id"=>"btnAdd"))?>
+                            <?php echo form_button("btnCancel",$this->lang->line("cancel"),array("class"=>"btn btn-defaul pull-right","style"=>"margin-left:10px","id"=>"btnCancel"))?>
+                            <?php echo form_button("btnAdd",$this->lang->line("add"),array("class"=>"btn btn-success pull-right","ng-click"=>"add_promotion()","id"=>"btnAdd"))?>
                         </div>
                       </div>                          
                   </div>
