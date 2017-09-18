@@ -1,0 +1,2 @@
+[18-Sep-2017 12:11:19 Asia/Phnom_Penh] PHP Fatal error:  Call to a member function get_about() on null in /home/amppil/public_html/ecommerce/application/controllers/Home.php on line 83
+[18-Sep-2017 12:14:08 Asia/Phnom_Penh] PHP Fatal error:  Call to a member function get_about() on null in /home/amppil/public_html/ecommerce/application/controllers/Home.php on line 83
