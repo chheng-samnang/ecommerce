@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-* 
+*
 */
 class AccountController extends CI_Controller
 {
@@ -44,7 +44,7 @@ class AccountController extends CI_Controller
 		}else
 		{
 			$data["tbl_body"][$i] = array();
-		}	
+		}
 		$data['action_url'] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
 									$this->page_redirect.'/delete',
@@ -55,7 +55,7 @@ class AccountController extends CI_Controller
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
 	}
-	public function add(){ 
+	public function add(){
 		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|callback__check_length[6,10]');
 			if($this->form_validation->run()==TRUE){return TRUE;}
 		else{return FALSE;}
@@ -64,11 +64,11 @@ class AccountController extends CI_Controller
 	function add_account()
 	{
 		if(isset($_POST['btnSubmit']))
-		{		
+		{
 			if($this->input->post("txtPassword")==$this->input->post("txtConfirm"))
 			{
 				$this->am->insert_account();
-				redirect("account");	
+				redirect("account");
 			}else
 			{
 				$data['error']="confirm-password must be the same password...! ";
@@ -139,7 +139,7 @@ class AccountController extends CI_Controller
 
 		}
 		$location = $this->lm->get_location();
-		
+
 		foreach ($location as $key => $value) {
 			$option4[0]	=	$this->lang->line("choose_one");
 			$option4[$value->loc_id] = $value->loc_name;
@@ -148,7 +148,7 @@ class AccountController extends CI_Controller
 		$option2 = array('0'=>$this->lang->line("choose_one"),'F'=>$this->lang->line("female"),'M' =>$this->lang->line("male"));
 		$option5 = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 		$option3 = array('General'=>$this->lang->line("general"),'Agent'=>$this->lang->line("agent"),'Shop-owner'=>$this->lang->line("shop-owner"),'Bussiness'=>$this->lang->line("bussiness"),'Association'=>$this->lang->line("association"));
-		
+
 		$ctrl = array(
 						array(
 								'type'	=>	'text',
@@ -221,7 +221,7 @@ class AccountController extends CI_Controller
 								'id'	=>	'ddlAccType',
 								'option'=>	$option3,
 								'class'	=>	'class="form-control"',
-								'label'	=>	$this->lang->line("type").$this->lang->line("account")	
+								'label'	=>	$this->lang->line("type").$this->lang->line("account")
 							),
 						array(
 								'type'	=>	'text',
@@ -276,7 +276,7 @@ class AccountController extends CI_Controller
 			);
 		return $ctrl;
 	}
-	
+
 	function editCtrl($id)
 	{
 		$account = $this->am->get_account($id);
@@ -287,7 +287,7 @@ class AccountController extends CI_Controller
 			$option1[$value->mem_id] = $value->mem_name;
 		}
 		$location = $this->lm->get_location();
-		
+
 		foreach ($location as $key => $value) {
 			$option4[0]	=	$this->lang->line("choose_one");
 			$option4[$value->loc_id] = $value->loc_name;
@@ -295,7 +295,7 @@ class AccountController extends CI_Controller
 		$option2 = array('0'=>$this->lang->line("choose_one"),'F'=>$this->lang->line("female"),'M' =>$this->lang->line("male"));
 		$option5 = array('1'=>$this->lang->line("enable"),'0'=>$this->lang->line("disable"));
 		$option3 = array('General'=>$this->lang->line("general"),'Agent'=>$this->lang->line("agent"),'Shop-owner'=>$this->lang->line("shop-owner"),'Bussiness'=>$this->lang->line("bussiness"),'Association'=>$this->lang->line("association"));
-		
+
 		$ctrl = array(
 						array(
 								'type'	=>	'text',
@@ -307,7 +307,7 @@ class AccountController extends CI_Controller
 								'class'	=>	'form-control',
 								'label'	=>	$this->lang->line("account").$this->lang->line("code")
 							),
-						
+
 						array(
 								'type'	=>	'dropdown',
 								'name'	=>	'ddlMember',
@@ -343,7 +343,7 @@ class AccountController extends CI_Controller
 								'option'=>	$option3,
 								'selected'	=>	$account->acc_type,
 								'class'	=>	'class="form-control"',
-								'label'	=>	$this->lang->line("type").$this->lang->line("account")	
+								'label'	=>	$this->lang->line("type").$this->lang->line("account")
 							),
 						array(
 								'type'	=>	'text',
@@ -397,8 +397,8 @@ class AccountController extends CI_Controller
 								'selected'=>$account->status,
 								'class'	=>	'class="form-control"',
 								'label'	=>	$this->lang->line("status")
-							),	
-						
+							),
+
 						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',
@@ -409,7 +409,7 @@ class AccountController extends CI_Controller
 			);
 		return $ctrl;
 	}
-	
+
 	function edit_account($id)
 	{
 		if($id!="")
@@ -425,7 +425,7 @@ class AccountController extends CI_Controller
 				$data['pageHeader'] = $this->lang->line('account');
 				$data['ctrl'] = $this->editCtrl($id);
 				$data['cancel'] = $this->page_redirect;
-				if (isset($_POST["btnCancel"])) 
+				if (isset($_POST["btnCancel"]))
 				{
 					redirect('account');
 				}

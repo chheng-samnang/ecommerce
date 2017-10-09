@@ -12,21 +12,21 @@ class memberLogin_model extends CI_Model
 		$this->str = isset($this->session->str)?$this->session->str:"1";
 		$this->userCrea = isset($this->session->userLogin)?$this->session->userLogin:"N/A";
 	}
-	
+
 	public function change_password(){
 		$data = array("mem_password"=>$this->input->post("Newpassword"));
 		$mem_code=$this->input->post("mem_code");
 		$this->db->where("mem_code",$mem_code);
 		$query=$this->db->update("tbl_member",$data);
 		if($query){return true;}
-	}	
+	}
 
 
 	function validate_member($accName="",$password="",$accType="")
-	{	
+	{
 		$result = false;$msg = "";
 		if($accName!=""&&$password!="")
-		{ 
+		{
 			$query = $this->db->query("SELECT * FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_name='$accName' AND acc.acc_password='$password' AND acc_type='$accType'");
 			//$query = $this->db->get_where("tbl_member",array("mem_name"=>$accName));
 			if($query->num_rows()>0)
@@ -42,7 +42,7 @@ class memberLogin_model extends CI_Model
 		$result = false;$msg = "";
 
 		if($email!=""&&$password!="")
-		{ 
+		{
 			$query = $this->db->query("SELECT * FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_email='$email' AND acc.acc_password='$password'");
 			if($query->num_rows()>0)
 			{
@@ -89,7 +89,7 @@ class memberLogin_model extends CI_Model
 	public function get_new_order(){
 		$query = $this->db->query("SELECT qty FROM tbl_order_hdr AS od INNER JOIN tbl_order_det AS ot ON od.ord_code=ot.ord_code INNER JOIN tbl_product AS p ON p.p_id=ot.p_id WHERE ord_status='pending'");
 		if($query->num_rows()>0){return $query->result();}
-		else{return 0;}	
+		else{return 0;}
 	}
 
 	public function get_supplyer(){
@@ -180,7 +180,7 @@ class memberLogin_model extends CI_Model
 	}
 
 	public function addProduct()
-	{		
+	{
 
 			$data = array(
 					"p_name"=>$this->input->post('txt_product'),
@@ -219,7 +219,7 @@ class memberLogin_model extends CI_Model
 						'date_crea'	=>	date('Y-m-d')
 			);
 		$this->db->insert("tbl_stock",$data);
-	} 	
+	}
 	public function get_pro_code($acc_id=""){
 		$query = $this->db->query("SELECT * FROM tbl_product ORDER BY p_id DESC");
 		return $query->row();
@@ -235,7 +235,7 @@ class memberLogin_model extends CI_Model
 	public function get_product($id)
 	{
 		$query = $this->db->query("SELECT tbl_media.path,str.str_name,str.str_id,cat.cat_name,cat.cat_id,brn.brn_id,brn.brn_name,p.p_id, p.p_code, p.p_status, p.p_name,
-			qty,p.p_desc,p.short_desc,p.price,p.color,p.size,p.model,p.date_release,p.dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt,p.p_type FROM tbl_product 
+			qty,p.p_desc,p.short_desc,p.price,p.color,p.size,p.model,p.date_release,p.dimension,p.user_crea,p.date_crea,p.user_updt,p.date_updt,p.p_type FROM tbl_product
 			AS p JOIN tbl_store AS str ON p.str_id=str.str_id JOIN tbl_category AS cat ON p.cat_id=cat.cat_id JOIN tbl_brand AS brn ON p.brn_id=brn.brn_id RIGHT JOIN tbl_media
 			 ON p.p_id=tbl_media.p_id INNER JOIN tbl_stock s ON p.p_id=s.p_id  WHERE p.acc_id={$id} and p.p_type='product' ORDER BY p_id DESC");
 		return $query->result();
@@ -254,9 +254,9 @@ class memberLogin_model extends CI_Model
     	INNER JOIN tbl_brand AS br ON p.brn_id=br.brn_id");
     	if($query->num_rows()>0){return result();}
     }
-    
+
 	public function updateProduct($id)
-	{	
+	{
 		if($id==TRUE)
 
 		{	if($this->input->post("type_pro_code")==""){
@@ -308,7 +308,7 @@ class memberLogin_model extends CI_Model
 				$this->db->update("tbl_stock",$data);
 			}
 			else
-			{	
+			{
 				$data= array(
 					"p_code"=>$pro_code,
 					"p_name"=>$this->input->post('txt_product'),
@@ -344,7 +344,7 @@ class memberLogin_model extends CI_Model
 
 		$acc_id=$this->input->post("acc_id");
 		if($this->input->post("txtImgName"))
-		{	
+		{
 			if($this->input->post("oldImg")){
 
 				unlink("assets/uploads/".$this->input->post("oldImg"));
@@ -374,12 +374,12 @@ class memberLogin_model extends CI_Model
 			$this->db->where("acc_id",$this->input->post("acc_id"));
 			$row=$this->db->update('tbl_account',$data);
 				if($row==TRUE){
-					$data=array("mem_name"=>$this->input->post("txtName"),);	
+					$data=array("mem_name"=>$this->input->post("txtName"),);
 					$this->db->where("mem_id",$this->input->post("mem_id"));
 					$row=$this->db->update("tbl_member",$data);
 					if($row==TRUE){return TRUE;}
 				}
-
+			}
 	}
 }
 	public function updatePassword($id)
@@ -588,7 +588,7 @@ class memberLogin_model extends CI_Model
 	}
 
 	public function get_service($id)
-	{	
+	{
 		$query = $this->db->query("SELECT * FROM tbl_product AS p INNER JOIN tbl_category AS c ON p.cat_id=c.cat_id  RIGHT JOIN tbl_media AS m ON p.p_id=m.p_id WHERE p.acc_id={$id} AND p.p_type='service'");
 		return $query->result();
 	}
@@ -600,7 +600,7 @@ class memberLogin_model extends CI_Model
 	}
 
 	public function get_wallet($id)
-	{	
+	{
 		$query =$this->db->query("SELECT * FROM tbl_wallet AS w INNER JOIN tbl_account AS a ON w.acc_id=a.acc_id WHERE w.acc_id='$id'");
 		return $query->row();
 	}
@@ -728,7 +728,7 @@ class memberLogin_model extends CI_Model
 	public function get_order_update($ord_id=""){
 		$query=$this->db->query("SELECT * FROM tbl_order_hdr AS orh INNER JOIN tbl_order_det AS ord ON orh.ord_code=ord.ord_code  WHERE ord_id='$ord_id'");
 		return $query->row();
-	}	
+	}
 	public function order_update($id=""){
 		$data = array("ord_status" => $this->input->post("ddlOrdStatus"));
 		$this->db->where("ord_id",$this->input->post("ord_id"));
@@ -749,7 +749,7 @@ class memberLogin_model extends CI_Model
 		if($query==TRUE){return true;}
 	}
 	public function get_order_hdr1($mem_id="")
-	{	
+	{
 
 		$query=$this->db->query("SELECT * FROM tbl_order_hdr AS orh INNER JOIN tbl_member AS mb ON orh.mem_id=mb.mem_id WHERE orh.mem_id='$mem_id' AND ord_status='pending'");
 		if($query->num_rows()>0)
@@ -869,16 +869,16 @@ class memberLogin_model extends CI_Model
 
 	public function promotion($id)
 	{
-		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN 
-		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS 
-		p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id` 
+		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN
+		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS
+		p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id`
 		LEFT JOIN tbl_account AS a ON st.`acc_id`=a.`acc_id` WHERE st.`acc_id`='$id' ORDER BY pro_name DESC");
 		return $query->result();
 	}
 
 	public function promotion_det($id)
 	{
-		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN 
+		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN
 		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id` LEFT JOIN tbl_account AS a ON st.`acc_id`=a.`acc_id` WHERE det.`pro_det_id`='$id'");
 		return $query->row();
 	}
