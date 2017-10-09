@@ -276,6 +276,7 @@
 								"mem_id"	=>	$mem_id,
 								"acc_type"	=>	"General",
 								"loc_id"	=>	"1",
+
 								"acc_password"=>$this->input->post("txtPassword"),
 								"user_crea"	=>	$this->session->memLogin,
 								"date_crea"	=>	date("Y-m-d")

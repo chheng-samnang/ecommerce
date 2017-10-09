@@ -51,22 +51,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
-					<label>Password</label>
-					<input type="" name="txtPassword">
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" placeholder="password..." class="form-control input-sm" name="txtPassword">
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<label>Confirm password</label>
 					<div class="col-lg-6">
-						<label>Confirm password</label>
-						
+						<div class="form-group">
+							<label>Confirm password</label>
+							<input type="password" placeholder="confirm password..." class="form-control input-sm" name="txtConfirmPassword">
+							<div id="errorMsg" style="display:none;">
+								<label class="col-lg-5" style="color:red;"><i class="glyphicon glyphicon-remove-sign"></i> Passwords don't matched!</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
 							<label>Description</label>
-							<textarea name="terDescr"><?php echo set_value('txtInvDesc','')?></textarea>
+							<textarea placeholder="description..." name="terDescr"><?php echo set_value('txtInvDesc','')?></textarea>
 						</div>
 					</div>
 				</div>
@@ -99,5 +103,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	});
 	$("#btnCancel").click(function(){
 		window.location.assign("<?php echo base_url()?>profile/<?php echo $acc_id?>");
+	});
+	$("#txtConfirm").focusout(function(){
+		var pass = $("#txtPassword").val();
+		var con = $("#txtConfirm").val();
+		if(pass!=con)
+		{
+			$("#errorMsg").attr("style","display:block");
+		}else
+		{
+			$("#btnSave").removeAttr("disabled");
+			$("#errorMsg").attr("style","display:none;");
+		}
 	});
 </script>

@@ -20,7 +20,9 @@ class AdvertiseController extends CI_Controller
 	function index()
 	{
 		$data['pageHeader'] = $this->lang->line('advertisement');
+
 		$data['tbl_hdr'] = array($this->lang->line("advertise_name"),$this->lang->line("image"),$this->lang->line("advertise"),$this->lang->line("position"),$this->lang->line("price"));
+
 		$query = $this->am->get_advertise();
 		$i=0;
 		if(!empty($query))
@@ -29,13 +31,15 @@ class AdvertiseController extends CI_Controller
 				$poto = $value->img;
 				if(empty($poto)) $poto = "default.png";
 				$data["tbl_body"][$i] = array(
-										$value->ad_name,
-										//$value->ad_desc,
-										"<img class='img-thumbnail' src='".base_url('assets/uploads/'.$poto)."' width='50' >",
-										$value->advertiser,
-										$value->position,
-										$value->price,
-										$value->ad_id
+
+											$value->ad_name,
+											//$value->ad_desc,
+											"<img class='img-thumbnail' src='".base_url('assets/uploads/'.$poto)."' width='50' >",
+											$value->advertiser,
+											$value->position,
+											$value->price,
+											$value->ad_id
+
 				);
 			$i++;
 			}
@@ -165,6 +169,7 @@ class AdvertiseController extends CI_Controller
 		$query = $this->am->get_advertise($id);
 		$pos = array("none"=>$this->lang->line("choose_one"),"left"=>$this->lang->line("left"),"right"=>$this->lang->line("right"),"center"=>$this->lang->line("center"));
 		$ctrl = array(
+
 					array(
 								"type"	=>	"text",
 								"name"	=>	"txtAdName",
@@ -172,6 +177,7 @@ class AdvertiseController extends CI_Controller
 								"class"	=>	"form-control",
 								"value"	=>	set_value("txtAdName",$query->ad_name),
 								"label"	=>	$this->lang->line("advertise_name")
+
 						),
 					array(
 							"type"	=>	"text",
@@ -250,7 +256,11 @@ class AdvertiseController extends CI_Controller
 							"name"	=>	"txtAdName",
 							"id"	=>	"txtAdName",
 							"class"	=>	"form-control",
+
 							"label"	=>	$this->lang->line("advertise_name"),
+
+							"placeholder"	=>	"Enter Ad Name here...",
+
 						),
 					array(
 							"type"	=>	"text",
@@ -274,7 +284,9 @@ class AdvertiseController extends CI_Controller
 							'id'	=>	'txtPage',
 							'class'	=>	'form-control',
 							'placeholder'	=>	'Enter page name here...',
+
 							'label'	=>	$this->lang->line("page_name"),
+
 						
 						),
 					array(
@@ -282,14 +294,22 @@ class AdvertiseController extends CI_Controller
 							'name'	=>	'txtPrice',
 							'id'	=>	'txtPrice',
 							'class'	=>	'form-control',
+
 							'label'	=>	$this->lang->line("price"),
+
+							'placeholder'	=>	'Enter price here...',
+
 						),
 					array(
 							'type'	=>	'text',
 							'name'	=>	'txtHeight',
 							'id'	=>	'txtHeight',
 							'class'	=>	'form-control',
+
 							'label'	=>	$this->lang->line("height"),
+
+							'placeholder'	=>	'Enter height here...',
+
 						),
 					array(
 							'type'	=>	'text',

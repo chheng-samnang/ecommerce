@@ -40,6 +40,7 @@
 
 		# ============== select brand =========================
 		public function valication(){
+
 			$this->form_validation->set_rules("txtDescr","descript","required");
 			$this->form_validation->set_rules("txtUpload","Upload file","required");
 

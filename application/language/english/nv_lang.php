@@ -10,7 +10,9 @@ $lang["menu3"] = "Member Management";
 $lang["menu4"] = "Products Management";
 $lang["menu5"] = "Slider Management";
 $lang["menu6"] = "E-Wallet Management";
+
 $lang["menu7"] = "store Setup";
+
 $lang["menu8"] = "Account Setup";
 $lang["menu9"] = "Location Management";
 $lang["menu10"] = "Stock Management";
@@ -23,7 +25,9 @@ $lang["menu16"] = "Template Management";
 $lang["menu17"] = "Inventory Management";
 $lang["menu18"] = "Promotion Management";
 $lang["menu19"] = "Contact Us";
+
 $lang["menu20"] = "Combind Product";
+
 
 #===================== for Menu Left ====================
 
@@ -56,13 +60,18 @@ $lang["brand"] = "Brand";
 $lang["member"] = "Member";
 $lang["product"] = "Products";
 $lang["wallet"] = "Wallet";
+
 $lang["stoee"] = "Store";
+
 $lang["account"] = "Account";
 $lang["account-m"] = "Manage Account";
 $lang["location"] = "Location";
 $lang["stock"] = "Stock";
 $lang["user"] = "User";
-$lang["password"] = "Password";
+
+$lang["password1"] = "Password";
+$lang["password"] = "Change Password";
+
 $lang["advertisement"] = "Advertisement";
 $lang["advertise"] = "Advertise";
 $lang["advertise_name"] = "Advertise name";
@@ -111,7 +120,9 @@ $lang["date"] = "Date";
 $lang["action"] = "Action";
 $lang["descr"] = "Description";
 $lang["category"] = "Category";
+
 $lang["parents_category"] = "Parents Category";
+
 
 $lang["name"] = "Name";
 $lang["member_name"] = "Member Name";
@@ -152,16 +163,19 @@ $lang["date_update"] = "Date update";
 $lang["store_name"] = "Store name";
 $lang["product_code"] = "Product code";
 $lang["product_name"] = "product name";
+
 $lang["user_name"] = "user name";
 $lang["release"] = "release";
 $lang["inventory_code"] = "Inventory code";
 $lang["inventory_name"] = "Inventory name";
 $lang["inventory"] = "Inventory";
+
 $lang["wallet_code"] = "Wallet code";
 $lang["position_name"] = "Position name";
 $lang["location_name"] = "Location name";
 $lang["qty_new"] = "Quantity New";
 $lang["transaction_type"] = "Transaction type";
+
 $lang["promotion_type"] = "Promotion type";
 $lang["date_from"] = "Date from";
 $lang["date_to"] = "Date to";
@@ -230,6 +244,7 @@ $lang["sms_delete"]="Are you sure you want to Delete this ?";
 $lang["confirm_delete"]="confirm delete";
 $lang["attention"]="Attention";
 $lang["warning"]="Warning";
+
 
 
 

@@ -44,7 +44,10 @@ $str_id=$this->session->userdata["promotion"][6];
                                                 <td>
                                                   <img src="<?php echo base_url('assets/uploads/{{x.Path}}"');?>" style="height:80px;">
                                                 </td>
+
                                                 <td><div style="font-size:10.5px;"><?php echo $this->lang->line("name"); ?>:{{x.P_name}}</div></td>
+
+                                                
                                               </tr>
                                             </table>
                                         </div>
@@ -97,8 +100,10 @@ $str_id=$this->session->userdata["promotion"][6];
                                                       <img src="<?php echo base_url('assets/uploads/{{x[2]}}"');?>"  style="height:80px;"> 
                                                     </td>
                                                     <td>
+
                                                       <span class="pull-left" style="font-size:10.5px"><?php echo $this->lang->line("name"); ?>:{{x[1]}}</span>
                                                       <span style="color:red; font-size:10.5px"><?php $this->lang->line("descount"); ?>:{{x[3]}}%</span>
+
                                                     </td>
                                                   </tr>
                                                 </table>

@@ -68,7 +68,9 @@ class StockController extends CI_Controller
 	}
 
 	function add_stock()
-	{	$choose=$this->lang->line("choose_one");
+
+	{	$choose=$this->lang->line("choose");
+
 		if(isset($_POST['btnSubmit']))
 		{	
 		if($this->input->post("ddlProduct")){
@@ -79,8 +81,10 @@ class StockController extends CI_Controller
 		{
 			$product = $this->sm->get_product();
 			foreach ($product as $key => $value) {
-			$option[0]	= $choose;
-			$option[$value->p_id] = $value->p_name;}
+
+				$option[0]	= $choose;
+				$option[$value->p_id] = $value->p_name;}
+
 			$data['action'] = 'stock/add';
 			$data['pageHeader'] = $this->lang->line('stock');
 			$data['ctrl'] = $this->createCtrl($row="", $option);
@@ -94,7 +98,9 @@ class StockController extends CI_Controller
 
 	function edit_stock($id)
 	{	
-		$choose=$this->lang->line("choose_one");
+
+		$choose=$this->lang->line("choose");
+
 		if($id!='')
 		{	
 			$product = $this->sm->get_product();
@@ -122,7 +128,9 @@ class StockController extends CI_Controller
 
 	function createCtrl($row="", $option)
 	{	
-		$choose=$this->lang->line("choose_one");
+
+		$choose=$this->lang->line("choose");
+
 		if($row!="")
 		{
 			$row1 = $row->p_id;

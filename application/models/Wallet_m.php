@@ -63,7 +63,9 @@ class Wallet_m extends CI_Model
 	{
 		$data = array(
 						'tran_type'	=>	$this->input->post("ddlType"),
-						'tran_status' =>$this->input->post("ddlStatus"),
+
+						'tran_status' =>	$this->input->post("ddlStatus"),
+
 						'tran_amt'	=>	$this->input->post("txtAmt"),
 						'tran_date'	=>	$this->input->post("txtTranDate"),		
 			);

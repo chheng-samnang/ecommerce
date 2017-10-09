@@ -194,7 +194,9 @@
 							"id"	=>	"txtblogName",
 							"class"	=>	"form-control",
 							"placeholder"	=>	"Enter Blog Name here...",
+
 							"label"	=>	$this->lang->line("blog_name"),
+
 						),
 					
 					array(

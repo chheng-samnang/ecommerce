@@ -42,7 +42,9 @@ $lang["manage"] = "គ្រប់គ្រង";
 $lang["member"] = "សមាជិក";
 $lang["product"] = "ផលិតផល";
 $lang["wallet"] = "កាបូបលុយ";
-$lang["stoee"] = "ហាាងលក់";
+
+$lang["storee"] = "ហាាងលក់";
+
 $lang["account"] = "គណនី";
 $lang["account-m"] = "កាដំឡើង​ គណនី";
 $lang["location"] = "ទីតាំង";
@@ -75,17 +77,21 @@ $lang["home"]="ទំព័រដើម";
 $lang["about"]="អំពី​យើង";
 $lang["contact"]="ទំនាក់ទំនង";
 $lang["blog"]="Blog";
-$lang["close"]="បិទ";
+
+$lang["close"]="បិត";
+
 $lang["trash"]="បាេះចោល"; 
 $lang["untrash"]="មិនបាេះចោល";
 $lang["go_product"] = "ទៅ​​ ផលិតផល";
 $lang["profile"] = "ព័ត៌មាន ផ្ទាល់ខ្លួន";
 $lang["register"] = "ចុះឈ្មោះ";
 $lang["login"] = " ចូលគណនី";
+
 $lang['english'] = "អង់គ្លេស";
 $lang['khmer'] = "ខ្មែរ";
 $lang['chinese'] = 'ចិន';
 /*=========back site table header ========*/
+
 
 $lang["phone"] = "ទូរស័ព្ទ";
 $lang["email"] = "អ៊ីមែល";
@@ -99,11 +105,13 @@ $lang["descr"] = "សេចក្ដីពិពណ៌នា";
 $lang["kh"] = "ភាសាខ្មែរ";
 $lang["en"] = "ភាសាអង់គ្លេស";
 $lang["ch"] = "ភាសាចិន";
+
 $lang["name"] = "ឈ្មោះ";
 $lang["code"] = "កូដ";
 $lang["valid"] = "មានសុពលភាព";
 $lang["password1"] = "លេខសំងាត់";
 $lang["new_password"] = "លេខសំងាត់ ថ្មី";
+
 $lang["con​firm"] = "បញ្ចាក់";
 $lang["dateOfBirth"] = "ឆ្នាំ ខែ ថ្ងៃ​ កំណើត";
 $lang["placeOfBirth"] = "ទីកន្លែងកំណើត";
@@ -120,7 +128,9 @@ $lang["choose_one"] = "ជ្រើសយកមួយ";
 $lang["female"] = "ភេទប្រុស";
 $lang["male"] = "ភេទស្រី";
 $lang["enable"] = "បើក";
+
 $lang["disable"] = "បិទ";
+
 $lang["price"] = "តម្លៃ";
 $lang["qty"] = "ចំនួន";
 $lang["color"] = "ពណ៌";
@@ -133,6 +143,7 @@ $lang["account_code"] = "គណនីកូដ";
 $lang["store_type"] = "ប្រភេទហាង";
 $lang["user_create"] = "អ្នកប្រើបង្កើត";
 $lang["user_update"] = "អ្នកប្រើកែប្រែ";
+
 $lang["date_create"] = "ថ្ងៃប្រើបង្កើត";
 $lang["position_name"] = "ឈ្មោះ​ទីតាំ";
 $lang["date_update"] = "ថ្ងៃ​កែប្រែ";
@@ -212,3 +223,4 @@ $lang["sms_delete"]="លោកអ្នក ចង់លុបមែនទេ....
 $lang["confirm_delete"]="បញ្ចាក់ លុប..";
 $lang["attention"]="សូមយកចិត្តទុកដាក់..";
 $lang["warning"]="ព្រមាន";
+

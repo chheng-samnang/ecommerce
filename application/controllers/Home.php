@@ -7,9 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{
 			parent::__construct();
 			$this->load->model('Home_m','hm');
-			$this->load->model('Product_M','pm');
-			$this->load->model("contact_us_m",'cm');
-			$this->load->model("about_m");
+
+			$this->load->model('Product_m','pm');
+			$this->load->model("Contact_us_m",'cm');
+			$this->load->model("About_m");
+
 		}
 		
 		public function index()

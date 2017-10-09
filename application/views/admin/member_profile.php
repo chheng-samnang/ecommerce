@@ -30,8 +30,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products1  = "none";
 				$fund      = "display";
 				$promotion = "display";
+
 				$order2    = "none";
 				$products  = "display";
+
 				$service   = "none";
 				$Inventory = "none";
 				$members   = "none";
@@ -49,7 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$promotion = "none";
 				$members   = "none";
 				$account   = "none";
-				$order2    = "display";
+
+				$order2    = "none";
 			}
 
 			break;
@@ -75,7 +78,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$service   = "display";
 				$Inventory = "display";
 				$fund      = "display";
+
 				$products1  = "none";
+
 				$products  = "none";
 				$promotion = "none";
 				$members   = "none";
@@ -295,6 +300,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<td><?php echo $row->mem_name?></td>
 														<td>
 															<?php
+
 																if($row->stf_status==1)
 																{
 																	echo "<span class='glyphicon glyphicon-ok-circle' style='color:#5cb85c' data-toggle='tooltip' title='Enable'></span>";
@@ -302,6 +308,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 																else
 																echo "<span class='glyphicon glyphicon-remove-circle' style='color:red' data-toggle='tooltip' title='Disable'></span>";
 															?>
+
 														</td>
 														<th><img style="width: 45px;" src="<?php echo base_url('assets/uploads/'.$acc_img)?>"></th>
 														<td><?php if($row->str_name){echo $row->str_name;}else echo "<p style='color:red'>"."No Shop !"."</p>";?></td>
@@ -675,6 +682,190 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 
 
+
+				<div role="tabpanel" class="tab-pane" id="profile">
+					<div class="row">
+						<div class="col-lg-7">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form action="<?php echo base_url()?>admin/memberlogin/edit_profile" method="post">
+										<?php 
+											$poto = $profile->acc_img;
+											if(empty($poto)) $poto = "default.png";
+										?>	
+										<div class="row">
+											<div class="col-lg-6">
+												<input type="hidden" value="<?php if(isset($profile->acc_img)){echo $profile->acc_img;}?>" name="oldImg">
+												<img src="<?php echo base_url()?>assets/uploads/<?php echo $poto?>" class="img-thumbnail" width="110" alt=""><br>
+												<h6>Code: <?php echo $profile->acc_code ?></h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+												<input type="hidden" value="<?php echo $profile->mem_id; ?>" name="mem_id">
+												<input type="hidden" value="<?php echo $acc_id; ?>" name="acc_id" id="acc_id">
+												<label for="">Name</label>
+												<?php echo form_input("txtName",$profile->mem_name,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Gender</label>
+													<select class="form-control input-sm" name="ddlGender"  id=ddlGender>
+														<option value="M" <?php echo $value->loc_id=="M"?"selected":""; ?> >Male</option>
+														<option value="F" <?php echo $value->loc_id=="F"?"selected":""; ?> >Female</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Company Name</label>
+													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6"> 
+												<div class="form-group">
+													<label for="">Date of Birth</label>
+													 <div class="input-group">
+													    <input id="txtDob" type="text" class="form-control datetimepicker input-sm" value="<?php echo $profile->dob; ?>" name="txtDob" placeholder="Email">
+													     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													  </div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+												<label for="">Place of Birth</label>
+												<?php echo form_input("txtPob",$profile->pob,"class='form-control input-sm'"); ?>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Position</label>
+													<?php echo form_input("txtPosition",$profile->position,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Location</label>
+													<select class="form-control input-sm" name="ddlLocation" id="ddlLocation">
+														<?php
+															foreach ($location as $value){
+														?>
+														<option value="<?php echo $value->loc_id;?>" <?php echo $value->loc_id==$profile->loc_id?"selected":""; ?> > <?php echo $value->loc_name;?></option>
+														<?php }?>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<label for="">Status</label>
+												<input type="text" name="txtStatus" class="form-control input-sm" value="<?php echo $profile->status=="1"?"Enable":"Disable";?>" readonly="">
+											</div>
+											<div class="col-lg-6">
+												<label for="">Account Type</label>
+												<input type="text" class="form-control input-sm" value="<?php echo $profile->acc_type ?>" name="txtAccType" readonly="">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="">Contact Phone</label>
+													<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control input-sm'"); ?>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group"><br />
+													<button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="pull-right">
+												<button id="btnSaveProfile" type="submit" class="btn btn-success btn-sm">Update</button>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+														   <div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title" id="myModalLabel">Browse Image</h4>
+														   </div>
+														   <div class="modal-body">
+																<input	type="file" name="txtUpload" />
+																<input type="hidden" id="txtImgName" name="txtImgName" />
+																<div id="response" style="margin-top:10px;color:green;font-weight:bold;"></div>
+														   </div>
+														   <div class="modal-footer">
+																<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary btn-sm" onclick="uploadFile()">Upload</button>
+														   </div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="trash">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="row">
+										<div class="panel-body" id="order_body">
+
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>No.</th>
+														<th>Order Code</th>
+														<th>Date Order</th>
+														<th>Customer Name</th>
+														<th>Status</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+
+													 foreach ($order1 as $key => $value) {
+													 	if($value->ord_status!="trash"){
+													 	?>
+													<tr>	
+														<td><?php echo $key+1 ?></td>
+														<td><?php echo $value->ord_code ?></td>
+														<td><?php echo $value->ord_date ?></td>
+														<td><?php echo $value->mem_name ?></td>
+														<td><?php echo $value->ord_status ?></td>
+														<td><a href="<?php echo base_url()?>profile/view/<?php echo $value->ord_code?>" class="btn btn-default btn-sm"><?php echo $this->lang->line('view')?> <?php echo $this->lang->line('detail')?></a>
+															<a href="<?php echo base_url()?>admin/memberlogin/get_order_update/<?php echo $value->ord_id?>" class="btn btn-success btn-sm"><?php echo $this->lang->line('update')?></a>
+															<a href="<?php echo base_url()?>admin/memberlogin/trash_order/<?php echo $value->ord_code?>" class="btn btn-danger btn-sm"><?php echo $this->lang->line('trash')?></a>
+														</td>
+
+													</tr>
+													<?php }} ?>
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+								</div><!-- col-lg-12-->
+						</div><!-- row Promotion-->
+						</div><!-- Class Promotion -->
+					</div>
+
+
 				<div role="tabpanel" class="tab-pane" id="profile">
 					<div class="row">
 						<div class="col-lg-7">
@@ -847,6 +1038,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</tbody>
 											</table>
 										</div>
+
 									</div><!-- row Promotion-->
 								</div>
 							</div>
@@ -989,6 +1181,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	});
 	$("#get_order").click(function(){
+
+
+		window.location.assign("<?php echo base_url()?>admin/memberLogin/get_order_update/$");
+
+	});
+	
+	$("#btnAddProduct").click(function(){
+
 
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/get_order_update/$");
 

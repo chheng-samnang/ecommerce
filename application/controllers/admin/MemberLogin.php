@@ -12,7 +12,9 @@ class MemberLogin extends CI_Controller
 		$this->pageHeader='Member';		
 		$this->page_redirect="admin/memberLogin";							
 		$this->load->model("promotion_m", "pm");
+
 		$this->load->model("staf_m");
+
 		$this->load->model("locationModel");
 		$this->load->model("memberLogin_model","ml");
 		$this->load->model("Wallet_m","wm");
@@ -30,6 +32,7 @@ class MemberLogin extends CI_Controller
 		{
 			$email = $this->input->post("txtUser");
 			$pwd = $this->input->post("txtPass");
+
 			$accType=$this->input->post("ddlAccType");
 			$validate = $this->ml->validate_member($email,$pwd,$accType);
 			if($validate==false)
@@ -43,6 +46,7 @@ class MemberLogin extends CI_Controller
 					$data["msg"] = "Your account not accept to login...!";
 					$this->load->view("admin/login_member.php",$data);
 				}
+
 			}
 		}else
 		{	
@@ -83,6 +87,7 @@ class MemberLogin extends CI_Controller
 			$data["template"]=$this->hm->get_template();
 			$data["acc_id"] = $acc_id;
 			$mem_id = $this->ml->get_mem_id($acc_id);
+
 			$data["services"] = $this->ml->get_service($this->session->acc_id);
 			$data["account"] = $this->ml->get_account($this->session->memLogin);
 			$data["active_account"]=$this->ml->get_active_account($this->session->acc_id);
@@ -90,8 +95,10 @@ class MemberLogin extends CI_Controller
 			$data["wallet_transaction"]=$this->ml->select_wallet_transaction($this->session->acc_id);
 			$data["acc"]=$this->ml->get_account_validation($this->session->acc_id);
 			$data["product"] = $this->ml->get_product($this->session->acc_id);
+
 			$data["shop_product"] = $this->ml->get_shop_product($this->session->acc_id);
 			$data["new_order"]= $this->ml->get_new_order($this->session->acc_id);
+
 			$data["shop"]=$this->ml->selectshop($acc_id);
 			$data["member"] = $this->ml->get_member($this->session->memLogin);
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
@@ -100,7 +107,9 @@ class MemberLogin extends CI_Controller
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
 			$data["location"] = $this->locationModel->get_location();
+
 			$data["staf_info"] = $this->staf_m->index();
+
 			$data["error"]=$error;
 			$this->load->view("layout_site/header_top1",$data);
 			$this->load->view("layout_site/nav");
@@ -111,6 +120,7 @@ class MemberLogin extends CI_Controller
 			$this->load->view("admin/login_member.php",$data);
 		}
 	}	
+
 
 	public function validation(){
 		$this->form_validation->set_rules("ConPassword","Confirm password","required");
@@ -164,6 +174,7 @@ class MemberLogin extends CI_Controller
 		 	}
 	}
 	
+
 	public function addstaf()
 	{
 		$data["stafCode"] = $this->staf_m->staf_code();
@@ -256,6 +267,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txtaccCode', 'account code', 'required');
 		$this->form_validation->set_rules('ddlLocation', 'location', 'required');
 		if ($this->form_validation->run()==TRUE) 
+
 		{	$row=$this->ml->AccTypeValidate($this->session->memLogin);
 			if($row!==true){
 				$this->ml->addAccount();
@@ -280,6 +292,7 @@ class MemberLogin extends CI_Controller
 			$this->load->view('layout_site/nav');
 			$this->load->view('addAccount',$data);
 			$this->load->view('layout_site/footer');
+
 	}
 
 	public function editAccount($id)
@@ -316,10 +329,18 @@ class MemberLogin extends CI_Controller
 		{  
 			if($this->input->post("type_pro_code")!="")
 			{
-				$row=$this->ml->addProduct();	
-				if($row==TRUE){
-					redirect("admin/memberLogin");
-				}
+
+				$data["template"]=$this->hm->get_template();
+				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+				$data["brand"] = $this->ml->get_brand();
+				$data["store"]=$this->ml->val_store($this->session->acc_id);
+				$data["category"] = $this->ml->get_category();
+				$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav');
+				$this->load->view('addProduct', $data);
+				$this->load->view('layout_site/footer');
+
 			}
 		}else{
 			$data["template"]=$this->hm->get_template();

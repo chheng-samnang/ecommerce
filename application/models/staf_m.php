@@ -31,6 +31,7 @@ class Staf_m extends CI_Model
 					'descr'		=>	$this->input->post('terDescr'),
 					'stf_status'=>	'0',
 					'acc_id'	=>	$this->input->post('ddlStaf'),
+					'staf_password'	=>	$this->input->post("txtPassword"),
 					'user_create'	=>	$this->session->acc_id,
 					'date_create'	=>	date('Y-m-d')
 			);

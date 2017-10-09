@@ -36,6 +36,7 @@
 					<input type="text" name="txtAmt" class="form-control" value="<?php echo set_value('txtAmt',$transaction->tran_amt)?>">
 				</div>
 				<div class="form-group">
+
 					<label><?php echo $this->lang->line("status"); ?></label>
 					<select class="form-control" name="ddlStatus">
 						<option value="none"><?php echo $this->lang->line("choose_one"); ?></option>
@@ -45,6 +46,7 @@
 				</div>
 				<div class="form-group">
 					<label><?php echo $this->lang->line("transaction_date"); ?></label>
+
 					<input type="text" name="txtTranDate" class="form-control datetimepicker" value="<?php echo set_value('txtTranDate',$transaction->tran_date)?>" placeholder="Click here to pick a date">
 				</div>
 				<hr>

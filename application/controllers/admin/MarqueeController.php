@@ -59,7 +59,9 @@ class marqueeController extends CI_Controller
 								"name"			=>	"txtDesc",
 								"id"			=>	"txtDesc",
 								"class"			=> 	"form-control",
+
 								"label"			=> 	$this->lang->lang->line("descr"),
+
 							)
 			);
 		return $ctrl;

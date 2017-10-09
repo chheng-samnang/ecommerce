@@ -168,10 +168,12 @@ class Member_c extends CI_Controller
 									'name'=>'txtMemberName',
 									'id'=>'txtMemberName',
 									'value'=>$row==""? set_value("txtMemberName") : $row2,
-									'placeholder'=>$this->lang->line("member_name"),
+
+									'placeholder'=>$this->lang->line("name").$this->lang->line("member")."......",
 									'required'=>'required',
 									'class'=>'form-control',
-									'label'=>$this->lang->line("member_name"),
+									'label'=>$this->lang->line("name").$this->lang->line("member"),
+
 								),
 							array(
 								'type'=>'text',
@@ -219,6 +221,7 @@ class Member_c extends CI_Controller
 									'selected'=>$row==""? NULL : $row10,
 									'class'=>'class="form-control"',
 									'label'=>$this->lang->line("status"),
+
 								),
 							array(
 									'type'=>'password',
@@ -231,6 +234,7 @@ class Member_c extends CI_Controller
 									'name'=>'txtConPassword',
 									'class'=>'form-control',
 									'label'=>$this->lang->line("con​firm"),
+
 								),
 							array(
 									'type'=>'textarea',

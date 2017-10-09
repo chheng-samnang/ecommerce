@@ -20,7 +20,9 @@ class Promotion_c extends CI_Controller
 		$this->load->view('template/left');		
 		$data['pageHeader'] = $this->lang->line('promotion');		
 		$data["action_url"]=array(0=>"{$this->page_redirect}/add",/*1=>"{$this->page_redirect}/edit",*/2=>"{$this->page_redirect}/delete"/*,"{$this->page_redirect}/change_password"*/);
-		$data["tbl_hdr"]=array($this->lang->line("product_name"),$this->lang->line("category"),$this->lang->line("image"),$this->lang->line("promotion_type"),$this->lang->line("product_name"),$this->lang->line("date_from"),$this->lang->line("date_to"));	
+
+		$data["tbl_hdr"]=array($this->lang->line("product_name"),$this->lang->line("category"),$this->lang->line("image"),$this->lang->line("product_type"),$this->lang->line("product_name"),$this->lang->line("date_from"),$this->lang->line("date_to"));	
+
 		$row=$this->promotion_m->index();		
 		$i=0;
 		if($row==TRUE)
