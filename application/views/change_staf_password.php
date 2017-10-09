@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </nav>
 
-<?php echo form_open_multipart("admin/memberLogin/change_staf_password/".$acc_id)?>
+<?php echo form_open_multipart("admin/memberLogin/save_staf_password/".$acc_id)?>
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
 		<div class="panel panel-default">
@@ -12,25 +12,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<h3 class="panel-title"><?php echo $this->lang->line('add')?> Staf</h3>
 			</div>
 			<div class="panel-body">
-				<?php
-					if(!empty(validation_errors()))
-					{
-				?>
 				<div class="row">
 					<div class="col-lg-12">
+					<?php
+						if(!empty($error) OR validation_errors())
+						{
+					?>
 						<div class="alert alert-danger" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
-							<strong></strong> <?php echo validation_errors()?>
+							<strong><?php echo $this->lang->line("attention"); ?>!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
 						</div>
+					<?php }?>
 					</div>
 				</div>
-				<?php }?>
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
-							<!-- <input type="hidden" value="<?php if(isset($change)){ echo $change->staf_password } ?>" name="Password" id="Password"> -->
+							<input type="hidden" id="txtSt_id" name="txtSt_id" value="<?php if(isset($change->st_id)){ echo $change->st_id;}?>">
+							<input type="text" value="<?php if(isset($change)){ echo $change->staf_password;} ?>" name="Password" id="Password">
 							<label>Password</label>
 							<input type="password" placeholder="old password..." class="form-control input-sm" name="txtOldPassword" id="txtOldPassword">
 						</div>

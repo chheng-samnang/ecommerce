@@ -381,7 +381,7 @@ class memberLogin_model extends CI_Model
 				}
 			}
 	}
-}
+	
 	public function updatePassword($id)
 	{
 		$data = array(
@@ -396,6 +396,7 @@ class memberLogin_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM tbl_account a inner join tbl_member m on a.mem_id=m.mem_id WHERE acc_id={$id}");
 		return $query->row();
 	}
+
 	public function get_active_account($id="")
 	{
 		if($id!="")
@@ -409,9 +410,7 @@ class memberLogin_model extends CI_Model
 			{
 				return $query->result();
 			}else
-			{
-				return array();
-			}
+			{return array();}
 		}
 	}
 

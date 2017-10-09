@@ -224,20 +224,21 @@ class MemberLogin extends CI_Controller
 			$this->load->view("layout_site/footer");
 		}
 	}
-	public function save_staf_password($id=""){
-		if($id!=""){
+	public function save_staf_password(){
+		$this->form_validation->set_rules("txtOldPassword","old password","required");
+		$this->form_validation->set_rules("txtPassword","new password","required");
+		$this->form_validation->set_rules("txtConfirmPassword","confirm password","required");
+		if($this->form_validation->run()==TRUE){
 			if($this->input->post("Password") == $this->input->post("txtOldPassword")){
 				if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
-					$row=$this->staf_m->edit();
+					$row=$this->staf_m->change_password();
 					if($row===TRUE){
 						$acc_id=$this->session->acc_id;
 						$this->profile($acc_id);
 					}
-				}else{$this->change_password_staf("confirm password must by the same password..!");}
-			}else{
-				$this->change_password_staf("incorrect old password...!");
-			}
-		}
+				}else{$this->change_password_staf($error="confirm password must by the same password..!");}
+			}else{ $this->change_password_staf($error="incorrect old password...!");}
+		}else{$this->change_password_staf($id=$this->input->post("txtSt_id"));}
 	}
 
 	public function addInventory()

@@ -25,6 +25,14 @@ class Staf_m extends CI_Model
 			return $query->row();}
 		}
 	}
+	public function change_password(){
+		$data=array(
+			"staf_password"=>$this->input->post("txtPassword"),
+			);
+		$this->db->where("st_id",$this->input->post("txtSt_id"));
+		$row=$this->db->update("tbl_staf",$data);
+		if($row){return TRUE;}
+	}	
 	public function insertStaf(){
 		$data = array(
 					'st_code'	=>	$this->input->post('txtCode'),
