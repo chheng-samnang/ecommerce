@@ -381,7 +381,7 @@ class memberLogin_model extends CI_Model
 				}
 
 	}
-
+}
 	public function updatePassword($id)
 	{
 		$data = array(

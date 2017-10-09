@@ -19,7 +19,7 @@ class Staf_m extends CI_Model
 			if($query->num_rows()>0){
 			return $query->result();}
 		}else{
-			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
+			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name,staf_password FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
 			tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store AS str ON str.acc_id=acc.acc_id WHERE st_id='$id' AND stf_status='1'");
 			if($query->num_rows()>0){
 			return $query->row();}

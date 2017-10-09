@@ -1,7 +1,4 @@
 <?php
- 
-         error_reporting(0);
-
     if(!isset($this->session->userLogin))
     { redirect("logout"); }
 ?>

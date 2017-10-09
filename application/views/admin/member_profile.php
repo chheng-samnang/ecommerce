@@ -314,7 +314,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<td><?php if($row->str_name){echo $row->str_name;}else echo "<p style='color:red'>"."No Shop !"."</p>";?></td>
 														<td><?php echo $row->descr?></td>
 														<td>
-															<a href="<?php echo base_url('admin/memberLogin/editStaf/'.$row->st_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Service"><span class=" glyphicon glyphicon-pencil"></span></a>
+															<a href="<?php echo base_url('admin/memberLogin/editStaf/'.$row->st_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Satf"><span class=" glyphicon glyphicon-pencil"></span></a>
+															<a href="<?php echo base_url('admin/memberLogin/change_password_staf/'.$row->st_id);?>" class="btn btn-success btn-sm" data-toggle="tooltip" title="change password"><span class="glyphicon fa fa-lock"></span></a>
+														</td>
+														<td>
+															
 														</td>
 													</tr>
 													<?php $i=$i+1; }?>

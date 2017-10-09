@@ -180,16 +180,19 @@ class MemberLogin extends CI_Controller
 		$data["stafCode"] = $this->staf_m->staf_code();
 		$data["acc_info"] = $this->staf_m->get_account();
 		$this->form_validation->set_rules("ddlStaf","Staf name","required");
+		$this->form_validation->set_rules("txtPassword","Password","required");
+		$this->form_validation->set_rules('txtConfirmPassword', 'Confirm Password', 'required');
 		if($this->form_validation->run()===false)
 		{
-			$this->load->view("layout_site/header_top");
-			$this->load->view("layout_site/nav");
-			$this->load->view("addStaf",$data);
-			$this->load->view("layout_site/footer");
+				$this->load->view("layout_site/header_top");
+				$this->load->view("layout_site/nav");
+				$this->load->view("addStaf",$data);
+				$this->load->view("layout_site/footer");			
 		}else{
-			$acc_id = $this->session->acc_id;
-			$this->staf_m->insertStaf();
-			redirect(base_url()."profile/".$acc_id);
+			if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
+				$this->staf_m->insertStaf();
+				redirect(base_url()."profile/".$this->session->acc_id);
+			}
 		}
 	}
 
@@ -209,7 +212,32 @@ class MemberLogin extends CI_Controller
 				$this->profile($acc_id);
 				}
 		}
-
+	}
+	public function change_password_staf($id="",$error=""){
+		if($id!=""){
+			$data["acc_info"]=$this->staf_m->get_account();
+			$date["error"]=$error;
+			$data["change"]=$this->staf_m->index($id);
+			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/nav");
+			$this->load->view("change_staf_password",$data);
+			$this->load->view("layout_site/footer");
+		}
+	}
+	public function save_staf_password($id=""){
+		if($id!=""){
+			if($this->input->post("Password") == $this->input->post("txtOldPassword")){
+				if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
+					$row=$this->staf_m->edit();
+					if($row===TRUE){
+						$acc_id=$this->session->acc_id;
+						$this->profile($acc_id);
+					}
+				}else{$this->change_password_staf("confirm password must by the same password..!");}
+			}else{
+				$this->change_password_staf("incorrect old password...!");
+			}
+		}
 	}
 
 	public function addInventory()
@@ -329,7 +357,6 @@ class MemberLogin extends CI_Controller
 		{  
 			if($this->input->post("type_pro_code")!="")
 			{
-
 				$data["template"]=$this->hm->get_template();
 				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 				$data["brand"] = $this->ml->get_brand();
@@ -340,7 +367,6 @@ class MemberLogin extends CI_Controller
 				$this->load->view('layout_site/nav');
 				$this->load->view('addProduct', $data);
 				$this->load->view('layout_site/footer');
-
 			}
 		}else{
 			$data["template"]=$this->hm->get_template();

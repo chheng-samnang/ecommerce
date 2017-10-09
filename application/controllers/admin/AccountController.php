@@ -446,21 +446,3 @@ class AccountController extends CI_Controller
 	}
 }
 ?>
-$data = array(
-					"p_name"=>$this->input->post('txt_product'),
-					"p_code"=>$this->input->post("type_pro_code"),
-					"p_type"=>"product",
-					"str_id"=>$this->input->post('txt_str_id'),
-					"acc_id"=>$this->input->post('txt_acc_id'),
-					"cat_id"=>$this->input->post('txt_category'),
-					"brn_id"=>$this->input->post('txt_brand'),
-					"price"=>$this->input->post('txt_price'),
-					"model"=>$this->input->post('txt_model'),
-					"color"=>$this->input->post('txt_color'),
-					"size"=>$this->input->post('txt_size'),
-					"date_release"=>$this->input->post('txt_release'),
-					"dimension"=>$this->input->post('txt_dimension'),
-					"p_status"=>$this->input->post('txt_status'),
-					"p_desc"=>$this->input->post('txt_Desc'),
-					"date_crea"=> date('Y-m-d')
-				);

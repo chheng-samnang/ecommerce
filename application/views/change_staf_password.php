@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </nav>
 
-<?php echo form_open_multipart("admin/memberLogin/addstaf/".$acc_id)?>
+<?php echo form_open_multipart("admin/memberLogin/change_staf_password/".$acc_id)?>
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
 		<div class="panel panel-default">
@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 			<div class="panel-body">
 				<?php
-					if(!empty(validation_errors()) OR $error!="")
+					if(!empty(validation_errors()))
 					{
 				?>
 				<div class="row">
@@ -22,64 +22,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
-							<strong></strong> <?php echo validation_errors(); echo $error; ?>
+							<strong></strong> <?php echo validation_errors()?>
 						</div>
 					</div>
 				</div>
 				<?php }?>
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
-							<label>Staf Code</label>
-							<input type="text" name="txtCode" value="<?php $str="ST" ; $st_code=$stafCode->st_id+1; echo $st_code==""?"ST001":$str.$st_code;?>" class="form-control input-sm" readonly>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label>Staf Name</label>
-							<select name="ddlStaf" id="ddlStaf" class="form-control input-sm">
-								<option value="">Choose One</option>
-								<?php if(isset($acc_info)){  foreach ($acc_info AS $value){  ?>
-								<option value="<?php echo $value->acc_id; ?>"><?php echo  $value->mem_name;?></option>
-								<?php }} ?>
-							</select>
-							<div id="errorName" style="display:none;">
-								<h5 style="color:red;"><i class="glyphicon glyphicon-remove"></i> <strong>Warning!</strong> This field cannot be empty.</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="form-group">
+							<!-- <input type="hidden" value="<?php if(isset($change)){ echo $change->staf_password } ?>" name="Password" id="Password"> -->
 							<label>Password</label>
-							<input type="password" placeholder="password..." class="form-control input-sm" name="txtPassword" id="txtPassword">
+							<input type="password" placeholder="old password..." class="form-control input-sm" name="txtOldPassword" id="txtOldPassword">
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-4">
+						<div class="form-group">
+							<label>New Password</label>
+							<input type="password" placeholder="new password..." class="form-control input-sm" name="txtPassword" id="txtPassword">
+						</div>
+					</div>
+					<div class="col-lg-4">
 						<div class="form-group">
 							<label>Confirm password</label>
 							<input type="password" placeholder="confirm password..." class="form-control input-sm" name="txtConfirmPassword" id="txtConfirmPassword">
 						</div>
 						<div class="form-group">
 							<div id="errorMsg" style="display:none;">
-								<label class="col-lg-6" style="color:red;"><i> Passwords don't matched!</i>
+								<label class="col-lg-12" style="color:red;"><i> Passwords don't matched!</i>
 								</label>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="form-group">
-							<label>Description</label>
-							<textarea placeholder="description..." name="terDescr"><?php echo set_value('txtInvDesc','')?></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<button class="btn btn-success btn-sm" type="submit"> <?php echo $this->lang->line('save')?></button>
+						<button class="btn btn-success btn-sm" name="btnSave" type="submit"> <?php echo $this->lang->line('save')?></button>
 						<a class="btn btn-default btn-sm" href="<?php echo base_url('admin/MemberLogin/Cancel')?>"  ><i class="fa fa-times"></i> <?php echo $this->lang->line('cancel')?></a>
 					</div>
 				</div>
@@ -87,7 +65,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
-
 
 <!-- Modal -->
 
