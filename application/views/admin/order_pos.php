@@ -82,7 +82,9 @@ $choose=$this->lang->line("choose_one");
 								<td>{{ord.Date}}</td>
 								<td>{{ord.Name}}</td>
 								<td>{{ord.Status}}</td>
-								<td><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal"><?php echo $this->lang->line("update_status"); ?></button></td>
+								<td>
+									<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal"><?php echo $this->lang->line("update_status"); ?></button>
+								</td>
 								<td>
 									<!-- Modal -->
 									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -135,7 +137,6 @@ $choose=$this->lang->line("choose_one");
 													<th><?php echo $this->lang->line("product"); ?></th>
 													<th><?php echo $this->lang->line("qty");?></th>
 													<th><?php echo $this->lang->line("price");?></th>
-													<!-- <th>Discount</th> -->
 													<th><?php echo $this->lang->line("total");?></th>
 													<th><?php echo $this->lang->line("action");?></th>
 												</tr>
@@ -146,7 +147,6 @@ $choose=$this->lang->line("choose_one");
 													<td>{{ord.Name}}</td>
 													<td>{{ord.Qty}}</td>
 													<td>{{ord.Price|currency}}</td>
-													<!-- <td>{{ord.Discount}}</td> -->
 													<td>{{ord.Total|currency}}</td>
 													<td><button class="btn btn-danger btn-sm confirmModal del" ng-click="removeItem(ord.ID)"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
 												</tr>
@@ -192,36 +192,30 @@ $choose=$this->lang->line("choose_one");
       var ord_status = $scope.ord_status;
       var d_from = document.getElementById("d_from").value;
       var d_to = document.getElementById("d_to").value;
-
       $scope.loadOrderDet('','');// clear 
-
       $http.get("ng/get_order_hdr.php?id="+mem_id+"&stat="+ord_status+"&from="+d_from+"&to="+d_to+"&str="+str_id)
-    .then(function (response) {$scope.order_hdr = response.data.records;});
+     .then(function (response) {$scope.order_hdr = response.data.records;});
     }
 
-
     $scope.loadOrderDet = function(id,m_id){
-      $http.get("ng/get_order_det.php?id="+id)
-    .then(function (response) {$scope.order_det = response.data.records;});
-
-      if(m_id!="")
-      {
-        $http.get("ng/get_contact.php?id="+m_id)
-    .then(function (response)
-          {$scope.contact = response.data.records;
+     	$http.get("ng/get_order_det.php?id="+id)
+    	.then(function (response) {$scope.order_det = response.data.records;});
+      	if(m_id!="")
+      	{
+        	$http.get("ng/get_contact.php?id="+m_id)
+    		.then(function (response)
+          	{$scope.contact = response.data.records;
               $scope.phone = response.data.records[0].Phone;
               $scope.email = response.data.records[0].Email;
               $scope.addr = response.data.records[0].Address;
-          });
-
-      }
-
+          	});
+      	}
     }
+    
     $scope.mem_id = "choose one";
     $scope.updateStatus = function(ord_id,status){
       var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-
+      xmlhttp.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200) {
                 $("#btnClose").click();
             }

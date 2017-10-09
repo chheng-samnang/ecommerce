@@ -4,7 +4,6 @@
     <div class="container" id="nav_container">
 		<div class="col-md-3" style="">
 		      <a href="<?php echo base_url('');?>"><img id="logo" src="<?php echo base_url('assets/uploads/logo.png');?>"></a>
-
 		</div>
 
 		<div class="col-sm-4 col-md-7" style="padding: 1px;">
@@ -41,7 +40,7 @@
                      $kh ="khmer";
                      $ch ="chinese";
                      $default = "default";
-                        switch ($default) {
+                        switch ($default){
                             case 'default':
                                     $default ="default";
                                 break;
@@ -71,19 +70,13 @@
                         <!-- <?php echo $this->session->site_lang?> -->
                             <?php  if($this->session->site_lang=="english"){?>
                                                 {{x.Name}}
-                                   
-                                
                             <?php }elseif( $this->session->site_lang=="khmer"){?>
                                                 {{x.Cat_Name_kh}}
-                        
                             <?php }elseif($this->session->site_lang=="chinese"){?>
                                                 {{x.Cat_Name_ch}}
                             <?php }?>
                         </a>
                     </li>
-
-	            </ul>
-                <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo base_url('about');?>" ><?php echo $this->lang->line('about')?></a></li>
                     <li><a href="<?php echo base_url('contact');?>"><?php echo $this->lang->line('contact')?></a></li>
                     <li><a href="<?php echo base_url('blog');?>" target="blak"><span class="glyphicon glyphicon-user"></span> <?php echo $this->lang->line('blog')?></a></li>

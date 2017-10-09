@@ -92,7 +92,7 @@
 </script>
 <script type="text/javascript">
 	$("#btnCancel").click(function(){
-		window.location.assign("<?php echo base_url()?>product");
+		window.location.assign("<?php echo base_url()?>");
 	});
 	$("#txtConfirm").focusout(function(){
 		var pass = $("#txtPassword").val();

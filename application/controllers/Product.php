@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{
 			parent::__construct();
 			$this->load->model('product_m_site','pm');
+			$this->load->model('Member_m');
 			$this->load->model("memberLogin_model","mm");
 			$this->load->model('home_m','hm');
 			$this->itemNum = isset($this->session->product)?count($this->session->product):0;
@@ -79,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			{
 				$name = $this->input->post("txtLoginName");
 				$password = $this->input->post("txtLoginPassword");
-
+				
 				$validation = $this->pm->validate_member($name,$password);
 				if($validation)
 				{
@@ -167,6 +168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function registerMember()
 		{
+			$this->form_validation->set_rules('name', 'Email have already ,', 'trim|required|min_length[4]|is_unique[tbl_member.mem_email]'); 
 			$this->form_validation->set_rules("txtName","Member Name","required|trim|max_length[100]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtPhone","Phone Number","required|trim|max_length[25]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtEmail","Email","trim|max_length[50]|valid_email");
@@ -195,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/footer');
 		}
 		public function payment_detail($payment_method_id="") #$payment_method_id = wal_id
-		{	echo $payment_method_id;
+		{	
 			if($payment_method_id!=""){
 				$ballance = $this->pm->get_wallet_bal($payment_method_id);
 				if($ballance->tran_amt!=null)
@@ -211,13 +213,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							if(isset($_POST["btnProcess"])&&!empty($_SESSION["product"]))
 							{
 								$tran_type = "cash_out";
-								$this->pm->process_transaction($payment_method_id,$tran_type,$total);
-                				unset($_SESSION["product"]);
-								redirect('product/message_payment');
-
+								$row=$this->pm->process_transaction($payment_method_id,$tran_type,$total);
+								if($row===TRUE){
+									unset($_SESSION["product"]);
+									redirect('product/message_payment');
+								}
 							}else
 							{
 								$data["mem_id"] = $this->session->memLogin;
+								$data["mem_address"]= $this->Member_m->index($this->session->memLogin);
 								$data["ballance"] = $ballance->tran_amt;
 								$data['item'] = $_SESSION["product"];
 								$data['pmID'] = $payment_method_id;
@@ -229,7 +233,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 						}else   #Insufficent fund
 						{
-
 							$data["insuff"] = "1";
 							$data["mem_id"] = $this->session->memLogin;
 							$data["ballance"] = $ballance->tran_amt;
@@ -288,7 +291,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function login($mem_id="")
 		{
-
 			$validate = false;
 			$data["msg"] = $this->msg;
 			$this->form_validation->set_rules("txtEmail","Email","required|max_length[50]");//valid_email|
@@ -298,22 +300,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			{
 				$email = $this->input->post("txtEmail");
 				$pwd = $this->input->post("txtPass");
-				$validate = $this->mm->validate_member($email,$pwd);
-				if($validate!==true)
+				$validate = $this->mm->LogTocheckOut($email,$pwd);
+				if($validate===false)
 				{
-					$data["msg"] = $validate;
-
+					$data["msg"] ="Incorrect member name , Password....";
 					$this->load->view('layout_site/style');
 					$this->load->view('Checkout/form_login',$data);
 				}else
-				{
+				{	
 					$data["mem_id"] = $this->session->memLogin;
 					$data["acc_id"] = $this->pm->get_account_id($data["mem_id"]);
 					$data["wal_id"] = $this->pm->get_wallet_id($data["acc_id"]);
-
 					$this->load->view('layout_site/style');
 					$this->load->view('payment',$data);
-
 				}
 			}else
 			{

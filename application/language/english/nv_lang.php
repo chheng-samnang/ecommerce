@@ -4,6 +4,7 @@
 $lang["setting"] = "Setting";
 $lang["menu0"] = "Dashboard";
 $lang["menu1"] = "Category Management";
+$lang["menu1_1"] = "Sup Category";
 $lang["menu2"] = "Brand Management";
 $lang["menu3"] = "Member Management";
 $lang["menu4"] = "Products Management";
@@ -22,6 +23,7 @@ $lang["menu16"] = "Template Management";
 $lang["menu17"] = "Inventory Management";
 $lang["menu18"] = "Promotion Management";
 $lang["menu19"] = "Contact Us";
+$lang["menu20"] = "Combind Product";
 
 #===================== for Menu Left ====================
 
@@ -38,7 +40,9 @@ $lang['cancel'] = 'Cancel';
 $lang['english'] = 'english';
 $lang['khmer'] = 'khmer';
 $lang['chinese'] = 'chinese';
-
+$lang["kh"] = "khmer";
+$lang["en"] = "english";
+$lang["ch"] = "chinese";
 
 
 #======================= for Button =================================
@@ -47,6 +51,7 @@ $lang["contact_us"] = "Contact-Us";
 $lang["welcome"] = "Welcome";
 $lang["promotion_select"]="Promotion Selected"; 
 $lang["category"] = "Category";
+$lang["category_name"] = "Category name";
 $lang["brand"] = "Brand";
 $lang["member"] = "Member";
 $lang["product"] = "Products";
@@ -73,6 +78,7 @@ $lang["promotion"]="Promotion";
 $lang["promotion_list"]="Promotion List";
 $lang["fund"]="Fund";
 $lang["service"]="Service";
+$lang["staf"]="Staf";
 $lang["view"]="Views";
 $lang["refresh"]="Refresh";
 
@@ -105,6 +111,8 @@ $lang["date"] = "Date";
 $lang["action"] = "Action";
 $lang["descr"] = "Description";
 $lang["category"] = "Category";
+$lang["parents_category"] = "Parents Category";
+
 $lang["name"] = "Name";
 $lang["member_name"] = "Member Name";
 $lang["code"] = "Code";

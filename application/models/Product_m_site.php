@@ -20,14 +20,13 @@
 
 		public function process_transaction($wal_id,$tran_type,$amount)
 		{
-
 			$data = array(
 							"wal_id"	=>	$wal_id,
 							"tran_type" =>	$tran_type,
 							"tran_amt"	=>	$amount,
 							"tran_date"	=>	date("Y-m-d H:i:s"),
 							"tran_status"	=>	"1"
-				);
+			);
 			$this->db->insert("tbl_wallet_transaction",$data);
 
 			$ord_code = $this->om->generate_order_code();
@@ -35,10 +34,11 @@
 							"ord_code"	=>	$ord_code,
 							"ord_date"	=>	date("Y-m-d"),
 							"mem_id"	=>	$this->session->memLogin,
-							"ord_status"=>	"pending",
+							"ord_status"=>	"order",
+							"delivery_addr"=>$this->input->post("txrAddr"),
 							"user_crea"	=>	$this->session->memLogin,
 							"date_crea"	=>	date("Y-m-d")
-				);
+			);
 			$this->db->insert("tbl_order_hdr",$data);
 			
 			foreach ($_SESSION["product"] as $key => $value) {
@@ -54,7 +54,7 @@
 				$this->db->insert("tbl_order_det",$data);
 			}
 
-			foreach ($_SESSION["product"] as $key => $value) {
+			foreach ($_SESSION["product"] as $key => $value){
 				$type = isset($value["type"])?$value["type"]:"n/a";
 				$data = array(
 								"p_id"	=>	$value["id"],
@@ -65,10 +65,10 @@
 								"user_crea"	=>	$this->session->memLogin,
 								"date_crea"	=>	date("Y-m-d")
 					);
-				$this->db->insert("tbl_stock",$data);
+					$this->db->insert("tbl_stock",$data);
 			}
-
 		}
+
 		public function insert_order_det()
 		{
 				$ord_code = "ord".date("YmdHis");
@@ -78,7 +78,7 @@
 								'ord_code'	=>	$ord_code,
 								'ord_date'	=>	date("Y-m-d"),
 								'mem_id'	=>	$mem_id,
-								'ord_status'=>	'Pending',
+								'ord_status'=>	'order',
 								'user_crea'	=>	$this->userCrea,
 								'date_crea'	=>	date("Y-m-d")
 							);
@@ -109,9 +109,8 @@
 											'date_crea'	=>	date('Y-m-d')
 								);
 							$this->db->insert("tbl_stock",$data);
-
 		}
-	}
+		}
 		public function validate_member($name,$password)
 		{
 			if($name!=""&&$password!="")
@@ -126,7 +125,7 @@
 										'ord_code'	=>	$ord_code,
 										'ord_date'	=>	date("Y-m-d"),
 										'mem_code'	=>	$mem_code,
-										'ord_status'=>	'Pending',
+										'ord_status'=>	'order',
 										'user_crea'	=>	$this->userCrea,
 										'date_crea'	=>	date("Y-m-d")
 							);
@@ -161,6 +160,7 @@
 				}
 			}
 		}
+		
 		public function get_member_id($email)
 		{
 			if($email!="")
@@ -175,60 +175,52 @@
 				}
 			}
 		}
+
 		public function update_member_password($mem_id)
 		{
-			$data = array(
-							'mem_password' => $this->input->post('txtPassword')
-
-				);
+			$data = array('mem_password' => $this->input->post('txtPassword'));
 			$this->db->where("mem_id",$mem_id);
 			$this->db->update("tbl_member",$data);
 		}
+
 		public function select_member($mem_id)
 		{
-				$query = $this->db->query("SELECT * FROM tbl_member WHERE mem_id={$mem_id} ORDER BY mem_id ASC");
-				return $query->row();
+			$query = $this->db->query("SELECT * FROM tbl_member WHERE mem_id={$mem_id} ORDER BY mem_id ASC");
+			return $query->row();
 		}
+		
 		public function get_price($id)
 		{
 			$this->db->select('price');
 			$query = $this->db->get_where('tbl_product',array('p_id'=>$id));
 			return $query->row();
 		}
+		
 		public function index()
 		{
 			$query=$this->db->query("SELECT * FROM tbl_product AS p INNER JOIN tbl_media AS m ON m.p_id=p.p_id GROUP BY m.p_id ASC");
 			return $query->result();
 		}
+		
 		public function product_page_detail($pro_id){
 			if($pro_id!==""){
-
 				$query=$this->db->query("SELECT * FROM tbl_promotion AS pro INNER JOIN tbl_promotion_det AS pd ON pro.`pro_id`=pd.`pro_id` RIGHT JOIN tbl_product AS p ON p.`p_id`=pd.`p_id` LEFT JOIN tbl_category AS c ON p.`cat_id`=c.`cat_id` LEFT JOIN tbl_media AS m ON m.`p_id`=p.`p_id` LEFT JOIN tbl_store AS s ON s.`str_id`=p.`str_id` LEFT JOIN tbl_brand AS b ON b.`brn_id`=p.`brn_id` WHERE p.p_id={$pro_id} GROUP BY m.p_id ASC");
-				
-
 				//$query=$this->db->query("SELECT p.p_id, p.p_name, p.price, p.model, p.date_release, p.dimension, p.size, p.color, p.p_desc, m.p_id, m.path, c.cat_id, c.cat_name, b.brn_name, s.str_id, s.str_name, pro.pro_type, pd.pro_id, pro.pro_id,p.p_type FROM tbl_promotion AS pro INNER JOIN tbl_promotion_det AS pd ON pro.`pro_id`=pd.`pro_id` RIGHT JOIN tbl_product AS p ON p.`p_id`=pd.`p_id` LEFT JOIN tbl_category AS c ON p.`cat_id`=c.`cat_id` LEFT JOIN tbl_media AS m ON m.`p_id`=p.`p_id` LEFT JOIN tbl_store AS s ON s.`str_id`=p.`str_id` LEFT JOIN tbl_brand AS b ON b.`brn_id`=p.`brn_id` WHERE p.p_id={$pro_id} GROUP BY m.p_id ASC");
-
-
 				return $query->row();
 			}
 		}
+
 		public function slideshow()
 		{
 			$this->db->where('slide_status', 1);
 			$query=$this->db->get("tbl_slide");
-
 			return $query->result();
 		}
 
 		public function category1($cat_id)
 		{
-			//$this->db->where('slide_status', 1);
-
-			// $this->db->where('cat_id');
-			// $this->db->limit(1);
 			$query=$this->db->query("SELECT cat_id, cat_name FROM tbl_category WHERE cat_id={$cat_id}");
 			return $query->result();
-
 		}
 
 		public function brand($cat_id)
@@ -253,7 +245,6 @@
 			{
 				$result = "acc0000001";
 			}
-
 			return $result;
 		}
 
@@ -264,7 +255,6 @@
 			$ord_code = "ord".date("YmdHis");
 			$acc_code = $this->generate_acc_code();
 			$acc_id = "";
-
 			$data = array(
 							'mem_code'	=>	$mem_code,
 							'mem_name'	=>	$this->input->post('txtName'),
@@ -272,7 +262,7 @@
 							'mem_email'	=>	$this->input->post('txtEmail'),
 							'mem_password'	=>	$this->input->post('txtPassword'),
 							'mem_addr'	=>	$this->input->post('txtAddr'),
-							'mem_status'=>	'2',
+							'mem_status'=>	'1',
 							'reg_date'	=>	date('Y-m-d')
 				);
 			$this->db->insert('tbl_member',$data);
@@ -286,6 +276,7 @@
 								"mem_id"	=>	$mem_id,
 								"acc_type"	=>	"General",
 								"loc_id"	=>	"1",
+								"acc_password"=>$this->input->post("txtPassword"),
 								"user_crea"	=>	$this->session->memLogin,
 								"date_crea"	=>	date("Y-m-d")
 					);
@@ -319,6 +310,7 @@
 				return "n/a";
 			}
 		}
+
 		public function get_wallet_id($acc_id)
 		{
 			$query = $this->db->get_where("tbl_wallet",array("acc_id"=>$acc_id));
@@ -330,6 +322,7 @@
 				return "n/a";
 			}
 		}
+		
 		public function get_wallet_bal($wal_id)
 		{
 			$balance = $this->db->query("SELECT SUM(CASE WHEN tran_type='cash_out' THEN tran_amt*(-1) ELSE tran_amt END) AS tran_amt FROM tbl_wallet_transaction where tran_status='1' and wal_id='$wal_id'");

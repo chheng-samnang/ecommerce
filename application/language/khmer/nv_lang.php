@@ -1,6 +1,6 @@
 <?php
 $lang['menu0'] = 'ផ្ទាំងគ្រប់គ្រង';
-$lang['menu1'] = 'គ្រប់គ្រង ប្រភេទ';
+$lang['menu1_1'] = 'ប្រភេទ បន្ថែម';
 $lang['menu2'] = 'គ្រប់គ្រង ម៉ាក';
 $lang['menu3'] = 'គ្រប់គ្រង សមាជិក';
 $lang["menu4"] = "គ្រប់គ្រង ផលិតផល";
@@ -32,9 +32,11 @@ $lang['save'] = 'រក្សាទុក';
 $lang['update'] = 'កែប្រែ';
 $lang['delete'] = 'លុប';
 $lang['cancel'] = 'បោះបង់'; 
+$lang['staf'] = 'អ្នកលក់'; 
 $lang["welcome"] = "សូមស្វាគមន៍";
 $lang["setting"] = "ការកំណត់";
 $lang["category"] = "ប្រភេទ";
+$lang["pearents_category"] = "ប្រភេទ មេ";
 $lang["brand"] = "ម៉ាក";
 $lang["manage"] = "គ្រប់គ្រង";
 $lang["member"] = "សមាជិក";

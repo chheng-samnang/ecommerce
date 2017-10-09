@@ -14,7 +14,7 @@
 		
 		<?php echo validation_errors()?>
 		<?php echo form_open('admin/log_controller')?>
-			<h1>Login Form</h1>
+			<h1>Login For</h1>
 			<div>
 				<input type="text" placeholder="Username" required="" name="txtUsername" id="username" />
 			</div>

@@ -25,7 +25,7 @@ class Main_m extends CI_Model
 	}
 	public function order()
 	{
-		$query=$this->db->query("SELECT COUNT(ord_id) AS value FROM tbl_order_hdr WHERE ord_status='pending'");
+		$query=$this->db->query("SELECT COUNT(ord_id) AS value FROM tbl_order_hdr WHERE ord_status='order'");
 		if($query->num_rows()>0){return $query->row()->value;}
 		else{return 0;}
 	}
@@ -59,9 +59,9 @@ class Main_m extends CI_Model
 	}
 
 	public function get_order(){
-		$query =$this->db->query("SELECT * FROM `tbl_order_hdr` AS od INNER JOIN `tbl_order_det` AS odt ON od.ord_code=odt.ord_code LEFT JOIN `tbl_member`AS mem ON od.mem_id=mem.mem_id LEFT JOIN `tbl_product` AS pr ON odt.p_id=pr.p_id WHERE ord_status='pending'");
+		
+		$query =$this->db->query("SELECT * FROM `tbl_order_hdr` AS od INNER JOIN `tbl_order_det` AS odt ON od.ord_code=odt.ord_code LEFT JOIN `tbl_member`AS mem ON od.mem_id=mem.mem_id LEFT JOIN `tbl_product` AS pr ON odt.p_id=pr.p_id WHERE ord_status='order'");
 		if($query->num_rows()>0){return $query->result();}
 	}
-
 }
 ?>

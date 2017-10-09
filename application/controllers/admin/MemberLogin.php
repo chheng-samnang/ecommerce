@@ -12,6 +12,7 @@ class MemberLogin extends CI_Controller
 		$this->pageHeader='Member';		
 		$this->page_redirect="admin/memberLogin";							
 		$this->load->model("promotion_m", "pm");
+		$this->load->model("staf_m");
 		$this->load->model("locationModel");
 		$this->load->model("memberLogin_model","ml");
 		$this->load->model("Wallet_m","wm");
@@ -29,26 +30,24 @@ class MemberLogin extends CI_Controller
 		{
 			$email = $this->input->post("txtUser");
 			$pwd = $this->input->post("txtPass");
-			$validate = $this->ml->validate_member($email,$pwd);
-			if($validate!==true)
+			$accType=$this->input->post("ddlAccType");
+			$validate = $this->ml->validate_member($email,$pwd,$accType);
+			if($validate==false)
 			{
-				$data["msg"] = $validate;
+				$data["msg"] = "Member name/ password/ account type is incorrect";
 				$this->load->view("admin/login_member.php",$data);
-			}else
-			{
-				$data["template"]=$this->hm->get_template();
-				$data["account"] = $this->ml->get_account($this->session->memLogin);
-				$data["member"] = $this->ml->get_member($this->session->memLogin);
-				$this->load->view("layout_site/header_top1", $data);
-				$this->load->view("layout_site/nav",$data);
-				$this->load->view("admin/choose_account",$data);
-				$this->load->view("layout_site/footer");
+			}else{
+				if($validate->status!="0"){
+					$this->profile($validate->acc_id);
+				}else{
+					$data["msg"] = "Your account not accept to login...!";
+					$this->load->view("admin/login_member.php",$data);
+				}
 			}
 		}else
-		{
+		{	
 			$this->load->view("admin/login_member.php",$data);
 		}
-		
 	}
 
 	public function Logout()
@@ -71,7 +70,6 @@ class MemberLogin extends CI_Controller
 				$data["location"] = $this->ml->get_location();
 				$this->load->view('layout_site/header_top');
 				$this->load->view('layout_site/nav');
-			
 				$this->load->view('chage_password',$data);
 				$this->load->view('layout_site/footer');
 	}
@@ -92,7 +90,8 @@ class MemberLogin extends CI_Controller
 			$data["wallet_transaction"]=$this->ml->select_wallet_transaction($this->session->acc_id);
 			$data["acc"]=$this->ml->get_account_validation($this->session->acc_id);
 			$data["product"] = $this->ml->get_product($this->session->acc_id);
-			//$data["product1"] = $this->ml->get_product1($this->session->acc_id);
+			$data["shop_product"] = $this->ml->get_shop_product($this->session->acc_id);
+			$data["new_order"]= $this->ml->get_new_order($this->session->acc_id);
 			$data["shop"]=$this->ml->selectshop($acc_id);
 			$data["member"] = $this->ml->get_member($this->session->memLogin);
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
@@ -101,6 +100,7 @@ class MemberLogin extends CI_Controller
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
 			$data["location"] = $this->locationModel->get_location();
+			$data["staf_info"] = $this->staf_m->index();
 			$data["error"]=$error;
 			$this->load->view("layout_site/header_top1",$data);
 			$this->load->view("layout_site/nav");
@@ -112,8 +112,6 @@ class MemberLogin extends CI_Controller
 		}
 	}	
 
-
-
 	public function validation(){
 		$this->form_validation->set_rules("ConPassword","Confirm password","required");
 		$this->form_validation->set_rules("Newpassword","Password","required");
@@ -121,6 +119,7 @@ class MemberLogin extends CI_Controller
 			return true;
 		}else{return false;}
 	}	
+
 	public function pro_validation(){ 	
 		$this->form_validation->set_rules("txtName","Account Name","required");
 		$this->form_validation->set_rules("ddlGender","Gender","required");
@@ -165,12 +164,48 @@ class MemberLogin extends CI_Controller
 		 	}
 	}
 	
+	public function addstaf()
+	{
+		$data["stafCode"] = $this->staf_m->staf_code();
+		$data["acc_info"] = $this->staf_m->get_account();
+		$this->form_validation->set_rules("ddlStaf","Staf name","required");
+		if($this->form_validation->run()===false)
+		{
+			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/nav");
+			$this->load->view("addStaf",$data);
+			$this->load->view("layout_site/footer");
+		}else{
+			$acc_id = $this->session->acc_id;
+			$this->staf_m->insertStaf();
+			redirect(base_url()."profile/".$acc_id);
+		}
+	}
+
+	public function editStaf($id=""){
+		if($id!=""){
+			$data["acc_info"]=$this->staf_m->get_account();
+			$data["edit"]=$this->staf_m->index($id);
+			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/nav");
+			$this->load->view("editStaf",$data);
+			$this->load->view("layout_site/footer");
+		}
+		if(isset($_POST["btnEdit"])){
+				$row=$this->staf_m->edit();
+				if($row===TRUE){
+				$acc_id=$this->session->acc_id;
+				$this->profile($acc_id);
+				}
+		}
+
+	}
+
 	public function addInventory()
 	{
 		$data["itemCode"] = $this->ml->get_inventory_code();
 		$data["category"] = $this->ml->get_category();
 		$data["brand"] = $this->ml->get_brand();
-
 		$this->form_validation->set_rules("txtName","Item Name","required|trim|max_length[200]|alpha_numeric_spaces");
 		$this->form_validation->set_rules("ddlCat","Category","required|numeric");
 		$this->form_validation->set_rules("ddlBrand","Brand","required|numeric");
@@ -181,7 +216,6 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules("txtModel","Model","trim|max_length[100]|alpha_numeric_spaces");
 		$this->form_validation->set_rules("txtDimension","Dimension","trim|max_length[50]|alpha_numeric_spaces");
 		$this->form_validation->set_rules("ddlStatus","Status","required|trim|max_length[11]|numeric");
-
 		if($this->form_validation->run()===false)
 		{
 			$this->load->view("layout_site/header_top");
@@ -214,20 +248,38 @@ class MemberLogin extends CI_Controller
 		$this->load->view("layout_site/footer");
 	}
 
-	public function addAccount()
-	{
-		$this->form_validation->set_rules('txtaccCode', 'Input Your Account Code', 'required');
+	public function acc_setup(){
+		$this->form_validation->set_rules('txt_dob', 'date of birth', 'required');
+		$this->form_validation->set_rules('txt_gender', 'gender', 'required');
+		$this->form_validation->set_rules('password', 'password', 'required');
+		$this->form_validation->set_rules('txt_acc_type', 'account type', 'required');
+		$this->form_validation->set_rules('txtaccCode', 'account code', 'required');
+		$this->form_validation->set_rules('ddlLocation', 'location', 'required');
 		if ($this->form_validation->run()==TRUE) 
-		{
-			$this->ml->addAccount();
-			redirect('profile/'.$this->session->acc_id);
-		}
-		$data["member"] = $this->ml->select($this->session->memLogin);
-		$data["location"] = $this->ml->get_location();
-		$this->load->view('layout_site/header_top');
-		$this->load->view('layout_site/nav');
-		$this->load->view('addAccount',$data);
-		$this->load->view('layout_site/footer');
+		{	$row=$this->ml->AccTypeValidate($this->session->memLogin);
+			if($row!==true){
+				$this->ml->addAccount();
+				redirect('profile/'.$this->session->acc_id);
+			}else{
+				$data["error"]="this member of account type have already... ";
+				$data["member"] = $this->ml->select($this->session->memLogin);
+				$data["location"] = $this->ml->get_location();
+				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/nav');
+				$this->load->view('addAccount',$data);
+				$this->load->view('layout_site/footer');
+			}
+		}else{ $this->addAccount(); }
+	}
+
+	public function addAccount()
+	{	
+			$data["member"] = $this->ml->select($this->session->memLogin);
+			$data["location"] = $this->ml->get_location();
+			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/nav');
+			$this->load->view('addAccount',$data);
+			$this->load->view('layout_site/footer');
 	}
 
 	public function editAccount($id)
@@ -454,7 +506,6 @@ class MemberLogin extends CI_Controller
 		$this->load->view('layout_site/nav');
 		$this->load->view('services/addservices', $data);
 		$this->load->view('layout_site/footer');
-		
 	}
 
 	public function editService($id)

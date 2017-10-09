@@ -4,7 +4,7 @@
 
 	require_once("db.php");
 	
-	$result = $conn->query("SELECT cat_id,cat_name,cat_name_kh,cat_name_ch FROM tbl_category");
+	$result = $conn->query("SELECT cat_id,cat_name,cat_name_kh,cat_name_ch FROM tbl_category WHERE NOT parent_id!=''");
 	$outp = "";
 	while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
 	    if ($outp != "") {$outp .= ",";}

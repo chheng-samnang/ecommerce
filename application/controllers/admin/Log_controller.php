@@ -17,7 +17,7 @@ class Log_controller extends CI_Controller {
 			$data["msg"] = "";
 			$this->load->view('template/login',$data);
 		}else
-		{//do_hash
+		{
 			$username = $this->input->post('txtUsername');
 			$pass = $this->input->post('txtPass');
 			$result = $this->lm->validateUser($username);

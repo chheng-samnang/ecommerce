@@ -22,6 +22,9 @@ class AccountModel extends CI_Model
 			return $query->result();
 		}
 	}
+	public function index(){
+		
+	}
 
 	function get_account($id="")
 	{

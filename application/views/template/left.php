@@ -26,6 +26,9 @@
                         <li>
                             <a href="<?php echo base_url();?>category"><i class="glyphicon glyphicon-list"></i> <?php echo $this->lang->line('menu1');?></a>
                         </li>
+                         <li>
+                            <a href="<?php echo base_url();?>admin/Sup_category"><i class="glyphicon glyphicon-list"></i> <?php echo $this->lang->line('menu1_1');?></a>
+                        </li>
                         <li>
                             <a href="<?php echo base_url();?>brand"><i class="glyphicon glyphicon-tags"></i> <?php echo $this->lang->line('menu2');?></a>
                         </li>
@@ -52,7 +55,9 @@
                         <li>
                             <a href="<?php echo base_url();?>admin/wallet_c"><i class="glyphicon glyphicon-credit-card"></i> <?php echo $this->lang->line('menu6');?></a>
                         </li>
-                        
+                        <li>
+                            <a href="<?php echo base_url();?>admin/Combind_product"><i class="fa fa-cogs" aria-hidden="true"></i> <?php echo $this->lang->line('menu20');?></a>
+                        </li>
                         <li>
                             <a href="<?php echo base_url();?>location"><i class="glyphicon glyphicon-send"></i> <?php echo $this->lang->line('menu9');?></a>
                         </li>

@@ -55,25 +55,36 @@
 								<td><strong>Grand Total</strong></td>
 								<td><strong><?php echo "$".$total?></strong></td>
 							</tr>
-							
 							<tr>
 								<td colspan="3"></td>
 								<td><strong>Current E-Wallet Balance</strong></td>
-
 								<td><strong><?php echo "$".$ballance?></strong></td>
 							</tr>
 					</tbody>
 				</table>
 				<div class="row">
+					<div class="col-lg-6">
+
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+					<label>Delivery​ Address</label>
+					<textarea class="form-control" name="txrAddr" id="txrAddr">
+						<?php if(isset($mem_address)){
+							echo $mem_address->mem_addr;
+							} ?>
+					</textarea>
+					</div>
+				</div>
+				<div class="row" style="margin-top:10px">
 					<div class="col-lg-12">
 						<div class="pull-right">
 							<div class="form-group">
 								<button class="btn btn-success" type="submit" id="btnProcess" name="btnProcess">Process Payment</button>
-								
-								<a class="btn btn-default" href="<?php echo base_url('product')?>">Cancel</a>
+								<a class="btn btn-default" href="<?php echo base_url()?>">Cancel</a>
 							</div>	
 						</div>
-						
 					</div>
 				</div>
 			</div>

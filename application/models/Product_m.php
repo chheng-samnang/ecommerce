@@ -21,8 +21,8 @@ class Product_m extends CI_Model
 			$tmp = intval(substr($p_code,1,strlen($p_code)-1))+$p_id;
 			$result = "P".str_pad($tmp, 7, '0', STR_PAD_LEFT);
 		}else
-		{
-			$result = "P000000"+$p_id;
+		{	
+			$result = "P0000001";
 		}
 		return $result;
 	}
