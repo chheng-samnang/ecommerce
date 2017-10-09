@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Home extends CI_Controller 
+	class Home extends CI_Controller
 	{
 		public function __construct()
 		{
@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model("About_m");
 
 		}
-		
+
 		public function index()
 		{
 			$data["template"]=$this->hm->get_template();
@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/slideshow', $data);  // Slideshow
 			$this->load->view('layout_site/footer');            // Footer
 		}
-		
+
 		public function kh()
 		{
 			$data["template"]=$this->hm->get_template();
@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/header_top', $data); // Header top
 			$this->load->view('layout_site/nav_kh', $data);        // Navigation
 			$this->load->view('layout_site/slideshow', $data);  // Slideshow
-			$this->load->view('layout_site/footer');  
+			$this->load->view('layout_site/footer');
 		}
 
 		public function ch()
@@ -55,8 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/nav_ch', $data);        // Navigation
 
 			$this->load->view('layout_site/slideshow', $data);  // Slideshow
-			
-			$this->load->view('layout_site/footer');  
+
+			$this->load->view('layout_site/footer');
 		}
 
 		public function chackout()
@@ -76,16 +76,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/header_top',$data); // Header top
 			$this->load->view('layout_site/nav');// Navigation
 			$this->load->view('contact',$data);// Slideshow
-			$this->load->view('layout_site/footer1');  
+			$this->load->view('layout_site/footer1');
 		}
 
 		public function about()
 		{
 			$data["template"]=$this->hm->get_template();
-			$data["about"]=$this->about_m->get_about();
+			$data["about"]=$this->About_m->get_about();
 			$this->load->view('layout_site/header_top',$data); // Header top
 			$this->load->view('layout_site/nav');        // Navigation
 			$this->load->view('about_us');  // Slideshow
-			$this->load->view('layout_site/footer');  
+			$this->load->view('layout_site/footer');
 		}
 	}
