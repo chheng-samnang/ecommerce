@@ -57,7 +57,6 @@ $route['category'] = 'admin/categoryController';
 $route['category/add'] = 'admin/categoryController/add_category';
 $route['category/edit/(:num)'] = 'admin/categoryController/edit_category/$1';
 $route['category/delete/(:num)'] = 'admin/categoryController/deleteCategory/$1';
-
 $route['brand'] = 'admin/brand_c';
 $route['brand/add'] = 'admin/brand_c/add';
 $route['account'] = 'admin/accountController';
@@ -97,7 +96,7 @@ $route['slide/delete/(:num)'] = 'admin/slide_c/delete/$1';
 #===========================================================================
 
 $route['Store'] = 'admin/Store_c';
-
+$route['Staf'] = 'admin/Staf_c';
 #===========================================================================
 
 

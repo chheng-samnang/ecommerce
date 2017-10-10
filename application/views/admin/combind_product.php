@@ -132,7 +132,7 @@
                     var result = arr1.indexOf(P_id);
                     var product=response.data.responsecords;
                     if(product){
-                        $scope.msg_error=true; $scope.msg=" This product have in store already";
+                        $scope.msg_error=true; $scope.msg="This product have in store already";
                     }else{ 
                          arr1[i] = P_id;
                         if(result==-1)
@@ -145,7 +145,7 @@
                             i = i+1;
                             $scope.product_selected = arr;arr[i][1] = P_id;
                         }else{$scope.msg_error=true; $scope.msg=" This product select aldready"}
-                     }
+                    }
                 }
             });
         }

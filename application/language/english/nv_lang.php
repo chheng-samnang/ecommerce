@@ -25,9 +25,8 @@ $lang["menu16"] = "Template Management";
 $lang["menu17"] = "Inventory Management";
 $lang["menu18"] = "Promotion Management";
 $lang["menu19"] = "Contact Us";
-
 $lang["menu20"] = "Combind Product";
-
+$lang["menu21"] = "Staf";
 
 #===================== for Menu Left ====================
 
@@ -60,18 +59,14 @@ $lang["brand"] = "Brand";
 $lang["member"] = "Member";
 $lang["product"] = "Products";
 $lang["wallet"] = "Wallet";
-
 $lang["stoee"] = "Store";
-
 $lang["account"] = "Account";
 $lang["account-m"] = "Manage Account";
 $lang["location"] = "Location";
 $lang["stock"] = "Stock";
 $lang["user"] = "User";
-
 $lang["password1"] = "Password";
 $lang["password"] = "Change Password";
-
 $lang["advertisement"] = "Advertisement";
 $lang["advertise"] = "Advertise";
 $lang["advertise_name"] = "Advertise name";
@@ -120,7 +115,6 @@ $lang["date"] = "Date";
 $lang["action"] = "Action";
 $lang["descr"] = "Description";
 $lang["category"] = "Category";
-
 $lang["parents_category"] = "Parents Category";
 
 
@@ -164,12 +158,15 @@ $lang["store_name"] = "Store name";
 $lang["product_code"] = "Product code";
 $lang["product_name"] = "product name";
 
+$lang["staf_id"] = "Staff ID";
+$lang["product"] = "Products";
+$lang["staf_name"] = "Staff Name";
+/*staf*/
 $lang["user_name"] = "user name";
 $lang["release"] = "release";
 $lang["inventory_code"] = "Inventory code";
 $lang["inventory_name"] = "Inventory name";
 $lang["inventory"] = "Inventory";
-
 $lang["wallet_code"] = "Wallet code";
 $lang["position_name"] = "Position name";
 $lang["location_name"] = "Location name";

@@ -64,8 +64,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="form-group">
 							<label>Status</label>
 							<select name="ddlStatus" class="form-control">
-								<option value="1" selected>Enable</option>
-								<option value="0">Disable</option>
+								<option <?php if($edit->stf_status=='1'){ echo "selected"; } ?> value="1">Enable</option>
+								<option <?php if($edit->stf_status=='0'){ echo "selected"; } ?> value="0">Disable</option>
 							</select>
 						</div>
 					</div>

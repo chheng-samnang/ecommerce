@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="col-lg-4">
 						<div class="form-group">
 							<input type="hidden" id="txtSt_id" name="txtSt_id" value="<?php if(isset($change->st_id)){ echo $change->st_id;}?>">
-							<input type="text" value="<?php if(isset($change)){ echo $change->staf_password;} ?>" name="Password" id="Password">
+							<input type="hidden" value="<?php if(isset($change)){ echo $change->staf_password;} ?>" name="Password" id="Password">
 							<label>Password</label>
 							<input type="password" placeholder="old password..." class="form-control input-sm" name="txtOldPassword" id="txtOldPassword">
 						</div>

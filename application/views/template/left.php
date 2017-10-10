@@ -47,6 +47,9 @@
                                 <li>
                                     <a href="<?php echo base_url();?>Store"><i class="glyphicon glyphicon-modal-window"></i> <?php echo $this->lang->line('menu7');?></a>
                                 </li>
+                                 <li>
+                                    <a href="<?php echo base_url();?>Staf"><i class="fa fa-meh-o"></i> <?php echo $this->lang->line('menu21');?></a>
+                                </li>
                             </ul><!-- /.nav-second-level -->
                         </li>
                          <li>
