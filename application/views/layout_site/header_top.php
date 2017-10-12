@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <title>Home</title>
-    
     <link rel="shortcut icon" href="<?php echo base_url('assets/uploads/mobile-cart-icon.png');?>">
     <link href="<?php echo base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/bower_components/bootstrap/dist/css/animate_category.min.css" rel="stylesheet">
@@ -15,7 +14,7 @@
     <script src="<?php echo base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>
     <link href="<?php echo base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<?php echo base_url()?>grid and list/css/component.css" rel="stylesheet">
-     <link href="<?php echo base_url()?>assets/drowdown/jquery-select7.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url()?>assets/drowdown/jquery-select7.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<?php echo base_url('assets/dist/js/bootstrap-datetimepicker.js');?>"></script>
     <script src="<?php echo base_url()?>assets/bower_components/bootstrap/js/angular.min.js"></script><div class="row">
 </head>
@@ -35,7 +34,6 @@
             #main-content { display:none; }
             #myDropdown a:hover{ color: red; }
         </style>
-
     </noscript>
 
     <div id="main-content">
@@ -47,16 +45,13 @@
                         </div>
                         <div class="col-md-6" style="">
                 	       <div class="navbar-right">
-                                
                                 <a class="" href="<?php echo base_url()?>memberLogin" style="text-decoration: none; color: white; margin-right: 20px;" ><i class="fa fa-unlock-alt"></i> <?php echo $this->lang->line('login')?></a>
                                 <a href="<?php echo base_url('product/registerMember')?>"  style="color: #fff; margin-right: 20px;"><i class="fa fa-user"></i> <?php echo $this->lang->line('register')?>  </a>
-                                
                                 <select class="select7" onchange="javascript:window.location.href='<?php echo base_url(); ?>LanguageSwitcher/switchLang/'+this.value;">
                                     <option value="english" <?php if($this->session->userdata('site_lang') == 'english') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/uploads/en.png');?>"><p style="color: red">English</p></option>
                                     <option value="khmer" <?php if($this->session->userdata('site_lang') == 'khmer') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/leng/Cambodia.png')?>">Khmer</option>
                                     <option  value="chinese" <?php if($this->session->userdata('site_lang') == 'chinese') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/leng/China.gif')?>">Chinese</option>
                                 </select>
-
                             </div>
                         </div>
         	        </div>

@@ -46,12 +46,11 @@ class Sup_category extends CI_Controller
 		
 		$data["action_url"] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
-									$this->page_redirect.'/delete') ;
+									$this->page_redirect.'/delete');
 		$this->load->view('template/header');
-		//$this->load->view('template/left');
+		$this->load->view('template/left');
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
-
 	}
 	public function validation(){
 		$this->form_validation->set_rules("ddlCategoryId","category","required");

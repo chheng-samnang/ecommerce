@@ -2,13 +2,13 @@
  	header("Access-Control-Allow-Origin: *");
 	header("Content-Type: application/json; charset=UTF-8");
 	require_once("db.php");
-	
-	$id=$_GET["id"];
+	$p_id=$_GET["p_id"];
 	$shop_id=$_GET["shop_id"];
-	$result = $conn->query("SELECT * FROM tbl_combind WHERE p_id='$id' AND shop_id='$shop_id'");
+	$loc_id=$_GTE["loc_id"];
+	$result = $conn->query("SELECT * FROM tbl_combind AS cm INNER JOIN tbl_account AS acc ON cm.shop_id=acc.acc_id WHERE cm.shop_id='$shop_id' AND p_id='$p_id' AND acc.loc_id='$loc_id'");
 	$outp = "";	
 	while($rs = $result->fetch_array(MYSQLI_ASSOC)){
-	    if ($outp != "") {$outp.= ",";}else{ return false;
+	    if ($outp != "") {$outp.= ",";}else{ return FALSE;
 		   /*	$outp .= '{"Shop":"' . $rs["shop_id"].'",';
 		    $outp .= '{"Bussenis":"' . $rs["bus_id"].'",';
 		    $outp .= '"Id":"'. $rs["p_id"]. '"}'; */
