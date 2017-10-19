@@ -60,12 +60,12 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="panel panel-primary">
-                                 <div class="panel-heading">
+                                <div class="panel-heading">
                                     <h3 class="panel-title fa fa-users"><b> Supplyer Product list</b> >  Step 1 you selecte product to combind with Shop Owner</h3>
                                 </div>
                                 <div class="panel-body" style="height:465px">
                                     <div class="row">
-                                        <div class="col-lg-4" ng-repeat="x in product" ng-click="combind(x.P_id,x.P_name,x.Price,x.Path)">
+                                        <div class="col-lg-4" ng-repeat="x in product" ng-click="combind(x.P_id,x.P_name,x.Price,x.Path,x.Location)">
                                             <a href="">
                                                 <h6>
                                                     <div class="panel panel-primary text-center" style="height:144px">
@@ -81,25 +81,28 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
+                            <div ng-repeat="x in product1">
+                                <input type="text" value="{{x.Bussenis}}" name="">
+                            </div>
                             <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                <h3 class="panel-title fa fa-list-ul"> <b> Product Selected</b> > </h3>
-                              </div>
-                              <div class="panel-body" style="height:465px">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div ng-repeat="x in product_selected">
-                                            <a href="" ng-click="remove($index,x[1],x[2])"> 
-                                                <div class="panel panel-primary text-center" style="height:144px">
-                                                    <label>{{x[2]}}</label>
-                                                    <img style="height:80%;" class="img-responsive img-thumbnail" src="<?php echo base_url()?>assets/uploads/{{x[4]}}">
-                                                </div>
-                                            </a>
-                                            <input type="hidden" name="txtP_id" id="txtP_id" value="{{x[1]}}">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title fa fa-list-ul"> <b> Product Selected</b> > </h3>
+                                </div>
+                                <div class="panel-body" style="height:465px">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div ng-repeat="x in product_selected">
+                                                <a href="" ng-click="remove($index,x[1],x[2])"> 
+                                                    <div class="panel panel-primary text-center" style="height:144px">
+                                                        <label>{{x[2]}}</label>
+                                                        <img style="height:80%;" class="img-responsive img-thumbnail" src="<?php echo base_url()?>assets/uploads/{{x[4]}}">
+                                                    </div>
+                                                </a>
+                                                <input type="hidden" name="txtP_id" id="txtP_id" value="{{x[1]}}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                              </div>
                             </div>
                         </div>
                     </div>
@@ -122,32 +125,29 @@
         var arr1 =[];
         var i=0,j=0,total = 0,discountRate = 0;
         var txt = "";
-        $scope.combind = function(P_id,P_name,Price,Path)
-        {  
-            $scope.shop_id=$scope.ddlShop_Owner;
-            $http.get("<?php echo base_url()?>ng/check_product.php?id="+P_id+"&shop_id="+$scope.shop_id)   
-            .then(function (response){
-                var product = response.data.responsecords;
-                if($scope.product){
-                    var result = arr1.indexOf(P_id);
-                    var product=response.data.responsecords;
-                    if(product){
-                        $scope.msg_error=true; $scope.msg=" This product have in store already";
-                    }else{ 
-                         arr1[i] = P_id;
-                        if(result==-1)
-                        {   
-                            arr[i] = [];
-                            arr[i][0] = $scope.ddlShop_Owner;
-                            arr[i][2] = P_name;
-                            arr[i][3] = Price;
-                            arr[i][4] = Path;
-                            i = i+1;
-                            $scope.product_selected = arr;arr[i][1] = P_id;
-                        }else{$scope.msg_error=true; $scope.msg=" This product select aldready"}
-                     }
-                }
-            });
+        $scope.combind = function(P_id,P_name,Price,Path,Location)
+        {  $scope.shop_id=$scope.ddlShop_Owner;
+            /*$http.get("<?php echo base_url()?>ng/check_shop_location.php?p_id="+P_id+"&shop_id="+$scope.shop_id+"loc_id="+Location)   
+                    .then(function (response) {var shop_location =response.data.records;
+                        if(shop_location==false){alert("jiiii");}else{alert("no");}            
+                    });*/
+                $http.get("<?php echo base_url()?>ng/check_product.php?id="+P_id+"&shop_id="+$scope.shop_id)   
+                .then(function (response) {var product1 =response.data.records;
+                    if(product1==false){
+                        var result = arr1.indexOf(P_id);
+                             arr1[i] = P_id;
+                            if(result==-1)
+                            {   
+                                arr[i] = [];
+                                arr[i][0] = $scope.ddlShop_Owner;
+                                arr[i][2] = P_name;
+                                arr[i][3] = Price;
+                                arr[i][4] = Path;
+                                i = i+1;
+                                $scope.product_selected = arr;arr[i][1] = P_id;
+                            }else{$scope.msg_error=true; $scope.msg=" This product select aldready"}
+                    }else{ $scope.msg_error=true; $scope.msg=" This product have aldready"}
+                });
         }
 
         $scope.remove=function(index){
@@ -160,10 +160,6 @@
 
         $scope.load_products = function(){
             $http.get("<?php echo base_url()?>ng/product_combind.php?acc_id="+$scope.ddlSupllyer)
-            .then(function (response) {$scope.product=response.data.records;});
-        }
-        $scope.check_product=function (){
-             $http.get("<?php echo base_url()?>ng/check_product.php?id="+id)
             .then(function (response) {$scope.product=response.data.records;});
         }
 

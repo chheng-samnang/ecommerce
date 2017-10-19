@@ -14,17 +14,25 @@ class Staf_m extends CI_Model
 	}
 	public function index($id=""){
 		if($id==""){
-			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
-			tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store AS str ON str.acc_id=acc.acc_id WHERE stf_status='1' ORDER BY st_id DESC");
+			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name,user_create,date_create FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
+			tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store AS str ON str.acc_id=acc.acc_id ORDER BY st_id DESC");
 			if($query->num_rows()>0){
 			return $query->result();}
 		}else{
-			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
-			tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store AS str ON str.acc_id=acc.acc_id WHERE st_id='$id' AND stf_status='1'");
+			$query =$this->db->query("SELECT st_id,st_code,mem_name,stf_status,descr,acc.acc_id,acc_img,acc_type,str_name,staf_password,user_create,date_create FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id= acc.acc_id INNER JOIN 
+			tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store AS str ON str.acc_id=acc.acc_id WHERE st_id='$id'");
 			if($query->num_rows()>0){
 			return $query->row();}
 		}
 	}
+	public function change_password(){
+		$data=array(
+			"staf_password"=>$this->input->post("txtPassword"),
+			);
+		$this->db->where("st_id",$this->input->post("txtSt_id"));
+		$row=$this->db->update("tbl_staf",$data);
+		if($row){return TRUE;}
+	}	
 	public function insertStaf(){
 		$data = array(
 					'st_code'	=>	$this->input->post('txtCode'),
@@ -43,11 +51,17 @@ class Staf_m extends CI_Model
 		$data=array(
 			'descr'		=>	$this->input->post('terDescr'),
 			'stf_status'=>	$this->input->post('ddlStatus'),
-			'acc_id'	=>	$this->input->post('ddlStaf'),
-		);
+			'acc_id'	=>	$this->input->post('ddlStaf'),);
 		$this->db->where("st_id",$this->input->post("st_id"));
 		$row=$this->db->update("tbl_staf",$data);
-		if($row){return TRUE ;}
+		if($row){return TRUE;}
+	}
+	public function edit_status($id=""){
+		$data=array(
+		'stf_status'=>	$this->input->post('ddlStatus'));
+		$this->db->where("st_id",$id);
+		$row=$this->db->update("tbl_staf",$data);
+		if($row){return TRUE;}
 	}
 
 	function get_account()

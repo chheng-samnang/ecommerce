@@ -24,7 +24,7 @@ $choose=$this->lang->line("choose_one");
 						<div class="col-lg-3">
 							<label class="control-label"><?php echo $this->lang->line("order_status");?></label>
 							<select class="form-control" id="ord_status" ng-model="order_status">
-								<option value="0"><?php echo $choose; ?></option>
+								<option value=""><?php echo $choose; ?></option>
 								<option value="all"><?php echo $this->lang->line("all");?></option>
 								<option value="pending">Pending</option>
 								<option value="deliver">Delivering</option>
@@ -98,6 +98,7 @@ $choose=$this->lang->line("choose_one");
 													<div class="form-group">
 														<label><?php $this->lang->line("status"); ?></label>
 														<select class="form-control" ng-model="ddlStatus">
+															<option value=""><?php echo $choose;?></option>
 															<option value="pending">Pending</option>
 															<option value="deliver">Delivering</option>
 															<option value="complete">Complete</option>
@@ -106,6 +107,7 @@ $choose=$this->lang->line("choose_one");
 													</div>
 												</div>
 												<div class="modal-footer">
+													<input type="text" value="{{ord.ID}}" name="">
 													<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line("close");?></button>
 													<button type="button" class="btn btn-primary" ng-click="updateStatus(ord.ID,ddlStatus)"><?php echo $this->lang->line("save_change");?></button>
 												</div>
@@ -185,58 +187,58 @@ $choose=$this->lang->line("choose_one");
 
 <script>
   var app = angular.module("myApp",[]);
-  app.controller("myCtrl",function($scope,$http){
+  	app.controller("myCtrl",function($scope,$http){
     var str_id = "1";
     $scope.filterOrder = function(){
-      var mem_id = $scope.mem_id;
-      var ord_status = $scope.ord_status;
-      var d_from = document.getElementById("d_from").value;
-      var d_to = document.getElementById("d_to").value;
-      $scope.loadOrderDet('','');// clear 
-      $http.get("ng/get_order_hdr.php?id="+mem_id+"&stat="+ord_status+"&from="+d_from+"&to="+d_to+"&str="+str_id)
-     .then(function (response) {$scope.order_hdr = response.data.records;});
+	    var mem_id = $scope.mem_id;
+	    var ord_status = $scope.ord_status;
+	    var d_from = document.getElementById("d_from").value;
+	    var d_to = document.getElementById("d_to").value;
+	   
+	    $scope.loadOrderDet('','');// clear 
+	    $http.get("ng/get_order_hdr.php?id="+mem_id+"&stat="+ord_status+"&from="+d_from+"&to="+d_to+"&str="+str_id)
+	    .then(function (response){$scope.order_hdr = response.data.records;});
     }
 
     $scope.loadOrderDet = function(id,m_id){
-     	$http.get("ng/get_order_det.php?id="+id)
-    	.then(function (response) {$scope.order_det = response.data.records;});
-      	if(m_id!="")
-      	{
-        	$http.get("ng/get_contact.php?id="+m_id)
+     	/*$http.get("ng/get_order_det.php?id="+id)
+    	.then(function (response) {$scope.order_det = response.data.records;});*/
+
+      	/*if(m_id!="")	
+      	{	$http.get("ng/get_contact.php?id="+m_id)
     		.then(function (response)
           	{$scope.contact = response.data.records;
               $scope.phone = response.data.records[0].Phone;
               $scope.email = response.data.records[0].Email;
               $scope.addr = response.data.records[0].Address;
           	});
-      	}
+      	}*/
     }
+
     
     $scope.mem_id = "choose one";
     $scope.updateStatus = function(ord_id,status){
-      var xmlhttp = new XMLHttpRequest();
+     /* var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && this.status == 200){
                 $("#btnClose").click();
             }
         };
-      xmlhttp.open("GET", "ng/updateStatus.php?id=" + ord_id+"&status="+status+"&str_id="+str_id, true);
-      xmlhttp.send();
+        */
+      //xmlhttp.open("GET", "ng/updateStatus.php?id=" + ord_id+"&status="+status+"&str_id="+str_id, true);
+      //xmlhttp.send();
     }
 
     $scope.removeItem = function(ord_id)
     {
-      var x = confirm("Are you sure you want to delete this item?");
-      if(x==true)
-      {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "ng/deleteOrderDet.php?id=" + ord_id+"&str_id="+str_id, true);
-        xmlhttp.send();
+	    var x = confirm("Are you sure you want to delete this item?");
+	      	if(x==true)
+	      	{
+	        var xmlhttp = new XMLHttpRequest();
+	        xmlhttp.open("GET", "ng/deleteOrderDet.php?id=" + ord_id+"&str_id="+str_id, true);
+	        xmlhttp.send();
 
-      }else
-      {
-
-      }
+	      	}
     }
 
     $scope.back = function()

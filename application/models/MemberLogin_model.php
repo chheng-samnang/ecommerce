@@ -26,18 +26,21 @@ class memberLogin_model extends CI_Model
 	{
 		$result = false;$msg = "";
 		if($accName!=""&&$password!="")
-		{
-			$query = $this->db->query("SELECT * FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_name='$accName' AND acc.acc_password='$password' AND acc_type='$accType'");
-			//$query = $this->db->get_where("tbl_member",array("mem_name"=>$accName));
+		{	
+			if($accType=="Staf"){
+				$query = $this->db->query("SELECT * FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id=acc.acc_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_name='$accName' AND st.staf_password='$password' AND stf_status='1'");
+			}
+			else{
+				$query = $this->db->query("SELECT * FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_name='$accName' AND acc.acc_password='$password' AND acc_type='$accType'");
+			}
 			if($query->num_rows()>0)
 			{
 				$this->session->memLogin = $query->row()->mem_id;
 				return $query->row();
-			}else{
-			 	return false ;}
-		}else{
-		 return $msg = "User Name and Password cannot be empty."; }
+			}else{return false ;}
+		}else{ return $msg = "User Name and Password cannot be empty.";}
 	}
+
 	public function LogTocheckOut($email="",$password=""){
 		$result = false;$msg = "";
 
@@ -381,7 +384,7 @@ class memberLogin_model extends CI_Model
 				}
 			}
 	}
-
+	
 	public function updatePassword($id)
 	{
 		$data = array(
@@ -396,6 +399,7 @@ class memberLogin_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM tbl_account a inner join tbl_member m on a.mem_id=m.mem_id WHERE acc_id={$id}");
 		return $query->row();
 	}
+
 	public function get_active_account($id="")
 	{
 		if($id!="")
@@ -409,9 +413,7 @@ class memberLogin_model extends CI_Model
 			{
 				return $query->result();
 			}else
-			{
-				return array();
-			}
+			{return array();}
 		}
 	}
 

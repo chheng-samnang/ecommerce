@@ -29,15 +29,14 @@ class AccountModel extends CI_Model
 	function get_account($id="")
 	{
 		if($id!="")
-		{
+		{	
 			$query = $this->db->get_where("tbl_account",array("acc_id"=>$id));
 			if($query->num_rows()>0)
 			{ return $query->row();}
 		}else
 		{
-			$query = $this->db->query('SELECT acc_code,mem_name,status,sex,acc_type,acc_img,acc_id FROM tbl_account a INNER JOIN tbl_member m ON a.mem_id=m.mem_id');
-			if($query->num_rows()>0)
-			{ return $query->result();}
+			$query = $this->db->query('SELECT acc_code,mem_name,status,sex,acc_type,acc_img,acc_id FROM tbl_account a INNER JOIN tbl_member m ON a.mem_id=m.mem_id ORDER BY acc_id DESC');
+			if($query->num_rows()>0){ return $query->result();}
 		}
 	}
 

@@ -12,9 +12,7 @@ class MemberLogin extends CI_Controller
 		$this->pageHeader='Member';		
 		$this->page_redirect="admin/memberLogin";							
 		$this->load->model("promotion_m", "pm");
-
 		$this->load->model("staf_m");
-
 		$this->load->model("locationModel");
 		$this->load->model("memberLogin_model","ml");
 		$this->load->model("Wallet_m","wm");
@@ -30,11 +28,10 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules("txtPass","Password","required|max_length[100]");
 		if(isset($_POST["btnLogin"])&&$this->form_validation->run()===true)
 		{
-			$email = $this->input->post("txtUser");
+			$userName = $this->input->post("txtUser");
 			$pwd = $this->input->post("txtPass");
-
 			$accType=$this->input->post("ddlAccType");
-			$validate = $this->ml->validate_member($email,$pwd,$accType);
+			$validate = $this->ml->validate_member($userName,$pwd,$accType);
 			if($validate==false)
 			{
 				$data["msg"] = "Member name/ password/ account type is incorrect";
@@ -87,7 +84,6 @@ class MemberLogin extends CI_Controller
 			$data["template"]=$this->hm->get_template();
 			$data["acc_id"] = $acc_id;
 			$mem_id = $this->ml->get_mem_id($acc_id);
-
 			$data["services"] = $this->ml->get_service($this->session->acc_id);
 			$data["account"] = $this->ml->get_account($this->session->memLogin);
 			$data["active_account"]=$this->ml->get_active_account($this->session->acc_id);
@@ -95,10 +91,8 @@ class MemberLogin extends CI_Controller
 			$data["wallet_transaction"]=$this->ml->select_wallet_transaction($this->session->acc_id);
 			$data["acc"]=$this->ml->get_account_validation($this->session->acc_id);
 			$data["product"] = $this->ml->get_product($this->session->acc_id);
-
 			$data["shop_product"] = $this->ml->get_shop_product($this->session->acc_id);
 			$data["new_order"]= $this->ml->get_new_order($this->session->acc_id);
-
 			$data["shop"]=$this->ml->selectshop($acc_id);
 			$data["member"] = $this->ml->get_member($this->session->memLogin);
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
@@ -107,9 +101,7 @@ class MemberLogin extends CI_Controller
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
 			$data["location"] = $this->locationModel->get_location();
-
 			$data["staf_info"] = $this->staf_m->index();
-
 			$data["error"]=$error;
 			$this->load->view("layout_site/header_top1",$data);
 			$this->load->view("layout_site/nav");
@@ -180,16 +172,19 @@ class MemberLogin extends CI_Controller
 		$data["stafCode"] = $this->staf_m->staf_code();
 		$data["acc_info"] = $this->staf_m->get_account();
 		$this->form_validation->set_rules("ddlStaf","Staf name","required");
+		$this->form_validation->set_rules("txtPassword","Password","required");
+		$this->form_validation->set_rules('txtConfirmPassword', 'Confirm Password', 'required');
 		if($this->form_validation->run()===false)
 		{
-			$this->load->view("layout_site/header_top");
-			$this->load->view("layout_site/nav");
-			$this->load->view("addStaf",$data);
-			$this->load->view("layout_site/footer");
+				$this->load->view("layout_site/header_top");
+				$this->load->view("layout_site/nav");
+				$this->load->view("addStaf",$data);
+				$this->load->view("layout_site/footer");			
 		}else{
-			$acc_id = $this->session->acc_id;
-			$this->staf_m->insertStaf();
-			redirect(base_url()."profile/".$acc_id);
+			if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
+				$this->staf_m->insertStaf();
+				redirect(base_url()."profile/".$this->session->acc_id);
+			}
 		}
 	}
 
@@ -209,7 +204,34 @@ class MemberLogin extends CI_Controller
 				$this->profile($acc_id);
 				}
 		}
-
+	}
+	public function change_password_staf($id="",$error=""){
+		if($id!=""){
+			$data["acc_info"]=$this->staf_m->get_account();
+			$data["error"]=$error;
+			$data["change"]=$this->staf_m->index($id);
+			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/nav");
+			$this->load->view("change_staf_password",$data);
+			$this->load->view("layout_site/footer");
+		}
+	}
+	public function save_staf_password(){
+		$id=$this->input->post("txtSt_id");
+		$this->form_validation->set_rules("txtOldPassword","old password","required");
+		$this->form_validation->set_rules("txtPassword","new password","required");
+		$this->form_validation->set_rules("txtConfirmPassword","confirm password","required");
+		if($this->form_validation->run()==TRUE){
+			if($this->input->post("Password") == $this->input->post("txtOldPassword")){
+				if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
+					$row=$this->staf_m->change_password();
+					if($row===TRUE){
+						$acc_id=$this->session->acc_id;
+						$this->profile($acc_id);
+					}
+				}else{$this->change_password_staf($id,$error="confirm password must by the same password..!");}
+			}else{$this->change_password_staf($id,$error="incorrect old password...!");}
+		}else{$this->change_password_staf($id);}
 	}
 
 	public function addInventory()
@@ -329,7 +351,6 @@ class MemberLogin extends CI_Controller
 		{  
 			if($this->input->post("type_pro_code")!="")
 			{
-
 				$data["template"]=$this->hm->get_template();
 				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 				$data["brand"] = $this->ml->get_brand();
@@ -340,7 +361,6 @@ class MemberLogin extends CI_Controller
 				$this->load->view('layout_site/nav');
 				$this->load->view('addProduct', $data);
 				$this->load->view('layout_site/footer');
-
 			}
 		}else{
 			$data["template"]=$this->hm->get_template();

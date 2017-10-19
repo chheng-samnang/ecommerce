@@ -10,19 +10,16 @@ header("Content-Type: application/json;charset=UTF-8");
 	$str_id = $_GET['str'];
 
 	if($id=="choose one"&&$status=="undefined"&&$from==""&&$to=="")
-	{
-
-		$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.`mem_id`=m.`mem_id`");
-
+	{	
+		$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.mem_id=m.mem_id");
 	}
 	elseif($id!=""&&$status=="all")
 	{
-		$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.`mem_id`=m.`mem_id` where h.mem_id='$id'");
-
+		//$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.`mem_id`=m.`mem_id` where h.mem_id='$id'");
 	}
 	else
 	{
-		$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.`mem_id`=m.`mem_id` WHERE h.mem_id='$id' and ord_status='$status' or ord_date between '$from' and '$to' ");
+		//$result = $conn->query("SELECT ord_code,ord_date,h.mem_id,mem_name,ord_status,ord_id FROM tbl_order_hdr h INNER JOIN tbl_member m ON h.`mem_id`=m.`mem_id` WHERE h.mem_id='$id' and ord_status='$status' or ord_date between '$from' and '$to' ");
 	}
 
 

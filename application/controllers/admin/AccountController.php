@@ -398,7 +398,6 @@ class AccountController extends CI_Controller
 								'class'	=>	'class="form-control"',
 								'label'	=>	$this->lang->line("status")
 							),
-
 						array(
 								'type'	=>	'upload',
 								'name'	=>	'txtUpload',

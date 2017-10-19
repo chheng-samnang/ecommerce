@@ -23,17 +23,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	// $acc->acc_type=="General";
 	// $acc->acc_type=="Association";
 
-		switch ($acc->acc_type)
-		{
+		if($this->input->post("ddlAccType")=="Staf"){
+				$service   = "display";
+				$staf      = "display";
+				$products1 = "display";
+				$fund      = "display";
+				$Inventory = "display";
+				$promotion = "display";
+				$order2    = "display";
+				$members   = "none";
+				$products = "none";
+				$account   = "none";
+		}else{
+			switch ($acc->acc_type){
 			case "Bussiness":
 			{
 				$products1  = "none";
 				$fund      = "display";
 				$promotion = "display";
-
 				$order2    = "none";
 				$products  = "display";
-
 				$service   = "none";
 				$Inventory = "none";
 				$members   = "none";
@@ -51,7 +60,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$promotion = "none";
 				$members   = "none";
 				$account   = "none";
-
 				$order2    = "none";
 			}
 
@@ -102,7 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			break;
 			default:
+			
 			break;
+			}
 		}
 ?>
 
@@ -282,9 +292,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<thead>
 													<tr>
 														<th>No.</th>
-														<th>Staf Id</th>
-														<th>Staf Name</th>
-														<th>tatus</th>
+														<th>Staff Id</th>
+														<th>Staff Name</th>
+														<th>Status</th>
 														<th>Account Image</th>
 														<th>Store Name</th>
 														<th>Description</th>
@@ -314,14 +324,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														<td><?php if($row->str_name){echo $row->str_name;}else echo "<p style='color:red'>"."No Shop !"."</p>";?></td>
 														<td><?php echo $row->descr?></td>
 														<td>
-															<a href="<?php echo base_url('admin/memberLogin/editStaf/'.$row->st_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Service"><span class=" glyphicon glyphicon-pencil"></span></a>
+															<a href="<?php echo base_url('admin/memberLogin/editStaf/'.$row->st_id);?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Edit Staff"><span class=" glyphicon glyphicon-pencil"></span></a>
+															<a href="<?php echo base_url('admin/memberLogin/change_password_staf/'.$row->st_id);?>" class="btn btn-success btn-sm" data-toggle="tooltip" title="change password"><span class="glyphicon fa fa-lock"></span></a>
+														</td>
+														<td>
+															
 														</td>
 													</tr>
 													<?php $i=$i+1; }?>
 												</tbody>
 											</table>
+												<?php $AccType= $this->input->post("ddlAccType"); if($AccType!='Staf'){?>
 												<button class="btn btn-success btn-sm" id="btnAddStaf"><i class="fa fa-plus" aria-hidden="true"></i> <?php echo $this->lang->line('add')?> <?php echo $this->lang->line('staf')?></button>
-										</div>
+												<?php }else{  }?>
+										</div>	
 									</div>
 								</div><!-- col-lg-12-->
 						</div><!-- row Service-->

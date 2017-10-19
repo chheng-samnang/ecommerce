@@ -19,6 +19,7 @@
 								<option value="Bussiness">Bussiness</option>
 								<option value="General">General</option>
 								<option value="Shop-owner">Shop Owner</option>
+								<option value="Staf">Staff</option>
 							</select>
 						</div>
 					</div>
