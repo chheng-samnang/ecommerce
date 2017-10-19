@@ -80,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			{
 				$name = $this->input->post("txtLoginName");
 				$password = $this->input->post("txtLoginPassword");
-				
+
 				$validation = $this->pm->validate_member($name,$password);
 				if($validation)
 				{
@@ -168,7 +168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function registerMember()
 		{
-			$this->form_validation->set_rules('name', 'Email have already ,', 'trim|required|min_length[4]|is_unique[tbl_member.mem_email]'); 
+			$this->form_validation->set_rules('name', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules("txtName","Member Name","required|trim|max_length[100]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtPhone","Phone Number","required|trim|max_length[25]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtEmail","Email","trim|max_length[50]|valid_email");
@@ -197,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('layout_site/footer');
 		}
 		public function payment_detail($payment_method_id="") #$payment_method_id = wal_id
-		{	
+		{
 			if($payment_method_id!=""){
 				$ballance = $this->pm->get_wallet_bal($payment_method_id);
 				if($ballance->tran_amt!=null)
@@ -307,7 +307,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->load->view('layout_site/style');
 					$this->load->view('Checkout/form_login',$data);
 				}else
-				{	
+				{
 					$data["mem_id"] = $this->session->memLogin;
 					$data["acc_id"] = $this->pm->get_account_id($data["mem_id"]);
 					$data["wal_id"] = $this->pm->get_wallet_id($data["acc_id"]);

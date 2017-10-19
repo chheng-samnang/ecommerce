@@ -2,12 +2,12 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-* 
+*
 */
 class Sup_category extends CI_Controller
 {
 	var $pageHeader,$page_redirect,$action,$cancel;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,14 +21,14 @@ class Sup_category extends CI_Controller
 	public function index()
 	{
 		$data['pageHeader'] = $this->lang->line('sup_category');
-		
+
 		$data['tbl_hdr'] = array($this->lang->line("sup_category").$this->lang->line("en"),$this->lang->line("sup_category").$this->lang->line("kh"),$this->lang->line("sup_category").$this->lang->line("ch"),$this->lang->line('user').$this->lang->line('create'),$this->lang->line('date').$this->lang->line('create'),$this->lang->line('user').$this->lang->line('update'),$this->lang->line('date').$this->lang->line('update'));
 		$i = 0;
 		$row = $this->scm->index();
 
 		if($row==true)
 		{
-			foreach ($row as $value) 
+			foreach ($row as $value)
 			{
 				$data['tbl_body'][$i] = array(
 												$value->cat_name,
@@ -43,12 +43,12 @@ class Sup_category extends CI_Controller
 				$i++;
 			}
 		}
-		
+
 		$data["action_url"] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
 									$this->page_redirect.'/delete') ;
 		$this->load->view('template/header');
-		//$this->load->view('template/left');
+		$this->load->view('template/left');
 		$this->load->view('admin/page_view',$data);
 		$this->load->view('template/footer');
 
@@ -61,11 +61,11 @@ class Sup_category extends CI_Controller
 		}else{return false;}
 	}
 	public function add(){
-			$category=$this->scm->get_category();		
+			$category=$this->scm->get_category();
 			if($category==TRUE)
 			{
-				foreach($category as $value):						
-				$option2[$value->cat_id]=$value->cat_name;								
+				foreach($category as $value):
+				$option2[$value->cat_id]=$value->cat_name;
 			endforeach;
 			}
 			$data['action'] = "admin/Sup_category/add_sup_category";
@@ -91,11 +91,11 @@ class Sup_category extends CI_Controller
 		}
 	}
 	public function edit($id){
-		$category=$this->scm->get_category();		
+		$category=$this->scm->get_category();
 			if($category==TRUE)
-			{	
-				foreach($category as $value):						
-				$option2[$value->cat_id]=$value->cat_name;								
+			{
+				foreach($category as $value):
+				$option2[$value->cat_id]=$value->cat_name;
 			endforeach;
 			}
 			$row=$this->scm->get_category($id);
@@ -113,7 +113,7 @@ class Sup_category extends CI_Controller
 		if(isset($_POST['btnSubmit']))
 		{
 			$this->scm->Update($id);
-			redirect("admin/Sup_category");		
+			redirect("admin/Sup_category");
 		}else{
 			$data['action'] = "category/edit/".$id;
 			$data['pageHeader'] = $this->lang->line('category');
@@ -124,7 +124,7 @@ class Sup_category extends CI_Controller
 			$this->load->view('admin/page_edit',$data);
 			$this->load->view('template/footer');
 		}
-		
+
 	}
 	public function deleteCategory($id)
 	{
@@ -135,7 +135,7 @@ class Sup_category extends CI_Controller
 		}
 	}
 	public function createCtrl($row="",$option2="")
-	{	
+	{
 		if($row!=""){
 			$row1=$row->cat_name;
 			$row2=$row->cat_name_ch;
@@ -151,7 +151,7 @@ class Sup_category extends CI_Controller
 								'option'=>$option2,
 								'selected'=>$row==""?NULL:$row2,
 								'class'=>'class="form-control"',
-								'label'=>$this->lang->line("parents_category"),									
+								'label'=>$this->lang->line("parents_category"),
 							),
 						array(
 								"type"			=>	"text",
