@@ -26,7 +26,7 @@ class memberLogin_model extends CI_Model
 	{
 		$result = false;$msg = "";
 		if($accName!=""&&$password!="")
-		{	
+		{
 			if($accType=="Staf"){
 				$query = $this->db->query("SELECT * FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id=acc.acc_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id WHERE mb.mem_name='$accName' AND st.staf_password='$password' AND stf_status='1'");
 			}
@@ -36,6 +36,7 @@ class memberLogin_model extends CI_Model
 			if($query->num_rows()>0)
 			{
 				$this->session->memLogin = $query->row()->mem_id;
+				$this->session->acc_id = $query->row()->acc_id;
 				return $query->row();
 			}else{return false ;}
 		}else{ return $msg = "User Name and Password cannot be empty.";}
@@ -132,12 +133,13 @@ class memberLogin_model extends CI_Model
 			);
 		$this->db->insert("tbl_account", $data);
 		if($this->input->post("txt_acc_type")=="Shop-owner"){
-		$query1=$this->db->query("SELECT acc_id FROM tbl_account ORDER BY acc_id DESC");
-		$id=$query1->row()->p_id;
+		$query1=$this->db->query("SELECT acc_id FROM tbl_account where acc_code='{$this->input->post('txtaccCode')}' ORDER BY acc_id DESC");
+
+		$id=$query1->row()->acc_id;
 		$str_code="STR".$id;
 		$data1=array(
-			"str"=>$this->$str_code,
-			"acc_id"=>$this->$id,
+			"str_code"=> $str_code,
+			"acc_id"=> $id,
 			"str_type"=>$this->input->post("txtStor_Type"),
 			"str_name"=>$this->input->post("txtStor_name"),
 			);
@@ -384,7 +386,7 @@ class memberLogin_model extends CI_Model
 				}
 			}
 	}
-	
+
 	public function updatePassword($id)
 	{
 		$data = array(
@@ -407,7 +409,7 @@ class memberLogin_model extends CI_Model
 			$this->db->select("*");
 			$this->db->from("tbl_account");
 			$this->db->join("tbl_location","tbl_account.loc_id=tbl_location.loc_id");
-			$this->db->where("acc_id",$id);
+			$this->db->where("mem_id",$id);
 			$query = $this->db->get();
 			if($query->num_rows()>0)
 			{

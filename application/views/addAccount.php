@@ -132,11 +132,11 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<label>Store Name</label>
-							<input type="" class="form-control" placeholder="store name" id="txtStor_name" name="txtStor_name">
+							<input type="" class="form-control" placeholder="store name" ng-model="txtStor_name" id="txtStor_name" name="txtStor_name">
 						</div><!-- col-lg-6-->
 						<div class="col-lg-6">
 							<label>Store Type</label>
-							<input type="" class="form-control" placeholder="store type..." id="txtStor_Type" name="txtStor_Type">
+							<input type="" class="form-control" placeholder="store type..." ng-model="txtStor_Type" id="txtStor_Type" name="txtStor_Type">
 						</div><!-- col-lg-12-->
 					</div><!-- row product-->
 				</div><!-- class product-->

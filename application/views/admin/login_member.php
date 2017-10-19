@@ -37,7 +37,7 @@
 					<div>
 						<input type="submit" value="Log in" name="btnLogin"/>
 						<a href="#">Lost your password?</a>
-						<a href="#">Register</a>
+						<a href="<?php echo base_url('product/registerMember')?>">Register</a>
 					</div>
 				</form><!-- form -->
 				<h5 style="color:red;"><?php echo validation_errors()?></h5>

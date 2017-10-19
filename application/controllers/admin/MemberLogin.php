@@ -5,12 +5,12 @@ class MemberLogin extends CI_Controller
 {
 	var $msg;
 	var $memLogin;
-	var $pageHeader,$page_redirect,$cancel;	
+	var $pageHeader,$page_redirect,$cancel;
 	public function __construct()
 	{
 		parent::__construct();
-		$this->pageHeader='Member';		
-		$this->page_redirect="admin/memberLogin";							
+		$this->pageHeader='Member';
+		$this->page_redirect="admin/memberLogin";
 		$this->load->model("promotion_m", "pm");
 		$this->load->model("staf_m");
 		$this->load->model("locationModel");
@@ -18,6 +18,7 @@ class MemberLogin extends CI_Controller
 		$this->load->model("Wallet_m","wm");
 		$this->load->model("home_m","hm");
 		$this->msg = "";
+
 	}
 
 	public function index()
@@ -46,7 +47,7 @@ class MemberLogin extends CI_Controller
 
 			}
 		}else
-		{	
+		{
 			$this->load->view("admin/login_member.php",$data);
 		}
 	}
@@ -76,7 +77,7 @@ class MemberLogin extends CI_Controller
 	}
 
 	public function profile($acc_id="",$error="")
-	{	
+	{
 		if($acc_id!="")
 		{
 			$this->session->unset_userdata("promotion");
@@ -86,7 +87,7 @@ class MemberLogin extends CI_Controller
 			$mem_id = $this->ml->get_mem_id($acc_id);
 			$data["services"] = $this->ml->get_service($this->session->acc_id);
 			$data["account"] = $this->ml->get_account($this->session->memLogin);
-			$data["active_account"]=$this->ml->get_active_account($this->session->acc_id);
+			$data["active_account"]=$this->ml->get_active_account($this->session->memLogin);
 			$data["wallet"]=$this->ml->get_wallet($this->session->acc_id);
 			$data["wallet_transaction"]=$this->ml->select_wallet_transaction($this->session->acc_id);
 			$data["acc"]=$this->ml->get_account_validation($this->session->acc_id);
@@ -111,7 +112,7 @@ class MemberLogin extends CI_Controller
 		{
 			$this->load->view("admin/login_member.php",$data);
 		}
-	}	
+	}
 
 
 	public function validation(){
@@ -120,9 +121,9 @@ class MemberLogin extends CI_Controller
 		if($this->form_validation->run()==TRUE){
 			return true;
 		}else{return false;}
-	}	
+	}
 
-	public function pro_validation(){ 	
+	public function pro_validation(){
 		$this->form_validation->set_rules("txtName","Account Name","required");
 		$this->form_validation->set_rules("ddlGender","Gender","required");
 		$this->form_validation->set_rules("ddlLocation","location","required");
@@ -145,7 +146,7 @@ class MemberLogin extends CI_Controller
 			$acc_id=$this->input->post("acc_id");
 		 	$this->profile($acc_id);
 		}
-	
+
 	}
 	 public function change_password(){
 		 	if($this->validation()==TRUE){
@@ -165,7 +166,7 @@ class MemberLogin extends CI_Controller
 		 		$this->profile($acc_id);
 		 	}
 	}
-	
+
 
 	public function addstaf()
 	{
@@ -179,7 +180,7 @@ class MemberLogin extends CI_Controller
 				$this->load->view("layout_site/header_top");
 				$this->load->view("layout_site/nav");
 				$this->load->view("addStaf",$data);
-				$this->load->view("layout_site/footer");			
+				$this->load->view("layout_site/footer");
 		}else{
 			if($this->input->post("txtPassword")==$this->input->post("txtConfirmPassword")){
 				$this->staf_m->insertStaf();
@@ -288,7 +289,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_acc_type', 'account type', 'required');
 		$this->form_validation->set_rules('txtaccCode', 'account code', 'required');
 		$this->form_validation->set_rules('ddlLocation', 'location', 'required');
-		if ($this->form_validation->run()==TRUE) 
+		if ($this->form_validation->run()==TRUE)
 
 		{	$row=$this->ml->AccTypeValidate($this->session->memLogin);
 			if($row!==true){
@@ -307,7 +308,7 @@ class MemberLogin extends CI_Controller
 	}
 
 	public function addAccount()
-	{	
+	{
 			$data["member"] = $this->ml->select($this->session->memLogin);
 			$data["location"] = $this->ml->get_location();
 			$this->load->view('layout_site/header_top');
@@ -321,7 +322,7 @@ class MemberLogin extends CI_Controller
 	{
 		$this->form_validation->set_rules('txtaccCode', 'Input Your Account Code', 'required');
 		$this->form_validation->set_rules('txt_gender', 'Chose Gender', 'required');
-		if ($this->form_validation->run()==TRUE) 
+		if ($this->form_validation->run()==TRUE)
 		{
 			$this->ml->updateAccount($id);
 			redirect('profile/'.$this->session->acc_id);
@@ -331,7 +332,7 @@ class MemberLogin extends CI_Controller
 		$data["location"] = $this->ml->get_location();
 		$this->load->view('layout_site/header_top');
 		$this->load->view('layout_site/nav');
-		
+
 		$this->load->view('editAccount',$data);
 		$this->load->view('layout_site/footer');
 	}
@@ -346,9 +347,9 @@ class MemberLogin extends CI_Controller
 		}else{return FALSE;}
 	}
 	public function addProduct()
-	{	
+	{
 		if($this->validation1()==TRUE)
-		{  
+		{
 			if($this->input->post("type_pro_code")!="")
 			{
 				$data["template"]=$this->hm->get_template();
@@ -395,7 +396,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_price','Input Your Price','required');
 		$this->form_validation->set_rules('txt_product','Input Your Product Name','required');
 		if($this->form_validation->run()==TRUE)
-		{	
+		{
 			$this->ml->updateProduct($id);
 		    redirect('profile/'.$this->session->acc_id);
 		}
@@ -404,7 +405,7 @@ class MemberLogin extends CI_Controller
 		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 		$data["brand"] = $this->ml->get_brand();
 		$data["store"]=$this->ml->val_store($this->session->acc_id);
-		$data["category"] = $this->ml->get_category();	
+		$data["category"] = $this->ml->get_category();
 		$this->load->view('layout_site/header_top',$data);
 		$this->load->view('layout_site/nav');
 		$this->load->view('editProduct', $data);
@@ -416,7 +417,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_shop_name','Input Your Shop Name','required');
 		$this->form_validation->set_rules('txt_shop_type','Input Your Shop Type','required');
 		$this->form_validation->set_rules('txt_shop_code','Input Your Shop Code','required');
-		if ($this->form_validation->run()==TRUE) 
+		if ($this->form_validation->run()==TRUE)
 		{
 			$this->ml->addShop();
 			redirect('profile/'.$this->session->acc_id);
@@ -453,7 +454,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_mem_code','Input Your Member Code','required');
 		$this->form_validation->set_rules('password','Your Password','required');
 		$this->form_validation->set_rules('confirmPassword','Confirm Password','required|matches[password]');
-		if ($this->form_validation->run()==TRUE) 
+		if ($this->form_validation->run()==TRUE)
 		{
 			$this->ml->addMember();
 			redirect('profile/'.$this->session->acc_id);
@@ -470,8 +471,8 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txt_mem_email', 'Email Address', 'trim|required|max_length[255]|xss_clean|valid_email|prep_for_form');
 		$this->form_validation->set_rules('txt_mem_phone','Input Your Phone Number 10','required|regex_match[/^[0-9]{10}$/]');
 		$this->form_validation->set_rules('txt_mem_code','Input Your Member Code','required');
-		
-		if ($this->form_validation->run()==TRUE) 
+
+		if ($this->form_validation->run()==TRUE)
 		{
 			$this->ml->editMember($id);
 			redirect('profile/'.$this->session->acc_id);
@@ -531,7 +532,7 @@ class MemberLogin extends CI_Controller
 	{
 		$this->form_validation->set_rules('txt_price','Input Your Price','required');
 		$this->form_validation->set_rules('txt_service','Input Your Service Name','required');
-		
+
 		if($this->form_validation->run()==TRUE)
 		{
 			$this->ml->addService();
@@ -573,7 +574,7 @@ class MemberLogin extends CI_Controller
 	{
 		$this->form_validation->set_rules('txt_amount','Input Your Amount','required');
 		$this->form_validation->set_rules('txt_transaction_date','Choose Your Transaction Date','required');
-		
+
 		if($this->form_validation->run()==TRUE)
 		{
 			$row=$this->ml->addFund();
@@ -621,7 +622,7 @@ class MemberLogin extends CI_Controller
 	{
 		// $this->form_validation->set_rules('txt_amount','Input Your Amount','required');
 		// $this->form_validation->set_rules('txt_transaction_date','Choose Your Transaction Date','required');
-		
+
 		// if($this->form_validation->run()==TRUE)
 		// {
 		// 	$this->ml->addFund();
@@ -638,22 +639,22 @@ class MemberLogin extends CI_Controller
 	}
 
 	public function pro_type()
-	{	
-		$data['action'] = "{$this->page_redirect}/add_promotion1";			
-		$data['pageHeader'] = $this->pageHeader;		
-		$data['cancel'] = $this->page_redirect;				 		
-		$promotion1=array(																	
+	{
+		$data['action'] = "{$this->page_redirect}/add_promotion1";
+		$data['pageHeader'] = $this->pageHeader;
+		$data['cancel'] = $this->page_redirect;
+		$promotion1=array(
 								$this->input->post("txtFrom"),
 								$this->input->post("txtTo"),
 								$this->input->post("ddlCategory"),
 								$this->input->post("ddlOcc"),
 								$this->input->post("txtProName"),
 								$this->input->post("ddlType"),
-								$this->input->post("txtStore")								
+								$this->input->post("txtStore")
 							);
-		$this->session->set_userdata("promotion",$promotion1);		
+		$this->session->set_userdata("promotion",$promotion1);
 		if($this->input->post("ddlType")=="d")
-		{			
+		{
 			$this->load->view('layout_site/header_top1');
 			$this->load->view('layout_site/nav');
 			$this->load->view('promotiom_discount',$data);
@@ -665,13 +666,13 @@ class MemberLogin extends CI_Controller
 			$this->load->view('layout_site/nav');
 			$this->load->view('promotion_add_product',$data);
 			$this->load->view('layout_site/footer');
-		}				
+		}
 	}
-	
+
 	public function add_promotion1()
-	{			
-		$this->pm->add_promotion();						
-		$this->add_promotion();			
+	{
+		$this->pm->add_promotion();
+		$this->add_promotion();
 	}
 
 	public function delete($id)
@@ -682,13 +683,13 @@ class MemberLogin extends CI_Controller
 
 	public function pro_detail($id="")
 	{
-		$data["detail"]=$this->ml->promotion_det($id);		
+		$data["detail"]=$this->ml->promotion_det($id);
 		$data['cancel'] = $this->page_redirect;
 		$this->load->view('layout_site/header_top1');
-		$this->load->view('layout_site/nav');	
+		$this->load->view('layout_site/nav');
 		$this->load->view('pro_detail',$data);
-		$this->load->view('layout_site/footer');	
+		$this->load->view('layout_site/footer');
 	}
-	
+
 }
 ?>
