@@ -2,6 +2,9 @@
 	 .none{
 		display: none;
 	}
+	/*.box1 {
+		display: none;
+	}*/
 </style>
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
@@ -22,10 +25,10 @@
 								  <span aria-hidden="true">&times;</span>
 								</button>
 								<strong><?php echo $this->lang->line("attention"); ?>!</strong><?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
-								
+
 							</div>
 						<?php }?>
-						<span ng-show="msg_error"> 
+						<span ng-show="msg_error">
 			           		<div class="alert alert-warning" role="alert">
 				                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				                <span aria-hidden="true">&times;</span>
@@ -53,9 +56,9 @@
 								<option value="Female">Female</option>
 							</select>
 						</div>
-					</div>			
+					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
@@ -98,7 +101,7 @@
 						 	<input type="Password" name="confirmPassword" class="form-control input-sm" ng-model="user.confirmPassword" placeholder="Confirm Your Password" ng-compare="password" ng-required="true">
 							<p  style="color: red; margin-top: 31px;" ng-show="userForm.confirmPassword.$error.valueMatch && !userForm.confirmPassword.$error.required" class="help-block">Confirm password doesnot match.</p>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
@@ -112,7 +115,7 @@
 								<option value="Agent">Agent</option>
 							</select>
 						</div>
-					</div>	
+					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Location</label>
@@ -136,7 +139,7 @@
 							<input type="" class="form-control" placeholder="store type..." id="txtStor_Type" name="txtStor_Type">
 						</div><!-- col-lg-12-->
 					</div><!-- row product-->
-				</div><!-- class product-->		
+				</div><!-- class product-->
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -169,13 +172,13 @@
 		</div>
 	</div>
 </div>
-						
-						
-						
+
+
+
 <script>
 	function uploadFile() {
 		var formData = new FormData();
-		formData.append('image', $('input[type=file]')[0].files[0]); 
+		formData.append('image', $('input[type=file]')[0].files[0]);
 		$.ajax({
 			url: '<?php echo base_url()?>ng/upload.php',
 			data: formData,
@@ -185,11 +188,11 @@
 			processData: false,
 			// ... Other options like success and etc
 			success: function(data) {
-				document.getElementById("response").innerText = "Upload Complete!"; 
+				document.getElementById("response").innerText = "Upload Complete!";
 				document.getElementById("txtImgName").value = data;
-			}			
+			}
 		});
-		
+
 	}
 </script>
 <script>
@@ -200,7 +203,7 @@
 	 <script>
 	 //defining module
 	 var myapp = angular.module('myApp', []);
-	 
+
 	 //creating custom directive
 	 myapp.directive('ngCompare', [function () {
 		 return {
@@ -224,22 +227,22 @@
 			}
 		 }
 	 }]);
-	 
+
 	 // create angular controller
 	 myapp.controller('myCtrl', function ($scope) {
 	  $scope.btnSave = function(){
 	  		if($scope.txt_acc_type=="Shop-owner"){
 	  			if(($scope.txtStor_name==undefined || $scope.txtStor_name=="")||
-                  ($scope.txtStor_Type==undefined || $scope.txtStor_Type=="")){	
+                  ($scope.txtStor_Type==undefined || $scope.txtStor_Type=="")){
 	  				$scope.msg_error=true; $scope.msg="input store name , store type.......!";
 	  			}else{document.getElementById("userForm").submit();}
 	  		}else{
 
 	  			document.getElementById("userForm").submit();
 	  		}
-	  		
+
 	  }
-	 
+
 	 });
 	 </script>
 <script type="text/javascript">
@@ -250,7 +253,7 @@
 
 <script>
 	$(".box1").hide();
-	 $("select").change(function(){
+	 $("#txt_acc_type").change(function(){
 	        $(this).find("option:selected").each(function(){
 	            var optionValue = $(this).attr("value");
 	            if(optionValue=="Shop-owner"){
