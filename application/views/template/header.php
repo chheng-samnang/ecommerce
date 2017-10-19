@@ -9,24 +9,24 @@
 
     $sql = "SELECT COUNT(st_id) AS value FROM tbl_staf WHERE admin_status='0'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {$row = mysqli_fetch_assoc($result) ; 
+    if (mysqli_num_rows($result) > 0) {$row = mysqli_fetch_assoc($result) ;
         $st_id = $row["value"];
     }
 
     $sql1 = "SELECT COUNT(ord_id) AS value1 FROM tbl_order_hdr";
     $r1 = mysqli_query($conn, $sql1);
-    if (mysqli_num_rows($r1) > 0) { $row = mysqli_fetch_assoc($r1); 
+    if (mysqli_num_rows($r1) > 0) { $row = mysqli_fetch_assoc($r1);
         $ord_id = $row["value1"];
     }
-    
+
     $sql2 = "SELECT COUNT(mem_id) AS value2 FROM tbl_member WHERE mem_status='0'";
     $r2 = mysqli_query($conn, $sql2);
-    if (mysqli_num_rows($r2) > 0) { $row = mysqli_fetch_assoc($r2); 
+    if (mysqli_num_rows($r2) > 0) { $row = mysqli_fetch_assoc($r2);
         $mem_id = $row["value2"];
     }
     $sql3 = "SELECT COUNT(wal_tran_id) AS value3 FROM tbl_wallet_transaction WHERE tran_status='0'";
-    $r3 = mysqli_query($conn, $sql3);  
-    if (mysqli_num_rows($r3) > 0) { $row = mysqli_fetch_assoc($r3); 
+    $r3 = mysqli_query($conn, $sql3);
+    if (mysqli_num_rows($r3) > 0) { $row = mysqli_fetch_assoc($r3);
         $wallet_id = $row["value3"];
     }
 
@@ -131,13 +131,13 @@
                                         </li>
                                         <?php
                                             }
-                                        if($mem_id!=""){ 
+                                        if($mem_id!=""){
                                             ?>
                                         <li class="list">
                                             <a href="<?php echo base_url();?>/admin/wallet_c"><i class="fa fa-users text-aqua"></i> <?php echo $mem_id; ?> new member</a>
                                         </li>
                                         <?php }
-                                        if($ord_id!=""){ ?> 
+                                        if($ord_id!=""){ ?>
                                         <li class="list">
                                             <a href="<?php echo base_url();?>admin/orderController"><i class="fa fa-users text-aqua"></i> <?php echo $ord_id; ?> new order customer</a>
                                         </li>

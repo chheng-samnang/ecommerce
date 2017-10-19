@@ -17,6 +17,12 @@
     <link href="<?php echo base_url()?>assets/drowdown/jquery-select7.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<?php echo base_url('assets/dist/js/bootstrap-datetimepicker.js');?>"></script>
     <script src="<?php echo base_url()?>assets/bower_components/bootstrap/js/angular.min.js"></script><div class="row">
+    <style media="screen">
+      .select7__current
+      {
+        width: 106px;
+      }
+    </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="cartItem=0" ng-cloak>
     <noscript>

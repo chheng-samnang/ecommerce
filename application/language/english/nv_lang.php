@@ -40,19 +40,19 @@ $lang["search"] = "Search";
 $lang['save'] = 'Save';
 $lang['update'] = 'Update';
 $lang['cancel'] = 'Cancel';
-$lang['english'] = 'english';
-$lang['khmer'] = 'khmer';
-$lang['chinese'] = 'chinese';
-$lang["kh"] = "khmer";
-$lang["en"] = "english";
-$lang["ch"] = "chinese";
+$lang['english'] = 'En';
+$lang['khmer'] = 'Kh';
+$lang['chinese'] = 'Ch';
+$lang["kh"] = " Khmer";
+$lang["en"] = " English";
+$lang["ch"] = " Chinese";
 
 
 #======================= for Button =================================
 
 $lang["contact_us"] = "Contact-Us";
 $lang["welcome"] = "Welcome";
-$lang["promotion_select"]="Promotion Selected"; 
+$lang["promotion_select"]="Promotion Selected";
 $lang["category"] = "Category";
 $lang["category_name"] = "Category name";
 $lang["brand"] = "Brand";
@@ -241,15 +241,3 @@ $lang["sms_delete"]="Are you sure you want to Delete this ?";
 $lang["confirm_delete"]="confirm delete";
 $lang["attention"]="Attention";
 $lang["warning"]="Warning";
-
-
-
-
-
-
-
-
-
-
-
-
