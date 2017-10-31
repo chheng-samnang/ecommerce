@@ -6,7 +6,7 @@
 				<h3 class="panel-title"><?php echo $this->lang->line('update');?> <?php echo $this->lang->line('product');?></h3>
 			</div>
 			<div class="panel-body">
-				<form method="post" action="">
+				<form method="post" action="<?php echo base_url('admin/memberLogin/editProduct').'/'.$id?>" enctype="multipart/form-data">
 					<?php if(form_error('txt_product')){?>
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -37,14 +37,14 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Store Name</label>
-								<input type="" readonly="readonly" class="form-control input-sm" value="<?php echo $product->str_name?>">
+								<input type="text" readonly="readonly" class="form-control input-sm" value="<?php echo $product->str_name==""?"No store":$product->str_name?>">
 							</div>
 						</div>
 					</div><!-- class Row-->
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								
+
 								<label>Product Name</label>
 								<input type="text" value="<?php echo $product->p_name?>" name="txt_product" class="form-control input-sm" placeholder="Product Name">
 							</div>
@@ -88,7 +88,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Stock Qty</label>
-								<input type="text" value="<?php echo $product->qty?>" name="txtStockQty" class="form-control input-sm">
+								<input type="text" readonly value="<?php echo $product->qty?>" name="txtStockQty" class="form-control input-sm">
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -129,7 +129,7 @@
 					</div><!-- row -->
 
 					<div class="row">
-						
+
 						<div class="col-lg-3">
 							<div class="form-group"><br />
 								<label>Image</label>
@@ -168,7 +168,7 @@
 								<textarea name="txt_Desc" class="form-control" cols="40" rows="6" ><?php echo $product->p_desc?></textarea>
 							</div>
 						</div>
-					</div><hr />		
+					</div><hr />
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
@@ -208,7 +208,7 @@
 <script>
 	function uploadFile() {
 		var formData = new FormData();
-		formData.append('image', $('input[type=file]')[0].files[0]); 
+		formData.append('image', $('input[type=file]')[0].files[0]);
 		$.ajax({
 			url: '<?php echo base_url()?>ng/upload.php',
 			data: formData,
@@ -217,12 +217,12 @@
 			contentType: false,
 			processData: false,
 			// ... Other options like success and etc
-			
+
 			success: function(data) {
-				document.getElementById("response").innerText = "Upload Complete!"; 
+				document.getElementById("response").innerText = "Upload Complete!";
 				document.getElementById("txtImgName").value = data;
-			}			
+			}
 		});
-		
+
 	}
 </script>

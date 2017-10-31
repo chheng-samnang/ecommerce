@@ -33,6 +33,7 @@ class MemberLogin extends CI_Controller
 			$pwd = $this->input->post("txtPass");
 			$accType=$this->input->post("ddlAccType");
 			$validate = $this->ml->validate_member($userName,$pwd,$accType);
+
 			if($validate==false)
 			{
 				$data["msg"] = "Member name/ password/ account type is incorrect";
@@ -78,7 +79,8 @@ class MemberLogin extends CI_Controller
 
 	public function profile($acc_id="",$error="")
 	{
-		if($acc_id!="")
+		$msg = "";
+		if($acc_id!="" && $acc_id==$this->session->acc_id)
 		{
 			$this->session->unset_userdata("promotion");
 			$this->session->acc_id = $acc_id;
@@ -110,6 +112,8 @@ class MemberLogin extends CI_Controller
 			$this->load->view("layout_site/footer");
 		}else
 		{
+			$data["msg"] = "Invalid ID provided!";
+			session_destroy();
 			$this->load->view("admin/login_member.php",$data);
 		}
 	}
@@ -244,7 +248,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules("ddlCat","Category","required|numeric");
 		$this->form_validation->set_rules("ddlBrand","Brand","required|numeric");
 		$this->form_validation->set_rules("txtInvDesc","Description","trim|max_length[1000]");
-		$this->form_validation->set_rules("txtPrice","Price","required|trim|max_length[20]|alpha_numeric");
+		$this->form_validation->set_rules("txtPrice","Price","required|trim|max_length[20]|numeric");
 		$this->form_validation->set_rules("txtColor","Color","trim|max_length[20]|alpha_numeric_spaces");
 		$this->form_validation->set_rules("txtSize","Size","trim|max_length[20]|alpha_numeric_spaces");
 		$this->form_validation->set_rules("txtModel","Model","trim|max_length[100]|alpha_numeric_spaces");
@@ -348,33 +352,45 @@ class MemberLogin extends CI_Controller
 	}
 	public function addProduct()
 	{
+		$txt_product = $this->input->post("txt_product");
 		if($this->validation1()==TRUE)
 		{
-			if($this->input->post("type_pro_code")!="")
-			{
-				$data["template"]=$this->hm->get_template();
-				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-				$data["brand"] = $this->ml->get_brand();
-				$data["store"]=$this->ml->val_store($this->session->acc_id);
-				$data["category"] = $this->ml->get_category();
-				$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-				$this->load->view('layout_site/header_top');
-				$this->load->view('layout_site/nav');
-				$this->load->view('addProduct', $data);
-				$this->load->view('layout_site/footer');
+					if(isset($_POST)){
+						$result = $this->ml->addProduct();
+						if($result){redirect(base_url("profile")."/".$this->session->acc_id);}
+						else{
+							echo "A problem occured, please check!";
+						}
+					}else{
+						if($this->input->post("type_pro_code")!="")
+						{
+							$data["template"]=$this->hm->get_template();
+							$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+							$data["brand"] = $this->ml->get_brand();
+							$data["store"]=$this->ml->val_store($this->session->acc_id);
+							$data["category"] = $this->ml->get_category();
+							$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+							$this->load->view('layout_site/header_top');
+							$this->load->view('layout_site/nav');
+							$this->load->view('addProduct', $data);
+							$this->load->view('layout_site/footer');
+						}
+					}
+
+			}else{
+
+					$data["template"]=$this->hm->get_template();
+					$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+					$data["brand"] = $this->ml->get_brand();
+					$data["store"]=$this->ml->val_store($this->session->acc_id);
+					$data["category"] = $this->ml->get_category();
+					$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
+
+					$this->load->view('layout_site/header_top');
+					$this->load->view('layout_site/nav');
+					$this->load->view('addProduct', $data);
+					$this->load->view('layout_site/footer');
 			}
-		}else{
-			$data["template"]=$this->hm->get_template();
-			$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-			$data["brand"] = $this->ml->get_brand();
-			$data["store"]=$this->ml->val_store($this->session->acc_id);
-			$data["category"] = $this->ml->get_category();
-			$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-			$this->load->view('layout_site/header_top');
-			$this->load->view('layout_site/nav');
-			$this->load->view('addProduct', $data);
-			$this->load->view('layout_site/footer');
-		}
 	}
 	public function addProduct1(){
 			$data["template"]=$this->hm->get_template();
@@ -392,24 +408,26 @@ class MemberLogin extends CI_Controller
 
 	public function editProduct($id)
 	{
-		$this->form_validation->set_rules('txtStockQty','Input Your Stock Qty','required');
-		$this->form_validation->set_rules('txt_price','Input Your Price','required');
-		$this->form_validation->set_rules('txt_product','Input Your Product Name','required');
-		if($this->form_validation->run()==TRUE)
-		{
-			$this->ml->updateProduct($id);
-		    redirect('profile/'.$this->session->acc_id);
+		if($id!=""){
+			$data["id"] = $id;
+			if(isset($_POST["btn_Saveclose"]))
+			{
+				$this->ml->updateProduct($id);
+			  redirect('profile/'.$this->session->acc_id);
+			}
+			$data["template"]=$this->hm->get_template();
+			$data["product"] = $this->ml->get_product_validation($id);
+			$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+			$data["brand"] = $this->ml->get_brand();
+			$data["store"]=$this->ml->val_store($this->session->acc_id);
+			$data["category"] = $this->ml->get_category();
+			$this->load->view('layout_site/header_top',$data);
+			$this->load->view('layout_site/nav');
+			$this->load->view('editProduct', $data);
+			$this->load->view('layout_site/footer');
+		}else{
+			echo "Cannot find any product ID to update!";
 		}
-		$data["template"]=$this->hm->get_template();
-		$data["product"] = $this->ml->get_product_validation($id);
-		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-		$data["brand"] = $this->ml->get_brand();
-		$data["store"]=$this->ml->val_store($this->session->acc_id);
-		$data["category"] = $this->ml->get_category();
-		$this->load->view('layout_site/header_top',$data);
-		$this->load->view('layout_site/nav');
-		$this->load->view('editProduct', $data);
-		$this->load->view('layout_site/footer');
 	}
 
 	public function addShop()

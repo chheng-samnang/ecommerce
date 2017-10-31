@@ -168,11 +168,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function registerMember()
 		{
-
 			$this->form_validation->set_rules('name', 'trim|required|min_length[4]');
-
 			$this->form_validation->set_rules('txtEmail', 'Email have already ,', 'trim|required|min_length[4]|is_unique[tbl_member.mem_email]');
-
 			$this->form_validation->set_rules("txtName","Member Name","required|trim|max_length[100]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtPhone","Phone Number","required|trim|max_length[25]|alpha_numeric_spaces");
 			$this->form_validation->set_rules("txtEmail","Email","trim|max_length[50]|valid_email");
@@ -293,7 +290,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 		}
 
-		public function login($mem_id="")
+		public function login()
 		{
 			$validate = false;
 			$data["msg"] = $this->msg;
@@ -315,6 +312,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$data["mem_id"] = $this->session->memLogin;
 					$data["acc_id"] = $this->pm->get_account_id($data["mem_id"]);
 					$data["wal_id"] = $this->pm->get_wallet_id($data["acc_id"]);
+
 					$this->load->view('layout_site/style');
 					$this->load->view('payment',$data);
 				}

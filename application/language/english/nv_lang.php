@@ -25,8 +25,13 @@ $lang["menu16"] = "Template Management";
 $lang["menu17"] = "Inventory Management";
 $lang["menu18"] = "Promotion Management";
 $lang["menu19"] = "Contact Us";
-$lang["menu20"] = "Combind Product";
+$lang["menu20"] = "Shop Supplier Management";
 $lang["menu21"] = "Staf";
+
+$lang["shop"] = "Shop";
+$lang["supplier"] = "Supplier";
+$lang["location"] = "Location";
+
 
 #===================== for Menu Left ====================
 

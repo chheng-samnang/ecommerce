@@ -69,7 +69,7 @@
 			    </ul>
 			</li>
 		</div>
-		
+
 	 	<div class="col-md-6"></div>
 		<div class="col-md-3">
 
@@ -114,6 +114,13 @@
 	    </div>
 	</div>
 </div>
+<script type="text/javascript">
+	var app = angular.module('myApp',[]);
+	app.controller('myCtrl',function($scope,$http){
+		$http.get("get_all_product.php")
+    .then(function (response) {$scope.get_product = response.data.records;});
+	});
+</script>
 <script type="text/javascript">
 	$(document).ready(function() {
     $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});

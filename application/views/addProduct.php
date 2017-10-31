@@ -1,12 +1,4 @@
-<?php error_reporting(0);?>
-<script type="text/javascript">
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function ($scope) {
-$scope.sendForm = function () {
-$scope.msg = "Form Validated";
-};
-});
-</script>
+
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
 		<div class="panel panel-default">
@@ -14,7 +6,7 @@ $scope.msg = "Form Validated";
 				<h3 class="panel-title"><?php echo $this->lang->line('add');?> <?php echo $this->lang->line('product');?></h3>
 			</div>
 			<div class="panel-body">
-				 <form method="post" action="" name="personForm" novalidate ng-submit="personForm.$valid &&sendForm()">
+				 <form method="post" action="<?php echo base_url('memberLogin/addProduct')?>" enctype="multipart/form-data">
 					<div class="row">
 					<div class="col-lg-12">
 					<?php
@@ -34,10 +26,7 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Product Code</label>
-								<?php 
-							      	$rest = substr($pro_code->p_code, -6);
-							      ?>
-							      <input  type="text" name="type_pro_code" id="type_pro_code" class="form-control input-sm" value="<?php if($pro_code->p_code!="" && $pro_code->p_id!=""){ echo "P".str_pad($rest+$pro_code->p_id, 6, "0", STR_PAD_LEFT);}else{ echo "P00000".$pro_code->p_id; }?>" placeholder="Product Code" >
+							      <input  type="text" name="type_pro_code" id="type_pro_code" class="form-control input-sm" value="<?php echo $pro_code?>" placeholder="Product Code" >
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -83,9 +72,8 @@ $scope.msg = "Form Validated";
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Price</label>
-								 <input type="text" name="txt_price" class="form-control input-sm" placeholder="Price" ng-model="txt_price" ng-pattern="/^[0-9]{1,10}$/" required />
+								 <input type="text" name="txt_price" class="form-control input-sm" placeholder="Price" ng-model="txt_price" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" required />
         						<span style="color:Red" ng-show="personForm.txt_price.$dirty&&personForm.txt_price.$error.pattern">Only Numbers Allowed, Maximum 10 Characters</span>
-								
 							</div>
 						</div>
 					</div><!-- class Row-->
@@ -160,11 +148,11 @@ $scope.msg = "Form Validated";
 								<textarea name="txt_Desc" class="form-control" cols="40" rows="6" ></textarea>
 							</div>
 						</div>
-					</div><hr />	
+					</div><hr />
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<button type="submit" class="btn btn-success btn-sm" name="btn_Saveclose" ng-disabled="userForm.$invalid"><i class="fa fa-floppy-o"></i> <?php echo $this->lang->line('save');?></button>
+								<button type="submit" class="btn btn-success btn-sm" name="btnSubmit"><i class="fa fa-floppy-o"></i> <?php echo $this->lang->line('save');?></button>
 								<a class="btn btn-default btn-sm" href="<?php echo base_url('admin/MemberLogin/Cancel')?>"  ><i class="fa fa-times"></i> <?php echo $this->lang->line('cancel');?></a>
 							</div>
 						</div>
@@ -206,7 +194,7 @@ $scope.msg = "Form Validated";
 <script>
 	function uploadFile() {
 		var formData = new FormData();
-		formData.append('image', $('input[type=file]')[0].files[0]); 
+		formData.append('image', $('input[type=file]')[0].files[0]);
 		$.ajax({
 			url: '<?php echo base_url()?>ng/upload.php',
 			data: formData,
@@ -215,12 +203,12 @@ $scope.msg = "Form Validated";
 			contentType: false,
 			processData: false,
 			// ... Other options like success and etc
-			
+
 			success: function(data) {
-				document.getElementById("response").innerText = "Upload Complete!"; 
+				document.getElementById("response").innerText = "Upload Complete!";
 				document.getElementById("txtImgName").value = data;
-			}			
+			}
 		});
 	}
-	  
+
 </script>

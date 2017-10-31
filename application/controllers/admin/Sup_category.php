@@ -46,7 +46,7 @@ class Sup_category extends CI_Controller
 
 		$data["action_url"] = array($this->page_redirect.'/add',
 									$this->page_redirect.'/edit',
-									$this->page_redirect.'/delete');
+									$this->page_redirect.'/deleteCategory');
 		$this->load->view('template/header');
 		$this->load->view('template/left');
 		$this->load->view('admin/page_view',$data);
@@ -130,7 +130,7 @@ class Sup_category extends CI_Controller
 		if(isset($id)&&$id!="")
 		{
 			$this->scm->deleteCategory($id);
-			redirect("Sup_category");
+			redirect(base_url()."admin/Sup_category");
 		}
 	}
 	public function createCtrl($row="",$option2="")

@@ -31,7 +31,7 @@ margin-bottom: 10px
 background-color: rgba(255, 152, 0, 0.37);
 }
 #elevator:active {
-background-color: #C6C
+background-color: #C6C;
 }
 
 </style>
@@ -62,7 +62,7 @@ background-color: #C6C
 								</li>
 							</ul>
 					    </div>
-					</div> 
+					</div>
 				</div>
 				<div id="bottom2" class="col-md-4 col-sm-6 yt-bottom">
 					<div class="module  ">
@@ -81,10 +81,10 @@ background-color: #C6C
 								<li class="item-3">
 									<p><i class="fa fa-globe" aria-hidden="true"> Website: </i> www.ecommerce.com</p>
 								</li>
-								
+
 							</ul>
 					    </div>
-					</div> 
+					</div>
 				</div>
 
 				<div id="bottom2" class="col-md-4 col-sm-6 yt-bottom">
@@ -97,46 +97,46 @@ background-color: #C6C
 								</li>
 							</ul>
 					    </div>
-					</div> 
+					</div>
 				</div>
-			</div><!-- this social  -->	
+			</div><!-- this social  -->
 		</div><!-- this container -->
-		<div class="col-lg-12 btn-default" style="border-top:1px solid #d4d4d4">	
+		<div class="col-lg-12 btn-default" style="border-top:1px solid #d4d4d4">
 			<div class="container">
 				<div class="col-lg-5"><h5>© Copyright 2017. E-Commerce in Cambodia</h5></div>
 				<div class="pull-right">
 					<a href="#home" class="scrollup"><h5>Amppil Technology</h5></a>
 				</div>
 			</div>
-		</div>				
+		</div>
 	</div>
 </footer>
-	<div id="elevator_item"> 
-		<a id="elevator" onclick="return false;" title="Back To Top"></a> 
+	<div id="elevator_item">
+		<a id="elevator" onclick="return false;" title="Back To Top"></a>
 	</div>
 </div>
 
 
 <script src="<?php echo base_url()?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>grid and list/js/classie.js"></script>
-<script src="<?php echo base_url()?>grid and list/js/cbpViewModeSwitch.js"></script>
+<!-- <script src="<?php echo base_url()?>grid and list/js/cbpViewModeSwitch.js"></script> -->
 <script src="<?php echo base_url()?>assets/drowdown/jquery-select7.js"></script>
 <script src="<?php echo base_url()?>assets/tinymce/tinymce.min.js"></script>
     <script>
 	    $(function() {
 			$(window).scroll(function(){
-				var scrolltop=$(this).scrollTop();		
-				if(scrolltop>=90){		
+				var scrolltop=$(this).scrollTop();
+				if(scrolltop>=90){
 					$("#elevator_item").show();
 				}else{
 					$("#elevator_item").hide();
 				}
-			});		
+			});
 			$("#elevator").click(function(){
-				$("html,body").animate({scrollTop: 1}, 1200);	
-			});	
+				$("html,body").animate({scrollTop: 1}, 1200);
+			});
 		});//function Scroll to Top
-        
+
         tinymce.init({
           selector: 'textarea',
           imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
@@ -154,4 +154,3 @@ background-color: #C6C
              });
         });
     </script>
-   

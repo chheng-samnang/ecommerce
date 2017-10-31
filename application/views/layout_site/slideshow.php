@@ -3,11 +3,11 @@
       position: relative;
       //margin: 2%;
       overflow: hidden;
-      
+
     }
     .item1 img {
       max-width: 100%;
-      
+
       -moz-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s;
@@ -18,20 +18,20 @@
       transform: scale(1.5);
     }</style>
 	<div class="container" style="width: 1322px;" ng-cloak>
-      	<div class="mix dogs col-sm-2">	  
-		    <?php 
-		    	foreach ($advertisement as $value) 
-		    	{ 
+      	<div class="mix dogs col-sm-2">
+		    <?php
+		    	foreach ($advertisement as $value)
+		    	{
 		    		if($value->position=="left" and $value->page=="Home")
 		    		{
 		    ?>
 				    	<a href="<?php echo $value->url?>" target="blnk" >
-				    		<img class="img-responsive" style="width: 195px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+				    		<img class="img-responsive" style="width: 195px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 				    	</a>
-			<?php 
+			<?php
 					}
-				} 
-			?> 
+				}
+			?>
       	</div><!-- this Adverti home page left-->
 
 	    <div class="mix cats col-sm-8" style="padding: 0px; background: #fff;">
@@ -79,25 +79,25 @@
 					    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By Category <b class="caret"></b></a>
 					    <ul class="dropdown-menu">
 					       	<a href="<?php echo base_url('Product');?>" class="list-group-item">All Category</a>
-					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a> 
+					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a>
 					    </ul>
 					</li>
 				</div><!-- this sort category -->
-	 			
+
 				<div class="col-md-9">
 					<div class="row navbar-right">
 					 	<strong>Display</strong>
 				        <div class="btn-group">
 				            <a href="#" id="list" class="btn btn-default btn-sm">
 				            	<span class="glyphicon glyphicon-th-list"></span>List
-				            </a> 
+				            </a>
 				            <a href="#" id="grid" class="btn btn-default btn-sm">
 				            	<span class="glyphicon glyphicon-th"></span>Grid
 				            </a>
 				        </div>
 			        </div>
 			    </div><!-- this List and Grid -->
-	
+
 			 	<div class="row">
 					<div class="col-lg-12"><h4 style="padding:5px;background: #ff9800;color:white; height: 40px; line-height: 2"> Product Listing</h4></div>
 				</div>
@@ -129,24 +129,24 @@
 		    	<!-- <div class="row">
 			    	<div class="mix cats col-sm-12">
 			    			<a href="<?php echo base_url('Product');?>"><h5  class="well well-sm" style="text-align: center;">View all</h5></a>
-			    	</div> 
+			    	</div>
 			    </div> --><!-- this veiw all-->
 			</div><!-- mix cats col-sm-12 -->
-	    </div><!-- #this mix cats col-sm-8 -->  	
+	    </div><!-- #this mix cats col-sm-8 -->
 	    <div class="mix dogs cats col-sm-2">
-		   	<?php 
-		   		foreach ($advertisement as $value) 
+		   	<?php
+		   		foreach ($advertisement as $value)
 		   		{
 		   			if($value->position=="right" and $value->page=="Home")
 		   			{
 		   	?>
 				    	<a href="<?php echo $value->url?>" target="blnk" >
-				      		<img class="img-responsive" style="width: 195px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+				      		<img class="img-responsive" style="width: 195px; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 				    	</a>
-		    <?php 
+		    <?php
 		    		}
-		    	} 
-		    ?> 	
+		    	}
+		    ?>
 		</div><!-- this adverti home page reight-->
 	</div>
 	<script type="text/javascript">
@@ -168,30 +168,30 @@
 			$scope.loadProduct_by_Cat = function(values)
 			{
 			$http.get("/ecommerce/ng/loadProduct_by_Cat.php?cat_id="+values)
-			.then(function (response) {$scope.get_product = response.data.records;}); 
+			.then(function (response) {$scope.get_product = response.data.records;});
 			}
 
 			$scope.btnAdd = function(name,id,qty,str)
 			{
 				var xmlhttp = new XMLHttpRequest();
 				var xmlhttp2 = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function() 
+				xmlhttp.onreadystatechange = function()
 				 {
-		            if (this.readyState == 4 && this.status == 200) 
+		            if (this.readyState == 4 && this.status == 200)
 		            {
 		                document.getElementById("itemNum").innerHTML = this.responseText;
 		            }
 		        };
 		        xmlhttp2.onreadystatechange = function()
 		        {
-		        	if (this.readyState == 4 && this.status == 200) 
+		        	if (this.readyState == 4 && this.status == 200)
 		        	{
 		       			document.getElementById("display_cart").innerHTML = this.responseText;
 				    }
 		    	}
 
 		    	xmlhttp.open("GET", "<?php echo base_url()?>product_c/add_to_cart/"+ name + "/" + id+"/"+qty+"/"+str, true);
-				xmlhttp.send(); 
+				xmlhttp.send();
 
 		        xmlhttp2.open("GET", "<?php echo base_url()?>product_c/display_cart", true);
 		       	xmlhttp2.send();
@@ -205,7 +205,7 @@
 	});
 	</script>
 	<script type="text/javascript">
-		   
+
 		function itemRemove(id)
 		{
 			var xmlhttp = new XMLHttpRequest();

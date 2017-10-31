@@ -18,7 +18,7 @@ $lang["menu15"] = "កាដំឡើង​ អក្សររត់";
 $lang["menu16"] = "គ្រប់គ្រង Template";
 $lang["menu17"] = "គ្រប់គ្រង Inventory";
 $lang["menu18"] = "គ្រប់គ្រង ការបញ្ចុះតម្លៃ";
-
+$lang["menu20"] = "គ្រប់គ្រង ការផ្គត់ផ្គង់ឥវ៉ានហាង";
 #======================= for menu left ======================
 $lang["image"] = "រូបភាព";
 $lang["change_password"] = "ផ្លាស់ប្តូរ លេខសម្ងត់";
@@ -31,8 +31,8 @@ $lang["search"] = "ស្វែងរក";
 $lang['save'] = 'រក្សាទុក';
 $lang['update'] = 'កែប្រែ';
 $lang['delete'] = 'លុប';
-$lang['cancel'] = 'បោះបង់'; 
-$lang['staf'] = 'អ្នកលក់'; 
+$lang['cancel'] = 'បោះបង់';
+$lang['staf'] = 'អ្នកលក់';
 $lang["welcome"] = "សូមស្វាគមន៍";
 $lang["setting"] = "ការកំណត់";
 $lang["category"] = "ប្រភេទ";
@@ -63,7 +63,7 @@ $lang["contact"]="ព័ត៌មានទំនាក់ទំនង";
 $lang["info"]="ព័ត៌មាន";
 $lang["promotion"]="ការបញ្ចុះតម្លៃ	";
 $lang["promotion_list"]="បង្ហាញ​ ការបញ្ចុះតម្លៃ";
-$lang["promotion_select"]="បង្ហាញ​ ការជ្រើសរើស​ បញ្ចុះតម្លៃ"; 
+$lang["promotion_select"]="បង្ហាញ​ ការជ្រើសរើស​ បញ្ចុះតម្លៃ";
 $lang["fund"]="លុយ";
 $lang["service"]="សេវាកម្ម";
 $lang["view"]="បង្ហាញ";
@@ -80,7 +80,7 @@ $lang["blog"]="Blog";
 
 $lang["close"]="បិត";
 
-$lang["trash"]="បាេះចោល"; 
+$lang["trash"]="បាេះចោល";
 $lang["untrash"]="មិនបាេះចោល";
 $lang["go_product"] = "ទៅ​​ ផលិតផល";
 $lang["profile"] = "ព័ត៌មាន ផ្ទាល់ខ្លួន";
@@ -223,4 +223,3 @@ $lang["sms_delete"]="លោកអ្នក ចង់លុបមែនទេ....
 $lang["confirm_delete"]="បញ្ចាក់ លុប..";
 $lang["attention"]="សូមយកចិត្តទុកដាក់..";
 $lang["warning"]="ព្រមាន";
-

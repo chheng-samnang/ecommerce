@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('Product_m','pm');
 			$this->load->model("Contact_us_m",'cm');
 			$this->load->model("About_m");
+
 		}
 
 		public function index()

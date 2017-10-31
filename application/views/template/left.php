@@ -1,6 +1,6 @@
      <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
-                
+
               <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse" id="navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -59,7 +59,7 @@
                             <a href="<?php echo base_url();?>admin/wallet_c"><i class="glyphicon glyphicon-credit-card"></i> <?php echo $this->lang->line('menu6');?></a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url();?>admin/Combind_product"><i class="fa fa-cogs" aria-hidden="true"></i> <?php echo $this->lang->line('menu20');?></a>
+                            <a href="<?php echo base_url();?>admin/Combind_product"><i class="glyphicon glyphicon-transfer" aria-hidden="true"></i> <?php echo $this->lang->line('menu20');?></a>
                         </li>
                         <li>
                             <a href="<?php echo base_url();?>location"><i class="glyphicon glyphicon-send"></i> <?php echo $this->lang->line('menu9');?></a>

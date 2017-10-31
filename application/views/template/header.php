@@ -42,7 +42,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Online Digital Market</title>
+    <title>Admin Panel</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="shortcut icon" href="<?php echo base_url('assets/uploads/mobile-cart-icon.png');?>">

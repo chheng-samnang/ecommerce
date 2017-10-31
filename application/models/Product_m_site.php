@@ -31,25 +31,24 @@
 
 			$ord_code = $this->om->generate_order_code();
 			$data = array(
-							"ord_code"	=>	$ord_code,
-							"ord_date"	=>	date("Y-m-d"),
-							"mem_id"	=>	$this->session->memLogin,
-							"ord_status"=>	"order",
+							"ord_code"		=>	$ord_code,
+							"ord_date"		=>	date("Y-m-d"),
+							"mem_id"			=>	$this->session->memLogin,
+							"ord_status"	=>	"order",
 							"delivery_addr"=>$this->input->post("txrAddr"),
-							"user_crea"	=>	$this->session->memLogin,
-							"date_crea"	=>	date("Y-m-d")
+							"user_crea"		=>	$this->session->memLogin,
+							"date_crea"		=>	date("Y-m-d")
 			);
 			$this->db->insert("tbl_order_hdr",$data);
-			
 			foreach ($_SESSION["product"] as $key => $value) {
 				$data = array(
 								"ord_code"	=>	$ord_code,
-								"p_id"		=>	$value["id"],
-								"qty"		=>	$value["qty"],
-								"price"		=>	$value["price"],
+								"p_id"			=>	$value["id"],
+								"qty"				=>	$value["qty"],
+								"price"			=>	$value["price"],
 								"discount"	=>	"0",
-								"str_id"	=>	$value["str"],
-								"total"		=>	$value["qty"]*$value["price"]
+								"str_id"		=>	$value["str"],
+								"total"			=>	$value["qty"]*$value["price"]
 					);
 				$this->db->insert("tbl_order_det",$data);
 			}
@@ -67,6 +66,7 @@
 					);
 					$this->db->insert("tbl_stock",$data);
 			}
+			return true;
 		}
 
 		public function insert_order_det()
@@ -160,7 +160,7 @@
 				}
 			}
 		}
-		
+
 		public function get_member_id($email)
 		{
 			if($email!="")
@@ -188,20 +188,20 @@
 			$query = $this->db->query("SELECT * FROM tbl_member WHERE mem_id={$mem_id} ORDER BY mem_id ASC");
 			return $query->row();
 		}
-		
+
 		public function get_price($id)
 		{
 			$this->db->select('price');
 			$query = $this->db->get_where('tbl_product',array('p_id'=>$id));
 			return $query->row();
 		}
-		
+
 		public function index()
 		{
 			$query=$this->db->query("SELECT * FROM tbl_product AS p INNER JOIN tbl_media AS m ON m.p_id=p.p_id GROUP BY m.p_id ASC");
 			return $query->result();
 		}
-		
+
 		public function product_page_detail($pro_id){
 			if($pro_id!==""){
 				$query=$this->db->query("SELECT * FROM tbl_promotion AS pro INNER JOIN tbl_promotion_det AS pd ON pro.`pro_id`=pd.`pro_id` RIGHT JOIN tbl_product AS p ON p.`p_id`=pd.`p_id` LEFT JOIN tbl_category AS c ON p.`cat_id`=c.`cat_id` LEFT JOIN tbl_media AS m ON m.`p_id`=p.`p_id` LEFT JOIN tbl_store AS s ON s.`str_id`=p.`str_id` LEFT JOIN tbl_brand AS b ON b.`brn_id`=p.`brn_id` WHERE p.p_id={$pro_id} GROUP BY m.p_id ASC");
@@ -255,6 +255,7 @@
 			$ord_code = "ord".date("YmdHis");
 			$acc_code = $this->generate_acc_code();
 			$acc_id = "";
+			$acc_status = $this->input->post("txt_acc_type")=="General"?"1":"0";
 			$data = array(
 							'mem_code'	=>	$mem_code,
 							'mem_name'	=>	$this->input->post('txtName'),
@@ -262,7 +263,7 @@
 							'mem_email'	=>	$this->input->post('txtEmail'),
 							'mem_password'	=>	$this->input->post('txtPassword'),
 							'mem_addr'	=>	$this->input->post('txtAddr'),
-							'mem_status'=>	'1',
+							'mem_status'=>	$acc_status,
 							'reg_date'	=>	date('Y-m-d')
 				);
 			$this->db->insert('tbl_member',$data);
@@ -276,7 +277,7 @@
 								"mem_id"	=>	$mem_id,
 								"acc_type"	=>	"General",
 								"loc_id"	=>	"1",
-
+								"status"	=>	"1",
 								"acc_password"=>$this->input->post("txtPassword"),
 								"user_crea"	=>	$this->session->memLogin,
 								"date_crea"	=>	date("Y-m-d")
@@ -302,7 +303,7 @@
 
 		public function get_account_id($mem_id)
 		{
-			$query = $this->db->get_where("tbl_account",array("mem_id"=>$mem_id));
+			$query = $this->db->get_where("tbl_account",array("mem_id"=>$mem_id,"acc_type"=>"general"));
 			if($query->num_rows()>0)
 			{
 				return $query->row()->acc_id;
@@ -323,7 +324,7 @@
 				return "n/a";
 			}
 		}
-		
+
 		public function get_wallet_bal($wal_id)
 		{
 			$balance = $this->db->query("SELECT SUM(CASE WHEN tran_type='cash_out' THEN tran_amt*(-1) ELSE tran_amt END) AS tran_amt FROM tbl_wallet_transaction where tran_status='1' and wal_id='$wal_id'");

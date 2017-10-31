@@ -65,20 +65,20 @@
     text-overflow: ellipsis;
 }
 
-.box1:hover 
+.box1:hover
 	{
 		-webkit-transform: scale(1);
-    	transform: scale(1); 
+    	transform: scale(1);
 	}
 	 .item1 {
       position: relative;
       //margin: 2%;
       overflow: hidden;
-      
+
     }
     .item1 img {
       max-width: 100%;
-      
+
       -moz-transition: all 0.3s;
       -webkit-transition: all 0.3s;
       transition: all 0.3s;
@@ -94,22 +94,22 @@
 <div class="container">
 <div class="col-lg-12" style="margin-bottom: 10px;">
 	<div class="row">
-		<?php 
-		    		foreach ($advertisement as $value) 
+		<?php
+		    		foreach ($advertisement as $value)
 		    		{
 		    			if($value->position=="center" and $value->page=="page detail")
 		    			{
 		    	?>
 		      				<a href="<?php echo $value->url?>" target="blnk" >
-						      	<img class="img-responsive" style=" width: 100%; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+						      	<img class="img-responsive" style=" width: 100%; height: <?php echo $value->height;?>px" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 						    </a>
-				<?php 
+				<?php
 						}
 					}
 			?>
 	</div>
 </div>
-	<div class="col-xs-12 col-md-9" style="padding: 0px; background: #fff; "> 
+	<div class="col-xs-12 col-md-9" style="padding: 0px; background: #fff; ">
 		<div class="col-xs-12">
 			<div class="row">
 				<ol class="breadcrumb">
@@ -139,7 +139,7 @@
 					</div>
 					<div class="col-lg-12 border">
 						<div class="col-lg-4">Quantity : </div>
-						<div class="col-lg-8"> 
+						<div class="col-lg-8">
 							<input class="form-control input-sm" type="number" min="0" max="100" style="width:115px;" name="txtItemNum" ng-model="itemNum">
 							</div>
 					</div>
@@ -168,14 +168,14 @@
 						?>
 						<div style="margin-left:41px;">
 							<?php
-								if($type=="product")
+								if($type=="product" || $type=="inventory")
 								{
 							?>
 								<button class="btn btn-warning" ng-click="btnAdd('<?php echo $name?>',<?php echo $p_id?>,itemNum,<?php echo $str?>,'<?php echo $type?>')">Add to Cart</button>
 							<?php
 								}
 							?>
-							<a href="<?php echo base_url('index.php/product_c'); ?>" class="btn btn-primary" type="button">Back</a>	
+							<a href="<?php echo base_url('index.php/product_c'); ?>" class="btn btn-primary" type="button">Back</a>
 						</div>
 					</div>
 				</div>
@@ -230,7 +230,7 @@
 			</div>
 		</div>
 		</div>
-	
+
 		<div class="col-lg-12">
 			<div class="mix cats col-sm-12" id="products" style=" padding: 10px; background: white;">
 				<div class="col-xs-2 col-md-3" style="padding: 0px;">
@@ -238,7 +238,7 @@
 					    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By Category <b class="caret"></b></a>
 					    <ul class="dropdown-menu">
 					       	<a href="<?php echo base_url('Product');?>" class="list-group-item">All Category</a>
-					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a> 
+					        <a href="" class="list-group-item" ng-click="loadProduct_by_Cat(x.Id)" ng-repeat="x in categories">{{x.Name}}</a>
 					    </ul>
 					</li>
 				</div>
@@ -248,13 +248,13 @@
 			        <div class="btn-group">
 			            <a href="#" id="list" class="btn btn-default btn-sm">
 			            	<span class="glyphicon glyphicon-th-list"></span>List
-			            </a> 
+			            </a>
 			            <a href="#" id="grid" class="btn btn-default btn-sm">
 			            	<span class="glyphicon glyphicon-th"></span>Grid
 			            </a>
 			        </div>
 			    </div>
-	
+
 			 	<div class="row">
 					<div class="col-lg-12"><h4 style="padding:5px;background: #ff9800;color:white; height: 40px; line-height: 2"> Product Listing</h4></div>
 				</div>
@@ -285,31 +285,31 @@
 		    	<!-- <div class="row">
 			    	<div class="mix cats col-sm-12">
 			    			<a href="<?php echo base_url('Product');?>"><h5  class="well well-sm" style="text-align: center;">View all</h5></a>
-			    	</div> 
+			    	</div>
 			    </div> -->
 			</div>
 		</div>
 
 		<!-- <h4 style="margin-left: 10px; margin-top: 10px;">Related Products</h4><hr /> -->
-		
+
 	</div>
 	<div class="col-lg-3">
 		<div class="row">
-			<?php 
-		    	foreach ($advertisement as $value) 
+			<?php
+		    	foreach ($advertisement as $value)
 		    	{
 		    		if($value->position=="right" and $value->page=="page detail")
 		    		{
 		    	?>
 		      			<a href="<?php echo $value->url?>" target="blnk" >
-						    <img class="img-responsive" style="width: 95.4%; margin-left: 12px; height: <?php echo $value->height;?>" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="..."> 
+						    <img class="img-responsive" style="width: 95.4%; margin-left: 12px; height: <?php echo $value->height;?>" src="<?php echo base_url('assets/uploads/'.$value->img);?>" alt="...">
 						</a>
-				<?php 
+				<?php
 						}
 					}
 				?>
 			</div>
-	</div>	
+	</div>
 </div>
     </div>
 </div>
@@ -329,7 +329,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" id="btnCheckout" ng-click="checkout()" class="btn btn-primary">Check Out</button>
-        
+
       </div>
     </div>
   </div>
@@ -352,7 +352,7 @@
         var i=0,j=0,total = 0;
         var txt = "";
         $scope.itemNum = 1;
-	    
+
 	    $http.get("/ecommerce/ng/get_all_products.php")
 		.then(function (response) {$scope.get_product = response.data.records;});
 
@@ -362,25 +362,25 @@
 		$scope.loadProduct_by_Cat = function(values)
 		{
 		$http.get("/ecommerce/ng/loadProduct_by_Cat.php?cat_id="+values)
-		.then(function (response) {$scope.get_product = response.data.records;}); 
+		.then(function (response) {$scope.get_product = response.data.records;});
 		}
 
 		$scope.btnAdd = function(name,id,qty,str,type)
 		{
 			var xmlhttp = new XMLHttpRequest();
 			var xmlhttp2 = new XMLHttpRequest();
-			
-			xmlhttp.onreadystatechange = function() 
+
+			xmlhttp.onreadystatechange = function()
 			 {
-	            if (this.readyState == 4 && this.status == 200) 
+	            if (this.readyState == 4 && this.status == 200)
 	            {
 	                document.getElementById("itemNum").innerHTML = this.responseText;
 	            }
 	        };
 
 	    	xmlhttp.open("GET", "<?php echo base_url()?>product/add_to_cart/"+ name + "/" + id+"/"+qty+"/"+str+"/"+type, true);
-			xmlhttp.send(); 
-	       
+			xmlhttp.send();
+
 		}
 		$scope.checkout = function()
 		{
@@ -392,7 +392,7 @@
 			var xmlhttp2 = new XMLHttpRequest();
 			 xmlhttp2.onreadystatechange = function()
 	        {
-	        	if (this.readyState == 4 && this.status == 200) 
+	        	if (this.readyState == 4 && this.status == 200)
 	        	{
 	       			document.getElementById("display_cart").innerHTML = this.responseText;
 			    }
@@ -400,12 +400,12 @@
 	        xmlhttp2.open("GET", "<?php echo base_url()?>product/display_cart", true);
 	       	xmlhttp2.send();
 		}
-		$scope.itemNum = 1;		
+		$scope.itemNum = 1;
 });
-</script> 
+</script>
 
 <script type="text/javascript">
-	   
+
 	function itemRemove(id)
 	{
 		var xmlhttp = new XMLHttpRequest();
@@ -415,7 +415,7 @@
 	                document.getElementById("itemNum").innerHTML = this.responseText;
 	            }
 	        };
-	   
+
 
 	    xmlhttp.open("GET", "<?php echo base_url()?>product_c/remove_item/"+ id, true);
 	    xmlhttp.send();
@@ -430,7 +430,7 @@
 	    xmlhttp2.open("GET", "<?php echo base_url()?>product_c/display_cart", true);
 	    xmlhttp2.send();
 	}
-</script> 
+</script>
 <script type="text/javascript">
 	$("#btnCheckout").click(function(){$()});
-</script>  
+</script>
