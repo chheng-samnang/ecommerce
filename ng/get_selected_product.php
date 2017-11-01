@@ -7,12 +7,15 @@
 
 	if($com_id!="")
 	{
-    // SELECT ACC_ID FROM tbl_combind
-    $query = $conn->query("SELECT bus_id FROM tbl_combind WHERE com_id={$com_id}");
-    $acc_id = $query->fetch_array(MYSQLI_ASSOC)["bus_id"];
 
-    // SELECT PRODUCT for Supplier
-		$result = $conn->query("SELECT p.p_id,p.p_name,m.path,c.cat_name,br.brn_name FROM tbl_product AS p INNER JOIN tbl_media AS m ON p.p_id=m.p_id INNER JOIN tbl_category AS c ON p.cat_id=c.cat_id INNER JOIN tbl_brand AS br ON p.brn_id=br.brn_id WHERE acc_id='$acc_id'");
+    // SELECT PRODUCT for Shop
+		$result = $conn->query("SELECT p.p_id,p.p_name,m.path,c.cat_name,br.brn_name
+            FROM tbl_combind_det AS cd
+            INNER JOIN tbl_product AS p ON cd.`p_id`=p.`p_id`
+            INNER JOIN tbl_media AS m ON p.p_id=m.p_id
+            INNER JOIN tbl_category AS c ON p.cat_id=c.cat_id
+            INNER JOIN tbl_brand AS br ON p.brn_id=br.brn_id
+            WHERE com_id='$com_id'");
     $outp = "";
   	while($rs = $result->fetch_array(MYSQLI_ASSOC)){
   	    if ($outp != "") {$outp .= ",";}

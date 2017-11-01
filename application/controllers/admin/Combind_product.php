@@ -64,7 +64,7 @@
 
 		public function edit($id){
 			$data["id"] = $id;
-			$data["acc_id"] = $this->session->acc_id;
+
 			$this->load->view('template/header');
 			$this->load->view('template/left');
 			$this->load->view('admin/edit_combind',$data);
