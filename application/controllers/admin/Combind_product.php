@@ -88,9 +88,14 @@
 			}
 		}
 
-		public function delete(){
-
+		public function delete($id){
+			if($id!=""){
+					$result = $this->cp->deleteProduct($id);
+					if($result){
+						redirect(base_url("admin/combind_product"));
+					}else{
+						return false;
+					}
+			}
 		}
-
-
 	} // Class

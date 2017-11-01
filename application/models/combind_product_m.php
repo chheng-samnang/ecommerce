@@ -109,4 +109,23 @@ class Combind_product_m extends CI_Model
 				}
 			}
 	}
+
+	public function deleteProduct($id)
+	{
+		$this->db->where("com_id",$id);
+		$query = $this->db->delete("tbl_combind_det");
+		if($query)
+		{
+			$this->db->where("com_id",$id);
+			$query2 = $this->db->delete("tbl_combind");
+			if($query2)
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
 }// this Class
