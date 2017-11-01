@@ -7,45 +7,48 @@
     <div class="col-lg-10 col-lg-offset-2">
       <h1 class="page-header">Form Edit Selected Supplier Product</h1>
 
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Supplied Product</h3>
+      <form class="" action="<?php echo base_url('admin/combind_product/edit')?>/<?php echo $id?>" method="post">
+        <input type="hidden" name="txtStr" id="txtStr" value="">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Supplied Product</h3>
+              </div>
+              <div class="panel-body">
+                  <div class="row">
+                    <div class="col-lg-3" ng-repeat="item in product" ng-click="addItem($index,item['P_name'])">
+                      <label for="">{{item["P_name"]}}</label>
+                      <img class="img-thumbnail" src="<?php echo base_url('assets/uploads')?>/{{item['Path']}}" alt="">
+                    </div>
+                  </div>
+              </div>
             </div>
-            <div class="panel-body">
+          </div>
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Selected Product</h3>
+              </div>
+              <div class="panel-body">
                 <div class="row">
-                  <div class="col-lg-3" ng-repeat="item in product" ng-click="addItem($index,item['P_name'])">
+                  <div class="col-lg-3" ng-repeat="item in Shopproduct track by $index" ng-click="removeItem($index)">
                     <label for="">{{item["P_name"]}}</label>
                     <img class="img-thumbnail" src="<?php echo base_url('assets/uploads')?>/{{item['Path']}}" alt="">
                   </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Selected Product</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-lg-3" ng-repeat="item in Shopproduct track by $index" ng-click="removeItem($index)">
-                  <label for="">{{item["P_name"]}}</label>
-                  <img class="img-thumbnail" src="<?php echo base_url('assets/uploads')?>/{{item['Path']}}" alt="">
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <hr>
-      <div class="row pull-right">
-        <div class="col-lg-12">
-          <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-success">Update</button>
-          <button type="button" name="btnCancel" id="btnCancel" class="btn btn-default">Cancel</button>
+        <hr>
+        <div class="row pull-right">
+          <div class="col-lg-12">
+            <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-success">Update</button>
+            <button type="button" name="btnCancel" id="btnCancel" class="btn btn-default">Cancel</button>
+          </div>
         </div>
-      </div>
+      </form>
 
       <div class="row" ng-show="val">
         <div class="col-lg-3">
@@ -64,6 +67,7 @@
       var selectedProduct = [];
       var selectedPName = [];
       $scope.val = 0;
+
       // SELECT product from active supplier
       $http.get("<?php echo base_url()?>ng/get_product.php?id="+com_id)
       .then(function (response) {
@@ -75,14 +79,14 @@
       .then(function (response) {
         $scope.Shopproduct =response.data.records;
         selectedProduct = response.data.records;
-
+        $("#txtStr").val(JSON.stringify(selectedProduct));
         for(var i = 0;i<=selectedProduct.length-1;i++)
         {
           selectedPName[i] = selectedProduct[i]["P_name"];
         }
       })
 
-
+      // Add item to selected product
       $scope.addItem = function(id,name){
         $scope.val="0";
         var found = selectedPName.indexOf(name);
@@ -94,13 +98,16 @@
             $scope.val=0;
             selectedProduct[selectedProduct.length] = $scope.product[id];
             selectedPName[selectedPName.length] = name;
+            $("#txtStr").val(JSON.stringify(selectedProduct));
         }
       }
 
+// Remove items from selected product
       $scope.removeItem = function(id){
         $scope.val = 0;
         selectedProduct.splice(id,1);
         selectedPName.splice(id,1);
+        $("#txtStr").val(JSON.stringify(selectedProduct));
       }
 
     });

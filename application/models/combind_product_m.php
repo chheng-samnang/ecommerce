@@ -82,4 +82,31 @@ class Combind_product_m extends CI_Model
 			return false;
 		}
 	}
+
+	public function editProduct($json="",$id="")
+	{
+			if($json!=null&&$id!="")
+			{
+				$this->db->where("com_id",$id);
+				$query = $this->db->delete("tbl_combind_det");
+				if($query)
+				{
+					foreach ($json as $key => $value) {
+						$data = array(
+													"com_id"	=>	$id,
+													"p_id"	=>	$value->P_id,
+													"status"	=>	1
+						);
+						$result = $this->db->insert("tbl_combind_det",$data);
+					}
+					if($result){
+						return true;
+					}else{
+						return false;
+					}
+				}else{
+					return false;
+				}
+			}
+	}
 }// this Class

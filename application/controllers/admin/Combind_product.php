@@ -64,11 +64,28 @@
 
 		public function edit($id){
 			$data["id"] = $id;
-
-			$this->load->view('template/header');
-			$this->load->view('template/left');
-			$this->load->view('admin/edit_combind',$data);
-			$this->load->view('template/footer');
+			$msg = "";
+			if(isset($_POST["btnSubmit"]))
+			{
+				$jsonData = json_decode($_POST["txtStr"]);
+				$result = $this->cp->editProduct($jsonData,$id);
+				if($result)
+				{
+					redirect(base_url("admin/combind_product"));
+				}else{
+					$msg = "There is a problem with inserting data.";
+					$data["msg"] = $msg;
+					$this->load->view('template/header');
+					$this->load->view('template/left');
+					$this->load->view('admin/edit_combind',$data);
+					$this->load->view('template/footer');
+				}
+			}else{
+				$this->load->view('template/header');
+				$this->load->view('template/left');
+				$this->load->view('admin/edit_combind',$data);
+				$this->load->view('template/footer');
+			}
 		}
 
 		public function delete(){
