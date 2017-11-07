@@ -29,13 +29,13 @@ class Combind_product_m extends CI_Model
 		$query=$this->db->query("SELECT p_code,p.p_id,mem_name,med.path,acc_type,price,cat_name,p_name,cat_name,str_name,qty,short_desc,p_desc,brn_name,color,size,model,date_release,dimension FROM tbl_combind AS com INNER JOIN tbl_account AS acc ON com.shop_id = acc.acc_id
 		INNER JOIN tbl_product AS p ON com.p_id = p.p_id INNER JOIN tbl_media AS med ON p.p_id=med.p_id INNER JOIN tbl_category AS cat ON p.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON acc.acc_id=st.acc_id
 		INNER JOIN tbl_stock AS stk ON stk.p_id=p.p_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_brand AS br ON p.brn_id=br.brn_id
-		WHERE com.p_id='$id'");
+		WHERE com_id='$id'");
 		if($query->num_rows()>0)
 		{ return $query->row();}
 
 	}
 	public function get_supply($id=""){
-		$query = $this->db->query("SELECT mem_name FROM tbl_combind AS com INNER JOIN tbl_account AS acc ON acc.acc_id=com.bus_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id WHERE com.p_id='$id'");
+		$query = $this->db->query("SELECT mem_name FROM tbl_combind AS com INNER JOIN tbl_account AS acc ON acc.acc_id=com.bus_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id WHERE com_id='$id'");
 		if($query->num_rows()>0){ return $query->row();}
 	}
 
@@ -57,7 +57,7 @@ class Combind_product_m extends CI_Model
 										"com_code"	=>	$com_code,
 										"shop_id"	=>	$this->input->post("ddlShop_Owner"),
 										"bus_id"	=>	$this->input->post("ddlSupllyer"),
-										"user_crea"	=>	$this->session->acc_id,
+										"user_crea"	=>	$this->session->userLogin,
 										"date_crea"	=> date("Y-m-d")
 		);
 		$result = $this->db->insert("tbl_combind",$data1);

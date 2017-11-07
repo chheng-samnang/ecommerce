@@ -85,8 +85,8 @@
                                 </div>
                                 <div class="panel-body" style="height:465px">
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <div ng-repeat="x in product_selected">
+                                        <div class="col-lg-4" ng-repeat="x in product_selected">
+                                            <div>
                                                 <a href="" ng-click="remove($index,x[1],x[2])">
                                                         <span>{{x[2]}}</span>
                                                         <img class="img-responsive img-thumbnail" src="<?php echo base_url()?>assets/uploads/{{x[4]}}">

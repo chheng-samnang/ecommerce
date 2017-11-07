@@ -38,13 +38,14 @@
 		}
 
 		public function combind_detail($id="")
-		{	$data["supplyer"]=$this->cp->get_supply($id);
-			$data["detail"]=$this->cp->combind_detail($id);
-			$data['cancel'] = $this->lang->line('admin/Product_c');
-			$this->load->view('template/header');
-			$this->load->view('template/left');
-			$this->load->view('admin/combind_detail.php',$data);
-			$this->load->view('template/footer');
+		{
+			// $data["supplyer"]=$this->cp->get_supply($id);
+			// $data["detail"]=$this->cp->combind_detail($id);
+			// $data['cancel'] = $this->lang->line('admin/Product_c');
+			// $this->load->view('template/header');
+			// $this->load->view('template/left');
+			// $this->load->view('admin/combind_detail.php',$data);
+			// $this->load->view('template/footer');
 		}
 
 		public function add(){
