@@ -141,9 +141,10 @@ class memberLogin_model extends CI_Model
 		$data1=array(
 			"str_code"=> $str_code,
 			"acc_id"=> $id,
-			"str_type"=>$this->input->post("txtStor_Type"),
+			"str_desc"=>$this->input->post("txtStor_Type"),
 			"str_name"=>$this->input->post("txtStor_name"),
 			);
+		
 		$row = $this->db->insert("tbl_store",$data1);
 		if($row===TRUE){ return TRUE; }
 		}

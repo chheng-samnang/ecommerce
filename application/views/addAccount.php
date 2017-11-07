@@ -130,15 +130,17 @@
 				</div>
 				<div class="Shop-owner box1">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-12">
 							<label>Store Name</label>
 							<input type="" class="form-control" placeholder="store name" ng-model="txtStor_name" id="txtStor_name" name="txtStor_name">
 						</div><!-- col-lg-6-->
-						<div class="col-lg-6">
-							<label>Store Type</label>
-							<input type="" class="form-control" placeholder="store type..." ng-model="txtStor_Type" id="txtStor_Type" name="txtStor_Type">
-						</div><!-- col-lg-12-->
 					</div><!-- row product-->
+					<div class="row">
+						<div class="col-lg-12">
+							<label>Store Description</label>
+							<textarea name="txtStor_Type" ng-model="txtStor_Type" id="txtStor_Type" class="form-control" rows="8" cols="80"></textarea>
+						</div><!-- col-lg-12-->
+					</div>
 				</div><!-- class product-->
 				<div class="row">
 					<div class="col-lg-12">
@@ -232,10 +234,11 @@
 	 myapp.controller('myCtrl', function ($scope) {
 	  $scope.btnSave = function(){
 	  		if($scope.txt_acc_type=="Shop-owner"){
-	  			if(($scope.txtStor_name==undefined || $scope.txtStor_name=="")||
-                  ($scope.txtStor_Type==undefined || $scope.txtStor_Type=="")){
-	  				$scope.msg_error=true; $scope.msg="input store name , store type.......!";
-	  			}else{document.getElementById("userForm").submit();}
+	  			// if(($scope.txtStor_name==undefined || $scope.txtStor_name=="")||
+          //         ($scope.txtStor_Type==undefined || $scope.txtStor_Type=="")){
+	  			// 	$scope.msg_error=true; $scope.msg="input store name , store type.......!";
+	  			// }else{}
+					document.getElementById("userForm").submit();
 	  		}else{
 
 	  			document.getElementById("userForm").submit();
