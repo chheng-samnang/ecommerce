@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 
 </style>
-<?php 
+<?php
     if(!isset($this->session->memLogin))
     {
         redirect("admin/memberLogin/Logout");
@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			break;
 			default:
-			
+
 			break;
 			}
 		}
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"><?php echo $this->lang->line('trash')?></a></li>
 			    <li role="presentation"><a href="#setting" aria-controls="setting" role="tab" data-toggle="tab"><?php echo $this->lang->line('setting')?></a></li>
 			    <li class="dropdown tasks-menu">
-			    	<?php 
+			    	<?php
 			    		if(isset($new_order)){
 			    			foreach ($new_order as $value) {
 			    				$qty+= $value->qty;
@@ -195,7 +195,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</thead>
 												<tbody>
 													<?php $i=0; foreach($active_account as $row){?>
-														<?php 
+														<?php
 															$acc_img = $row->acc_img;
 															if(empty($acc_img)) $acc_img = "default.png";
 														?>
@@ -328,7 +328,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 															<a href="<?php echo base_url('admin/memberLogin/change_password_staf/'.$row->st_id);?>" class="btn btn-success btn-sm" data-toggle="tooltip" title="change password"><span class="glyphicon fa fa-lock"></span></a>
 														</td>
 														<td>
-															
+
 														</td>
 													</tr>
 													<?php $i=$i+1; }?>
@@ -337,7 +337,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<?php $AccType= $this->input->post("ddlAccType"); if($AccType!='Staf'){?>
 												<button class="btn btn-success btn-sm" id="btnAddStaf"><i class="fa fa-plus" aria-hidden="true"></i> <?php echo $this->lang->line('add')?> <?php echo $this->lang->line('staf')?></button>
 												<?php }else{  }?>
-										</div>	
+										</div>
 									</div>
 								</div><!-- col-lg-12-->
 						</div><!-- row Service-->
@@ -676,7 +676,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														 foreach ($order1 as $key => $value){
 														 	if($value->ord_status!="trash"){
 														?>
-														<tr>	
+														<tr>
 															<td><?php echo $key+1 ?></td>
 															<td><?php echo $value->ord_code ?></td>
 															<td><?php echo $value->ord_date ?></td>
@@ -705,10 +705,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<form action="<?php echo base_url()?>admin/memberlogin/edit_profile" method="post">
-										<?php 
+										<?php
 											$poto = $profile->acc_img;
 											if(empty($poto)) $poto = "default.png";
-										?>	
+										?>
 										<div class="row">
 											<div class="col-lg-6">
 												<input type="hidden" value="<?php if(isset($profile->acc_img)){echo $profile->acc_img;}?>" name="oldImg">
@@ -742,7 +742,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm'"); ?>
 												</div>
 											</div>
-											<div class="col-lg-6"> 
+											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="">Date of Birth</label>
 													 <div class="input-group">
@@ -790,7 +790,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="">Contact Phone</label>
-													<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control input-sm'"); ?>
+													<?php echo form_input("txtContact",$profile->mem_phone,"class='form-control input-sm' readonly"); ?>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -858,7 +858,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													 foreach ($order1 as $key => $value) {
 													 	if($value->ord_status!="trash"){
 													 	?>
-													<tr>	
+													<tr>
 														<td><?php echo $key+1 ?></td>
 														<td><?php echo $value->ord_code ?></td>
 														<td><?php echo $value->ord_date ?></td>
@@ -888,10 +888,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<form action="<?php echo base_url()?>admin/memberlogin/edit_profile" method="post">
-										<?php 
+										<?php
 											$poto = $profile->acc_img;
 											if(empty($poto)) $poto = "default.png";
-										?>	
+										?>
 										<div class="row">
 											<div class="col-lg-6">
 												<input type="hidden" value="<?php if(isset($profile->acc_img)){echo $profile->acc_img;}?>" name="oldImg">
@@ -925,7 +925,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm'"); ?>
 												</div>
 											</div>
-											<div class="col-lg-6"> 
+											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="">Date of Birth</label>
 													 <div class="input-group">
@@ -1036,11 +1036,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</thead>
 												<tbody>
 													<?php
-														
+
 															 foreach ($order1 as $key => $value) {
 															 	if($value->ord_status=="trash" && $acc->acc_type!="Agent" ){
 															 	?>
-															<tr>	
+															<tr>
 																<td><?php echo $key+1 ?></td>
 																<td><?php echo $value->ord_code ;?></td>
 																<td><?php echo $value->ord_date ?></td>
@@ -1068,7 +1068,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<form action="<?php echo base_url()?>memberLogin/change_password" method="post">
-									<?php 
+									<?php
 											$poto = $profile->acc_img;
 												if(empty($poto)) $poto = "default.png";
 											?>
@@ -1108,7 +1108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
 	function uploadFile() {
 		var formData = new FormData();
-		formData.append('image', $('input[type=file]')[0].files[0]); 
+		formData.append('image', $('input[type=file]')[0].files[0]);
 		$.ajax({
 			url: '<?php echo base_url()?>ng/upload.php',
 			data: formData,
@@ -1117,13 +1117,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			contentType: false,
 			processData: false,
 			// ... Other options like success and etc
-			
+
 			success: function(data) {
-				document.getElementById("response").innerText = "Upload Complete!"; 
+				document.getElementById("response").innerText = "Upload Complete!";
 				document.getElementById("txtImgName").value = data;
-			}			
+			}
 		});
-		
+
 	}
 </script>
 <script>
@@ -1156,7 +1156,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	       $("#Inventory_body").slideToggle("slow");
 
 	    });
-	    
+
 	     $("#staf").click(function(){
 		 $("#staf_body").slideToggle("slow");});
 
@@ -1202,14 +1202,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/get_order_update/$");
 
 	});
-	
+
 	$("#btnAddProduct").click(function(){
 
 
 		window.location.assign("<?php echo base_url()?>admin/memberLogin/get_order_update/$");
 
 	});
-	
+
 	$("#btnAddProduct").click(function(){
 		window.location.assign("<?php if($profile->acc_type=="Shop-owner"){echo base_url('memberLogin/addProduct1');}else{echo base_url('memberLogin/addProduct');}?>");
 	}); /*add product form Bussiness*/
@@ -1247,7 +1247,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /*	$("#btnSaveProfile").click(function(){
 		window.location.assign("<?php echo base_url()?>admin/memberlogin/edit_profile")
 	});*/
-	
+
 </script>
 
 <script type="text/javascript">

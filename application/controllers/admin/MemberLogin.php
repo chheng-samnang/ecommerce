@@ -101,6 +101,7 @@ class MemberLogin extends CI_Controller
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
 			$data["order1"]= $this->ml->get_order_hdr1($mem_id);
 			$data["profile"] = $this->ml->get_account_validation($acc_id);
+			
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
 			$data["location"] = $this->locationModel->get_location();
