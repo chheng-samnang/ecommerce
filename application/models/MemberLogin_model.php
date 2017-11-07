@@ -31,7 +31,7 @@ class memberLogin_model extends CI_Model
 				$query = $this->db->query("SELECT * FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id=acc.acc_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store st ON acc.`acc_id`=st.`acc_id` WHERE mb.mem_name='$accName' AND st.staf_password='$password' AND stf_status='1'");
 			}
 			else{
-				$query = $this->db->query("SELECT *,acc.acc_id FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store st ON acc.`acc_id`=st.`acc_id` WHERE mb.mem_name='$accName' AND acc.acc_password='$password' AND acc_type='$accType'");
+				$query = $this->db->query("SELECT *,acc.acc_id FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store st ON acc.`acc_id`=st.`acc_id` WHERE (mb.mem_name='$accName' OR mb.mem_email='$accName' OR mb.mem_phone='$accName') AND acc.acc_password='$password' AND acc_type='$accType'");
 			}
 			if($query->num_rows()>0)
 			{

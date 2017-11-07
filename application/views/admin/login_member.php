@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div>
-							<input type="text" placeholder="User Name" required="" <?php set_value("txtUser","")?> name="txtUser" id="username" />
+							<input type="text" placeholder="Username or Email or Phone number" required="" <?php set_value("txtUser","")?> name="txtUser" id="username" />
 							</div>
 							<div>
 								<input type="password" name="txtPass" placeholder="Password" required="" id="password" />
