@@ -739,7 +739,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="">Company Name</label>
-													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm'"); ?>
+													<?php echo form_input("txtCompanyName",$profile->company,"class='form-control input-sm' placeholder='Company name'"); ?>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -754,13 +754,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 										<div class="form-group">
 												<label for="">Place of Birth</label>
-												<?php echo form_input("txtPob",$profile->pob,"class='form-control input-sm'"); ?>
+												<?php echo form_input("txtPob",$profile->pob,"class='form-control input-sm' placeholder='Place of birth'"); ?>
 										</div>
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="">Position</label>
-													<?php echo form_input("txtPosition",$profile->position,"class='form-control input-sm'"); ?>
+													<?php echo form_input("txtPosition",$profile->position,"class='form-control input-sm' placeholder='Position'"); ?>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -803,8 +803,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										  <div class="col-lg-6">
 										    <div class="form-group">
 													<label for="">Profile image</label> <br>
-										      
+
 													<a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</a>
+										    </div>
+										  </div>
+										</div>
+										<div class="row">
+										  <div class="col-lg-12">
+										    <div class="form-group">
+										      <label for="">Address</label>
+										      <textarea name="txtAddr" rows="8" cols="80" class="form-control">
+														<?php echo $profile->mem_addr ?>
+													</textarea>
 										    </div>
 										  </div>
 										</div>
