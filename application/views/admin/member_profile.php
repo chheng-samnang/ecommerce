@@ -721,8 +721,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<div class="form-group">
 												<input type="hidden" value="<?php echo $profile->mem_id; ?>" name="mem_id">
 												<input type="hidden" value="<?php echo $acc_id; ?>" name="acc_id" id="acc_id">
-												<label for="">Name</label>
-												<?php echo form_input("txtName",$profile->mem_name,"class='form-control input-sm'"); ?>
+												<label for="">Username</label>
+												<?php echo form_input("txtName",set_value('txtName',$profile->mem_name),"class='form-control input-sm'"); ?>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -734,6 +734,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													</select>
 												</div>
 											</div>
+										</div>
+										<div class="row">
+										  <div class="col-lg-6">
+										    <div class="form-group">
+										      <label for="">First Name</label>
+										      <input type="text" class="form-control" value="<?php echo set_value('txtFName',$profile->mem_fname)?>" id="txtFName" name="txtFName" placeholder="First name">
+										    </div>
+										  </div>
+											<div class="col-lg-6">
+										    <div class="form-group">
+										      <label for="">Last Name</label>
+										      <input type="text" class="form-control" value="<?php echo set_value('txtLName',$profile->mem_lname)?>" id="txtLName" name="txtLName" placeholder="Last name">
+										    </div>
+										  </div>
 										</div>
 										<div class="row">
 											<div class="col-lg-6">

@@ -399,7 +399,11 @@ class memberLogin_model extends CI_Model
 			$this->db->where("acc_id",$this->input->post("acc_id"));
 			$row=$this->db->update('tbl_account',$data);
 				if($row==TRUE){
-					$data=array("mem_name"=>$this->input->post("txtName"),);
+					$data=array(
+						"mem_name"	=>	$this->input->post("txtName"),
+						"mem_fname"	=> $this->input->post("txtFName", TRUE),
+						"mem_lname"	=>	$this->input->post('txtLName', TRUE)
+					);
 					$this->db->where("mem_id",$this->input->post("mem_id"));
 					$row=$this->db->update("tbl_member",$data);
 					if($row==TRUE){return TRUE;}
