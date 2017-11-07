@@ -369,8 +369,8 @@ class memberLogin_model extends CI_Model
 		$acc_id=$this->input->post("acc_id");
 		if($this->input->post("txtImgName"))
 		{
-			if($this->input->post("oldImg")){
 
+			if($this->input->post("oldImg")){
 				unlink("assets/uploads/".$this->input->post("oldImg"));
 			}
 
@@ -394,6 +394,7 @@ class memberLogin_model extends CI_Model
 				"contact_phone"=>$this->input->post('txtContact'),
 				"loc_id"=>$this->input->post('ddlLocation'),
 				"date_updt"=> date('Y-m-d'));
+			}
 
 			$this->db->where("acc_id",$this->input->post("acc_id"));
 			$row=$this->db->update('tbl_account',$data);
@@ -403,7 +404,6 @@ class memberLogin_model extends CI_Model
 					$row=$this->db->update("tbl_member",$data);
 					if($row==TRUE){return TRUE;}
 				}
-			}
 	}
 
 	public function updatePassword($id)

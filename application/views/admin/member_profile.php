@@ -803,7 +803,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										  <div class="col-lg-6">
 										    <div class="form-group">
 													<label for="">Profile image</label> <br>
-										      <button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
+										      
+													<a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</a>
 										    </div>
 										  </div>
 										</div>
@@ -984,11 +985,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php echo form_input("txtContact",$profile->contact_phone,"class='form-control input-sm'"); ?>
 												</div>
 											</div>
-											<div class="col-lg-6">
-												<div class="form-group"><br />
-													<button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
-												</div>
-											</div>
+
 										</div>
 
 										<div class="form-group">
