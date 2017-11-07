@@ -713,7 +713,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="col-lg-6">
 												<input type="hidden" value="<?php if(isset($profile->acc_img)){echo $profile->acc_img;}?>" name="oldImg">
 												<img src="<?php echo base_url()?>assets/uploads/<?php echo $poto?>" class="img-thumbnail" width="110" alt=""><br>
-												<h6>Code: <?php echo $profile->acc_code ?></h6>
+												<h6>Name: <?php echo $profile->mem_name ?></h6>
 											</div>
 										</div>
 										<div class="row">
