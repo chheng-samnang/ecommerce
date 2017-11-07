@@ -45,6 +45,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">Facebook</label>
+								<div class="col-lg-9">
+									<input type="text" name="txtFb" id="txtFb" value="<?php echo set_value('txtFb')?>" placeholder="Facebook" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">Password</label>
 								<div class="col-lg-9">
 									<input type="password" name="txtPassword" id="txtPassword" class="form-control" placeholder="Password" required>
@@ -71,15 +77,15 @@
 								<div class="col-lg-12">
 									<div class="pull-right">
 										<button class="btn btn-success" type="submit" disabled id="btnSave">Submit</button>
-										<button class="btn btn-default" id="btnCancel">Cancel</button>		
+										<button class="btn btn-default" id="btnCancel">Cancel</button>
 									</div>
 								</div>
-								
+
 							</div>
-						</form>		
+						</form>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

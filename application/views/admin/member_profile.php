@@ -794,10 +794,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</div>
 											</div>
 											<div class="col-lg-6">
-												<div class="form-group"><br />
-													<button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
+												<div class="form-group"><label for="">Facebook</label>
+												<input type="text" class="form-control" id="txtFb" placeholder="Facebook" value="<?php echo $profile->mem_fb?>">
 												</div>
 											</div>
+										</div>
+										<div class="row">
+										  <div class="col-lg-6">
+										    <div class="form-group">
+													<label for="">Profile image</label> <br>
+										      <button type="button btn-sm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera-retro"></i> Edit profile</button>
+										    </div>
+										  </div>
 										</div>
 										<div class="form-group">
 											<div class="pull-right">
@@ -982,6 +990,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</div>
 											</div>
 										</div>
+
 										<div class="form-group">
 											<div class="pull-right">
 												<button id="btnSaveProfile" type="submit" class="btn btn-success btn-sm">Update</button>

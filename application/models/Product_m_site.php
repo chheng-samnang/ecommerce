@@ -261,6 +261,7 @@
 							'mem_name'	=>	$this->input->post('txtName'),
 							'mem_phone'	=>	$this->input->post('txtPhone'),
 							'mem_email'	=>	$this->input->post('txtEmail'),
+							'mem_fb'		=>	$this->input->post('txtFb'),
 							'mem_password'	=>	$this->input->post('txtPassword'),
 							'mem_addr'	=>	$this->input->post('txtAddr'),
 							'mem_status'=>	$acc_status,
