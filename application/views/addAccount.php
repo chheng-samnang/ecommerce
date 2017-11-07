@@ -109,8 +109,8 @@
 							<label>Account Type</label>
 							<select class="form-control input-sm" name="txt_acc_type" ng-model="txt_acc_type" id="txt_acc_type" ng-change="AccountType(txt_acc_type)">
 								<option value="">Choose One</option>
-								<option value="Shop-owner">Shop-owner</option>
-								<option value="Bussiness">Business</option>
+								<option value="Shop-owner">Shop</option>
+								<option value="Bussiness">Supplier</option>
 								<option value="Association">Association</option>
 								<option value="Agent">Agent</option>
 							</select>
