@@ -101,12 +101,19 @@ class MemberLogin extends CI_Controller
 			$data["pro"] = $this->ml->promotion($this->session->acc_id);
 			$data["order1"]= $this->ml->get_order_hdr1($mem_id);
 			$data["profile"] = $this->ml->get_account_validation($acc_id);
-
 			$data["inventory"] = $this->ml->get_inventory($acc_id);
 			$data["store"] = $this->ml->get_shop($this->session->acc_id);
 			$data["location"] = $this->locationModel->get_location();
 			$data["staf_info"] = $this->staf_m->index();
 			$data["error"]=$error;
+			$data["selected"] = $data["profile"]->mem_marital_status;
+			$data["option"] = array(
+															"none"	=>	"Choose one",
+															"single"	=>	"Single",
+															"married"	=>	"Married",
+															"widow"	=>	"Widow",
+															"widower"	=>	"Widower"
+			);
 			$this->load->view("layout_site/header_top1",$data);
 			$this->load->view("layout_site/nav");
 			$this->load->view("admin/member_profile",$data);

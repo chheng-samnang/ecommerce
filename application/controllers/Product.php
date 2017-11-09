@@ -29,7 +29,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view('layout_site/footer');
 		}
 
-
 	    public function product_page_detail($pro_id)
 	    {
 			if($pro_id!==""){
@@ -40,6 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data['category']=$this->hm->category();
 				$data['itemNum'] = $this->itemNum;
 				$data["type"] = $data['de_value']->p_type;
+				$data["store_exist"] = $this->pm->checkStore($pro_id);
+				
 				 if($data!==""){
 				 	$this->load->view('layout_site/header_top');
 

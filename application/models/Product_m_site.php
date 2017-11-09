@@ -342,4 +342,18 @@
 				return "Transaction not found.";
 			}
 		}
+
+		public function checkStore($pro_id)
+		{
+			$query = $this->db->get_where('tbl_product', array("p_id"=>$pro_id));
+			if($query->num_rows()>0)
+			{
+				$str_id = $query->row()->str_id;
+				if($str_id!=null){
+					return true;
+				}else {
+					return false;
+				}
+			}
+		}
 	}

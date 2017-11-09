@@ -168,7 +168,7 @@
 						?>
 						<div style="margin-left:41px;">
 							<?php
-								if($type=="product" || $type=="inventory")
+								if($type=="product" || $type=="inventory" && $store_exist!=false)
 								{
 							?>
 								<button class="btn btn-warning" ng-click="btnAdd('<?php echo $name?>',<?php echo $p_id?>,itemNum,<?php echo $str?>,'<?php echo $type?>')">Add to Cart</button>

@@ -144,7 +144,7 @@ class memberLogin_model extends CI_Model
 			"str_desc"=>$this->input->post("txtStor_Type"),
 			"str_name"=>$this->input->post("txtStor_name"),
 			);
-		
+
 		$row = $this->db->insert("tbl_store",$data1);
 		if($row===TRUE){ return TRUE; }
 		}
@@ -403,7 +403,10 @@ class memberLogin_model extends CI_Model
 					$data=array(
 						"mem_name"	=>	$this->input->post("txtName"),
 						"mem_fname"	=> $this->input->post("txtFName", TRUE),
-						"mem_lname"	=>	$this->input->post('txtLName', TRUE)
+						"mem_lname"	=>	$this->input->post('txtLName', TRUE),
+						"mem_marital_status"	=>	$this->input->post('ddlMartialStatus', TRUE),
+						"mem_nationality"	=>	$this->input->post('txtNationality', TRUE),
+						"mem_skill"	=>	$this->input->post('txtSkill', TRUE)
 					);
 					$this->db->where("mem_id",$this->input->post("mem_id"));
 					$row=$this->db->update("tbl_member",$data);

@@ -792,8 +792,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 										<div class="row">
 											<div class="col-lg-6">
-												<label for="">Status</label>
-												<input type="text" name="txtStatus" class="form-control input-sm" value="<?php echo $profile->status=="1"?"Enable":"Disable";?>" readonly="">
+												<label for="">Marital Status</label>
+												<?php echo form_dropdown("ddlMartialStatus",$option,$selected,"class='form-control'"); ?>
 											</div>
 											<div class="col-lg-6">
 												<label for="">Account Type</label>
@@ -813,6 +813,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												</div>
 											</div>
 										</div>
+										<div class="row">
+										  <div class="col-lg-6">
+										    <div class="form-group">
+										      <label for="">Nationality</label>
+										      <input type="text" class="form-control" value="<?php echo set_value('txtNationality',$profile->mem_nationality)?>" id="txtNationality" placeholder="Nationality" name="txtNationality">
+										    </div>
+										  </div>
+											<div class="col-lg-6">
+										    <div class="form-group">
+										      <label for="">Skill</label>
+										      <input type="text" class="form-control" value="<?php echo set_value('txtSkill',$profile->mem_skill)?>" id="txtSkill" placeholder="Skill" name="txtSkill">
+										    </div>
+										  </div>
+										</div>
+
 										<div class="row">
 										  <div class="col-lg-6">
 										    <div class="form-group">
