@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="col-lg-8 col-lg-offset-2">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title"><?php echo $this->lang->line('add')?> Staf</h3>
+				<h3 class="panel-title"><?php echo $this->lang->line('add')?> Staff</h3>
 			</div>
 			<div class="panel-body">
 				<?php
@@ -30,18 +30,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label>Staf Code</label>
+							<label>Staff Code</label>
 							<input type="text" name="txtCode" value="<?php $str="ST" ; $st_code=$stafCode->st_id+1; echo $st_code==""?"ST001":$str.$st_code;?>" class="form-control input-sm" readonly>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label>Staf Name</label>
+							<label>Staff Name</label>
 							<select name="ddlStaf" id="ddlStaf" class="form-control input-sm">
 								<option value="">Choose One</option>
-								<?php if(isset($acc_info)){  foreach ($acc_info AS $value){  ?>
+								<?php if(isset($acc_info)){  foreach ($acc_info AS $value){
+									if($value->acc_id!=$this->session->acc_id){
+									?>
 								<option value="<?php echo $value->acc_id; ?>"><?php echo  $value->mem_name;?></option>
-								<?php }} ?>
+							<?php }}} ?>
 							</select>
 							<div id="errorName" style="display:none;">
 								<h5 style="color:red;"><i class="glyphicon glyphicon-remove"></i> <strong>Warning!</strong> This field cannot be empty.</h5>
