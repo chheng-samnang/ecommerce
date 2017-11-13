@@ -234,7 +234,7 @@
 	 // create angular controller
 	 myapp.controller('myCtrl', function ($scope) {
 	  $scope.btnSave = function(){
-	  		if($scope.txt_acc_type=="Shop-owner"){
+	  		if($scope.txt_acc_type=="Shop-owner"||$scope.txt_acc_type=="Shop"){
 	  			// if(($scope.txtStor_name==undefined || $scope.txtStor_name=="")||
           //         ($scope.txtStor_Type==undefined || $scope.txtStor_Type=="")){
 	  			// 	$scope.msg_error=true; $scope.msg="input store name , store type.......!";
@@ -260,7 +260,7 @@
 	 $("#txt_acc_type").change(function(){
 	        $(this).find("option:selected").each(function(){
 	            var optionValue = $(this).attr("value");
-	            if(optionValue=="Shop-owner"){
+	            if(optionValue=="Shop-owner"||optionValue=="Shop"){
 	            	 $(".box1").show();
 	            }else{$(".box1").hide();
 	        	}

@@ -87,7 +87,7 @@ $lang["promotion"]="Promotion";
 $lang["promotion_list"]="Promotion List";
 $lang["fund"]="Fund";
 $lang["service"]="Service";
-$lang["staf"]="Staf";
+$lang["staf"]="Staff";
 $lang["view"]="Views";
 $lang["refresh"]="Refresh";
 

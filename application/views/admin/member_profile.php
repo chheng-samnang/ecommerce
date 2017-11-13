@@ -79,6 +79,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$account   = "none";
 			}
 			break;
+			case "Shop":
+			{
+				$service   = "display";
+				$staf   = "display";
+				$products1 = "display";
+				$fund      = "display";
+				$Inventory = "display";
+				$promotion = "display";
+				$order2    = "display";
+				$members   = "none";
+				$products = "none";
+				$account   = "none";
+			}
+			break;
 
 			case "General":
 			{
@@ -140,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><?php echo $this->lang->line('profile')?></a></li>
 			    <li role="presentation"><a href="#trash" aria-controls="trash" role="tab" data-toggle="tab"><?php echo $this->lang->line('trash')?></a></li>
 			    <li role="presentation"><a href="#setting" aria-controls="setting" role="tab" data-toggle="tab"><?php echo $this->lang->line('setting')?></a></li>
-			    <li class="dropdown tasks-menu">
+			    <!-- <li class="dropdown tasks-menu">
 			    	<?php
 			    		if(isset($new_order)){
 			    			foreach ($new_order as $value) {
@@ -160,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		              </li>
 		              <?php }}?>
 		            </ul>
-	          	</li>
+	          	</li> -->
 			    <li role="presentation" class="navbar-right" style="margin-right: 0px;">
 			    	<i class="fa fa-users" aria-hidden="true" style="color: #026aa7;"></i>
 						<?php foreach ($member as $row) {
@@ -1257,7 +1271,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	});
 
 	$("#btnAddProduct").click(function(){
-		window.location.assign("<?php if($profile->acc_type=="Shop-owner"){echo base_url('memberLogin/addProduct1');}else{echo base_url('memberLogin/addProduct');}?>");
+		window.location.assign("<?php if($profile->acc_type=="Shop-owner" || $profile->acc_type=="Shop"){echo base_url('memberLogin/addProduct1');}else{echo base_url('memberLogin/addProduct');}?>");
 	}); /*add product form Bussiness*/
 
 	$("#AddPromotion").click(function(){
