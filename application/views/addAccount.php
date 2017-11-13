@@ -41,13 +41,25 @@
                 <?php $acc_code = date('s');?>
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group"> <!-- ng-class="{ 'has-error' : userForm.txtaccCode.$invalid}"-->
-							<input type="hidden" value="<?php echo $member->mem_id?>" name="txt_mem_id" id="txt_mem_id" value="">
-							<label>Account Code</label>
-							<input type="text" name="txtaccCode" readonly="readonly" value="<?php echo "acc00".$acc_code?>" class="form-control input-sm"><!-- ng-model="user.txtaccCode" placeholder="Enter Account Code here..." ng-required="true"-->
+						<div class="form-group">
+							<label>Account Type</label>
+							<select class="form-control input-sm" name="txt_acc_type" ng-model="txt_acc_type" id="txt_acc_type" ng-change="AccountType(txt_acc_type)">
+								<option value="">Choose One</option>
+								<option value="Shop-owner">Shop</option>
+								<option value="Bussiness">Supplier</option>
+								<option value="Association">Association</option>
+								<option value="Agent">Agent</option>
+							</select>
 						</div>
 					</div>
 					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Logo</label><br>
+							<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal">Upload Image
+							</button>
+						</div>
+					</div>
+					<!-- <div class="col-lg-6">
 						<div class="form-group">
 							<label>Gender</label>
 							<select class="form-control input-sm" name="txt_gender">
@@ -56,37 +68,31 @@
 								<option value="Female">Female</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>Date of Birth</label>
 							<input type="date" name="txt_dob" class="form-control input-sm">
-						</div>
+						</div> -->
 					</div>
 					<div class="col-lg-6">
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>Company</label>
 							<input type="text" name="txt_company" class="form-control input-sm" placeholder="Your Company...">
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-6">
+					<!-- <div class="col-lg-6">
 						<div class="form-group">
 							<label>Position</label>
 							<input type="text" name="txt_position" class="form-control input-sm" placeholder="Your Position...">
 						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label>Image</label><br>
-							<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal">Upload Image
-							</button>
-						</div>
-					</div>
+					</div> -->
+
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
@@ -105,19 +111,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="form-group">
-							<label>Account Type</label>
-							<select class="form-control input-sm" name="txt_acc_type" ng-model="txt_acc_type" id="txt_acc_type" ng-change="AccountType(txt_acc_type)">
-								<option value="">Choose One</option>
-								<option value="Shop-owner">Shop</option>
-								<option value="Bussiness">Supplier</option>
-								<option value="Association">Association</option>
-								<option value="Agent">Agent</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
+						<div class="form-group"> <!-- ng-class="{ 'has-error' : userForm.txtaccCode.$invalid}"-->
 							<label>Location</label>
 							<select class="form-control input-sm" name="ddlLocation">
 								<option value="">Choose One</option>
@@ -125,6 +119,13 @@
 								<option value="<?php echo $row->loc_id?>"><?php echo $row->loc_name?></option>
 								<?php }?>
 							</select>
+							<input type="hidden" value="<?php echo $member->mem_id?>" name="txt_mem_id" id="txt_mem_id" value="">
+							<input type="hidden" name="txtaccCode" readonly="readonly" value="<?php echo "acc00".$acc_code?>" class="form-control input-sm">
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+
 						</div>
 					</div>
 				</div>

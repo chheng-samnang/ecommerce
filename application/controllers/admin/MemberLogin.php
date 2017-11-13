@@ -107,10 +107,12 @@ class MemberLogin extends CI_Controller
 			$data["staf_info"] = $this->staf_m->index();
 			$data["error"]=$error;
 			$data["selected"] = $data["profile"]->mem_marital_status;
+
 			$data["option"] = array(
 															"none"	=>	"Choose one",
 															"single"	=>	"Single",
 															"married"	=>	"Married",
+															"divorced"	=>	"Divorced",
 															"widow"	=>	"Widow",
 															"widower"	=>	"Widower"
 			);
@@ -137,12 +139,22 @@ class MemberLogin extends CI_Controller
 
 	public function pro_validation(){
 		$this->form_validation->set_rules("txtName","Account Name","required");
-		$this->form_validation->set_rules("ddlGender","Gender","required");
+		$this->form_validation->set_rules("ddlGender","Gender","callback_checkValue");
 		$this->form_validation->set_rules("ddlLocation","location","required");
 		$this->form_validation->set_rules("txtContact","Conract-Us","trim|required|regex_match[/^[0-9\-\+]{9,15}+$/]");
 		if($this->form_validation->run()==TRUE){
 			return true;
 		}else{return false;}
+	}
+
+	public function checkValue($value){
+		if($value=="0")
+		{
+			$this->form_validation->set_message('checkValue', 'Please select a gender.');
+    	return FALSE;
+		}else{
+			return true;
+		}
 	}
 
 	public function edit_profile()
@@ -295,11 +307,11 @@ class MemberLogin extends CI_Controller
 	}
 
 	public function acc_setup(){
-		$this->form_validation->set_rules('txt_dob', 'date of birth', 'required');
-		$this->form_validation->set_rules('txt_gender', 'gender', 'required');
+		// $this->form_validation->set_rules('txt_dob', 'date of birth', 'required');
+		// $this->form_validation->set_rules('txt_gender', 'gender', 'required');
 		$this->form_validation->set_rules('password', 'password', 'required');
 		$this->form_validation->set_rules('txt_acc_type', 'account type', 'required');
-		$this->form_validation->set_rules('txtaccCode', 'account code', 'required');
+		// $this->form_validation->set_rules('txtaccCode', 'account code', 'required');
 		$this->form_validation->set_rules('ddlLocation', 'location', 'required');
 		if ($this->form_validation->run()==TRUE)
 

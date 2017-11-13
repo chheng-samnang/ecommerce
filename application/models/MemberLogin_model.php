@@ -121,10 +121,6 @@ class memberLogin_model extends CI_Model
 		$data = array(
 				"mem_id"=>$this->input->post('txt_mem_id'),
 				"acc_code"=>$this->input->post('txtaccCode'),
-				"sex"=>$this->input->post('txt_gender'),
-				"dob"=>$this->input->post('txt_dob'),
-				"company"=>$this->input->post('txt_company'),
-				"position"=>$this->input->post('txt_position'),
 				"acc_img"	=>	!empty($this->input->post('txtImgName'))?$this->input->post('txtImgName'):"",
 				"acc_password"=>$this->input->post('password'),
 				"acc_type"=>$this->input->post('txt_acc_type'),

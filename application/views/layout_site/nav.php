@@ -35,7 +35,7 @@
 	            <ul class="nav navbar-nav">
 	                <li class="active"><a href="<?php echo base_url('');?>"><?php echo $this->lang->line('home')?></a></li>
 	                <li><a href="<?php echo base_url('Product');?>"><?php echo $this->lang->line('product')?></span></a> </li>
-                    <?php 
+                    <?php
                      $en ="english";
                      $kh ="khmer";
                      $ch ="chinese";
@@ -77,9 +77,9 @@
                             <?php }?>
                         </a>
                     </li>
-                    <li><a href="<?php echo base_url('about');?>" ><?php echo $this->lang->line('about')?></a></li>
+                    <!-- <li><a href="<?php echo base_url('about');?>" ><?php echo $this->lang->line('about')?></a></li>
                     <li><a href="<?php echo base_url('contact');?>"><?php echo $this->lang->line('contact')?></a></li>
-                    <li><a href="<?php echo base_url('blog');?>" target="blak"><span class="glyphicon glyphicon-user"></span> <?php echo $this->lang->line('blog')?></a></li>
+                    <li><a href="<?php echo base_url('blog');?>" target="blak"><span class="glyphicon glyphicon-user"></span> <?php echo $this->lang->line('blog')?></a></li> -->
 
                 </ul>
 	        </div>

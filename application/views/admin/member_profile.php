@@ -729,8 +729,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<div class="form-group">
 													<label for="">Gender</label>
 													<select class="form-control input-sm" name="ddlGender"  id=ddlGender>
-														<option value="M" <?php echo $value->loc_id=="M"?"selected":""; ?> >Male</option>
-														<option value="F" <?php echo $value->loc_id=="F"?"selected":""; ?> >Female</option>
+														<option value="0" <?php echo $profile->sex==null||$profile->sex==""?"selected":""; ?>>Select One</option>
+														<option value="M" <?php echo $profile->sex=="M"?"selected":""; ?>>Male</option>
+														<option value="F" <?php echo $profile->sex=="F"?"selected":""; ?> >Female</option>
 													</select>
 												</div>
 											</div>
@@ -760,7 +761,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<div class="form-group">
 													<label for="">Date of Birth</label>
 													 <div class="input-group">
-													    <input id="txtDob" type="text" class="form-control datetimepicker input-sm" value="<?php echo $profile->dob; ?>" name="txtDob" placeholder="Email">
+													    <input id="txtDob" type="text" class="form-control datetimepicker input-sm" value="<?php echo $profile->dob!="0000-00-00"?$profile->dob:"1990-01-01"; ?>" name="txtDob" placeholder="Date of Birth">
 													     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 													  </div>
 												</div>

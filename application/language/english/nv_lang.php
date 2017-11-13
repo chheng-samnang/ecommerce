@@ -106,7 +106,7 @@ $lang["blog"]="Blog";
 $lang["close"]="Close";
 $lang["profile"] = "Profile";
 $lang["go_product"] = "Go ​Product!";
-$lang["register"] = "Rgister";
+$lang["register"] = "Register";
 $lang["login"] = "Log in";
 /*back site start*/
 $lang["phone"] = "Phone";
