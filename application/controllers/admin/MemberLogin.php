@@ -71,7 +71,7 @@ class MemberLogin extends CI_Controller
 				$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 				$data["member"] = $this->ml->get_member($this->session->memLogin);
 				$data["location"] = $this->ml->get_location();
-				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/header_top1');
 				$this->load->view('layout_site/nav');
 				$this->load->view('chage_password',$data);
 				$this->load->view('layout_site/footer');
@@ -201,7 +201,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules('txtConfirmPassword', 'Confirm Password', 'required');
 		if($this->form_validation->run()===false)
 		{
-				$this->load->view("layout_site/header_top");
+				$this->load->view("layout_site/header_top1");
 				$this->load->view("layout_site/nav");
 				$this->load->view("addStaf",$data);
 				$this->load->view("layout_site/footer");
@@ -217,7 +217,7 @@ class MemberLogin extends CI_Controller
 		if($id!=""){
 			$data["acc_info"]=$this->staf_m->get_account();
 			$data["edit"]=$this->staf_m->index($id);
-			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/header_top1");
 			$this->load->view("layout_site/nav");
 			$this->load->view("editStaf",$data);
 			$this->load->view("layout_site/footer");
@@ -235,7 +235,7 @@ class MemberLogin extends CI_Controller
 			$data["acc_info"]=$this->staf_m->get_account();
 			$data["error"]=$error;
 			$data["change"]=$this->staf_m->index($id);
-			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/header_top1");
 			$this->load->view("layout_site/nav");
 			$this->load->view("change_staf_password",$data);
 			$this->load->view("layout_site/footer");
@@ -276,7 +276,7 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules("ddlStatus","Status","required|trim|max_length[11]|numeric");
 		if($this->form_validation->run()===false)
 		{
-			$this->load->view("layout_site/header_top");
+			$this->load->view("layout_site/header_top1");
 			$this->load->view("layout_site/nav");
 			$this->load->view("addInventory",$data);
 			$this->load->view("layout_site/footer");
@@ -300,7 +300,7 @@ class MemberLogin extends CI_Controller
 		$data["product"] = $this->ml->get_product($this->session->acc_id);
 		$data["shop"]=$this->ml->selectshop($this->session->acc_id);
 		$data["member"] = $this->ml->get_member($this->session->memLogin);
-		$this->load->view("layout_site/header_top");
+		$this->load->view("layout_site/header_top1");
 		$this->load->view("layout_site/nav");
 		$this->load->view("admin/member_profile",$data);
 		$this->load->view("layout_site/footer");
@@ -323,7 +323,7 @@ class MemberLogin extends CI_Controller
 				$data["error"]="this member of account type have already... ";
 				$data["member"] = $this->ml->select($this->session->memLogin);
 				$data["location"] = $this->ml->get_location();
-				$this->load->view('layout_site/header_top');
+				$this->load->view('layout_site/header_top1');
 				$this->load->view('layout_site/nav');
 				$this->load->view('addAccount',$data);
 				$this->load->view('layout_site/footer');
@@ -335,7 +335,7 @@ class MemberLogin extends CI_Controller
 	{
 			$data["member"] = $this->ml->select($this->session->memLogin);
 			$data["location"] = $this->ml->get_location();
-			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/header_top1');
 			$this->load->view('layout_site/nav');
 			$this->load->view('addAccount',$data);
 			$this->load->view('layout_site/footer');
@@ -354,7 +354,7 @@ class MemberLogin extends CI_Controller
 		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 		$data["member"] = $this->ml->select_member($this->session->memLogin);
 		$data["location"] = $this->ml->get_location();
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 
 		$this->load->view('editAccount',$data);
@@ -390,7 +390,7 @@ class MemberLogin extends CI_Controller
 							$data["store"]=$this->ml->val_store($this->session->acc_id);
 							$data["category"] = $this->ml->get_category();
 							$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-							$this->load->view('layout_site/header_top');
+							$this->load->view('layout_site/header_top1');
 							$this->load->view('layout_site/nav');
 							$this->load->view('addProduct', $data);
 							$this->load->view('layout_site/footer');
@@ -406,7 +406,7 @@ class MemberLogin extends CI_Controller
 					$data["category"] = $this->ml->get_category();
 					$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
 
-					$this->load->view('layout_site/header_top');
+					$this->load->view('layout_site/header_top1');
 					$this->load->view('layout_site/nav');
 					$this->load->view('addProduct', $data);
 					$this->load->view('layout_site/footer');
@@ -420,7 +420,7 @@ class MemberLogin extends CI_Controller
 			$data["store"]=$this->ml->val_store($this->session->acc_id);
 			$data["category"] = $this->ml->get_category();
 			$data["pro_code"]=$this->ml->get_pro_code($this->session->acc_id);
-			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/header_top1');
 			$this->load->view('layout_site/nav');
 			$this->load->view('addProduct1', $data);
 			$this->load->view('layout_site/footer');
@@ -441,7 +441,7 @@ class MemberLogin extends CI_Controller
 			$data["brand"] = $this->ml->get_brand();
 			$data["store"]=$this->ml->val_store($this->session->acc_id);
 			$data["category"] = $this->ml->get_category();
-			$this->load->view('layout_site/header_top',$data);
+			$this->load->view('layout_site/header_top1',$data);
 			$this->load->view('layout_site/nav');
 			$this->load->view('editProduct', $data);
 			$this->load->view('layout_site/footer');
@@ -461,7 +461,7 @@ class MemberLogin extends CI_Controller
 			redirect('profile/'.$this->session->acc_id);
 		}
 		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('shop/addshop', $data);
 		$this->load->view('layout_site/footer');
@@ -479,7 +479,7 @@ class MemberLogin extends CI_Controller
 		}
 		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
 		$data["shop"]=$this->ml->get_store($id);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('shop/editshop', $data);
 		$this->load->view('layout_site/footer');
@@ -498,7 +498,7 @@ class MemberLogin extends CI_Controller
 			redirect('profile/'.$this->session->acc_id);
 		}
 		// $data["account"]=$this->ml->get_account_validation($this->session->acc_id);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('member/addmember');
 		$this->load->view('layout_site/footer');
@@ -516,14 +516,14 @@ class MemberLogin extends CI_Controller
 			redirect('profile/'.$this->session->acc_id);
 		}
 		$data["member"] = $this->ml->select_member($id);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('member/editmember', $data);
 		$this->load->view('layout_site/footer');
 	}
 	public function get_order_update($order_code=""){
 		$data["order_info1"]=$this->ml->get_order_update($order_code);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view("edit_get_order",$data);
 		$this->load->view('layout_site/footer');
@@ -560,7 +560,7 @@ class MemberLogin extends CI_Controller
 			redirect('profile/'.$this->session->acc_id);
 		}
 		$data["member"] = $this->ml->select_member($id);
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('member/change_password',$data);
 		$this->load->view('layout_site/footer');
@@ -582,7 +582,7 @@ class MemberLogin extends CI_Controller
 		$data["brand"] = $this->ml->get_brand();
 		$data["store"]=$this->ml->val_store($this->session->acc_id);
 		$data["category"] = $this->ml->get_category();
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('services/addservices', $data);
 		$this->load->view('layout_site/footer');
@@ -602,7 +602,7 @@ class MemberLogin extends CI_Controller
 		$data["brand"] = $this->ml->get_brand();
 		$data["store"]=$this->ml->val_store($this->session->acc_id);
 		$data["category"] = $this->ml->get_category();
-		$this->load->view('layout_site/header_top');
+		$this->load->view('layout_site/header_top1');
 		$this->load->view('layout_site/nav');
 		$this->load->view('services/editservice', $data);
 		$this->load->view('layout_site/footer');
@@ -622,7 +622,7 @@ class MemberLogin extends CI_Controller
 		}else{
 			$data["template"]=$this->hm->get_template();
 			$data["wallet"]=$this->ml->get_wallet($this->session->acc_id);
-			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/header_top1');
 			$this->load->view('layout_site/nav');
 			$this->load->view('addFund', $data);
 			$this->load->view('layout_site/footer');
@@ -642,7 +642,7 @@ class MemberLogin extends CI_Controller
 			$data["acc_id"] = $this->session->acc_id;
 			$data["product"] = $this->ml->get_order_det($ord_code);
 			$data["member"] = $this->ml->get_member_info($ord_code);
-			$this->load->view('layout_site/header_top');
+			$this->load->view('layout_site/header_top1');
 			$this->load->view('layout_site/nav');
 			$this->load->view('viewOrderDet',$data);
 			$this->load->view('layout_site/footer');
