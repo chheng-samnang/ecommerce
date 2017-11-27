@@ -38,6 +38,7 @@ class memberLogin_model extends CI_Model
 				$this->session->memLogin = $query->row()->mem_id;
 				$this->session->acc_id = $query->row()->acc_id;
 				$this->session->str_id = $query->row()->str_id;
+				$this->session->acc_type = $query->row()->acc_type;
 				return $query->row();
 			}else{return false ;}
 		}else{ return $msg = "User Name and Password cannot be empty.";}
@@ -914,6 +915,39 @@ class memberLogin_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM tbl_promotion_det AS det JOIN tbl_promotion AS pro ON det.pro_id=pro.pro_id LEFT JOIN
 		tbl_promotion_occasion AS occ ON pro.occ_id=occ.occ_id LEFT JOIN tbl_media AS me ON det.p_id=me.p_id JOIN tbl_product AS p ON det.p_id=p.p_id JOIN tbl_category AS cat ON pro.cat_id=cat.cat_id LEFT JOIN tbl_store AS st ON pro.`str_id`=st.`str_id` LEFT JOIN tbl_account AS a ON st.`acc_id`=a.`acc_id` WHERE det.`pro_det_id`='$id'");
 		return $query->row();
+	}
+
+	public function get_account_name($mem_id="")
+	{
+			if($mem_id!="")
+			{
+				$query = $this->db->get_where('tbl_account', array("mem_id"=>$mem_id));
+				if($query->num_rows()>0)
+				{
+					return $query->result();
+				}else {
+					return array();
+				}
+			}
+	}
+
+	public function switchAccount($mem_id="",$acc_type="",$pass="")
+	{
+		if($acc_type!=""&&$pass!=""&&$mem_id!="")
+		{
+			$query = $this->db->get_where("tbl_account",array("mem_id"=>$mem_id,"acc_type"=>$acc_type,"acc_password"=>$pass));
+			if($query->num_rows()>0)
+			{
+				$this->session->memLogin = $query->row()->mem_id;
+				$this->session->acc_id = $query->row()->acc_id;
+				$this->session->str_id = $query->row()->str_id;
+				$this->session->acc_type = $query->row()->acc_type;
+				$this->session->set_flashdata("msg_success",$this->lang->line("msg_success_switch_acc"));
+				return true;
+			}else {
+				return false;
+			}
+		}
 	}
 }
 ?>

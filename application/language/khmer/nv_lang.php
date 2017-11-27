@@ -217,9 +217,12 @@ $lang["cat_name"] ="​ប្រភេទ ឈ្មោះ";
 $lang["product_qty"]="ចំនួន​ ផលិតផល";
 $lang["order_date"]="ថ្ងៃ​​ បញ្ជាទិញ";
 $lang["new_member"]="សមាជិក​ ថ្មី";
+$lang["switchAccount"] = "ប្តូរគណនី";
 
 /*message*/
 $lang["sms_delete"]="លោកអ្នក ចង់លុបមែនទេ....?";
 $lang["confirm_delete"]="បញ្ចាក់ លុប..";
 $lang["attention"]="សូមយកចិត្តទុកដាក់..";
 $lang["warning"]="ព្រមាន";
+$lang["msg_success_switch_acc"] = "គណនីរបស់អ្នកត្រូវបានផ្លាស់ប្តូររួចរាល់";
+$lang["msg_error_switch_acc"] = "ប្រភេទគណនី​ ឬ ពាក្យសំងាត់របស់អ្នកគឺមិនត្រឹមត្រូវ។";

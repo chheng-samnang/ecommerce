@@ -44,18 +44,19 @@
                 </div>
                         <div class="col-md-6" style="">
                 	       <div class="navbar-right">
-                                <select class="select7" onchange="javascript:window.location.href='<?php echo base_url(); ?>LanguageSwitcher/switchLang/'+this.value;">
-                                    <option value="english" <?php if($this->session->userdata('site_lang') == 'english') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/uploads/en.png');?>"><p style="color: red">English</p></option>
-                                    <option value="khmer" <?php if($this->session->userdata('site_lang') == 'khmer') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/leng/Cambodia.png')?>">Khmer</option>
-                                    <option  value="chinese" <?php if($this->session->userdata('site_lang') == 'chinese') echo 'selected="selected"'; ?> data-icon="<?php echo base_url('assets/leng/China.gif')?>">Chinese</option>
-                                </select>
-                                <a href="<?php echo base_url('product/registerMember')?>"  style="color: #fff;"><i class="fa fa-user"></i> Register || </a>
-                                <a class="" href="<?php echo base_url()?>memberLogin" style="text-decoration: none; color: white;" ><i class="fa fa-unlock-alt"></i> Log Out</a>
+                                <a href="<?php echo base_url('product/registerMember')?>"  style="color: #fff;text-decoration: none;"><i class="fa fa-user"></i> Register | </a>
+                                <a href="<?php echo base_url()?>memberLogin" style="text-decoration: none; color: white;" ><i class="fa fa-unlock-alt"></i> Log Out | </a>
+                                <a href="<?php echo base_url()?>admin/memberLogin/switchAccount" style="text-decoration: none; color: white;"><i class="glyphicon glyphicon-transfer"></i>Switch Account</a>
                             </div>
                         </div>
         	        </div>
                 </div>
             </div>
         </nav>
+        <!-- <script type="text/javascript">
+        $(function () {
+              $("#ddlDropdownSwitch").children().remove("optgroup");
+          });
+        </script> -->
 </body>
 </html>

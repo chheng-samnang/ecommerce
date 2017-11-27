@@ -26,7 +26,7 @@
 						<div class="col-lg-12">
 							<select class="form-control" name="ddlAccType" id="ddlAccType" style="width:288px;margin-left:35px;">
                 <option value="General" selected>General</option>
-                <option value="Shop-owner">Shop</option>
+                <option value="Shop">Shop</option>
                 <option value="Bussiness">Supplier</option>
                 <option value="Association">Association</option>
 								<option value="Agent">Agent</option>

@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products = "none";
 				$account   = "none";
 		}else{
+
 			switch ($acc->acc_type){
 			case "Bussiness":
 			{
@@ -147,6 +148,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<?php if(!empty($error)){echo $error;}if(validation_errors()){echo validation_errors();}?>
 						</div>
 					<?php }?>
+
+					<?php if(isset($this->session->msg_success)) {?>
+					<div class="alert alert-success" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<p><i class="glyphicon glyphicon-ok"></i> <?php echo $this->session->msg_success; ?></p>
+					</div>
+				<?php } ?>
 					</div>
 				</div>
 			<ul class="nav nav-tabs" role="tablist" style="margin-bottom:10px">

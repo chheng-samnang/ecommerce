@@ -33,7 +33,6 @@ class MemberLogin extends CI_Controller
 			$pwd = $this->input->post("txtPass");
 			$accType=$this->input->post("ddlAccType");
 			$validate = $this->ml->validate_member($userName,$pwd,$accType);
-
 			if($validate==false)
 			{
 				$data["msg"] = "Member name/ password/ account type is incorrect";
@@ -80,6 +79,7 @@ class MemberLogin extends CI_Controller
 	public function profile($acc_id="",$error="")
 	{
 		$msg = "";
+		$acc = array();
 		if($acc_id!="" && $acc_id==$this->session->acc_id)
 		{
 			$this->session->unset_userdata("promotion");
@@ -729,5 +729,36 @@ class MemberLogin extends CI_Controller
 		$this->load->view('layout_site/footer');
 	}
 
+	public function switchAccount()
+	{
+		if(isset($this->session->memLogin)){
+				$query = $this->ml->get_account_name($this->session->memLogin);
+				$data["acc"] = $query;
+				$this->form_validation->set_rules("password","Password","required");
+				if($this->form_validation->run()===false)
+				{
+					$this->load->view('layout_site/header_top1');
+					$this->load->view('layout_site/nav');
+					$this->load->view('switchAccount',$data);
+					$this->load->view('layout_site/footer');
+				}else{
+					$acc_type = $this->input->post("ddlAccountType");
+					$pass = $this->input->post("password");
+					$result = $this->ml->switchAccount($this->session->memLogin,$acc_type,$pass);
+					if($result)
+					{
+						redirect(base_url()."profile/".$this->session->acc_id);
+					}else{
+						$data["msg_error"] = $this->lang->line("msg_error_switch_acc");
+						$this->load->view('layout_site/header_top1');
+						$this->load->view('layout_site/nav');
+						$this->load->view('switchAccount',$data);
+						$this->load->view('layout_site/footer');
+					}
+					
+				}
+
+		}
+	}
 }
 ?>

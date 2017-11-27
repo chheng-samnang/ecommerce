@@ -239,6 +239,7 @@ $lang["cat_name"]	="Cat​​egory";
 $lang["product_qty"]="Product quantity";
 $lang["order_date"]="Order date";
 $lang["new_member"]="New member";
+$lang["switchAccount"] = "Switch Account";
 
 
 /*======message========*/
@@ -246,3 +247,5 @@ $lang["sms_delete"]="Are you sure you want to Delete this ?";
 $lang["confirm_delete"]="confirm delete";
 $lang["attention"]="Attention";
 $lang["warning"]="Warning";
+$lang["msg_success_switch_acc"] = "Your account has been switch successfully!";
+$lang["msg_error_switch_acc"] = "Wrong Account Type or Password.";
