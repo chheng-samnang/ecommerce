@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$service   = "display";
 				$staf      = "display";
 				$products1 = "display";
-				$fund      = "display";
+				$fund      = "none";
 				$Inventory = "display";
 				$promotion = "display";
 				$order2    = "display";
