@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$products1 = "display";
 				$fund      = "none";
 				$Inventory = "display";
-				$promotion = "display";
+				$promotion = "none";
 				$order2    = "display";
 				$members   = "none";
 				$products = "none";
