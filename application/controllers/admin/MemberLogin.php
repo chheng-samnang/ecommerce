@@ -27,24 +27,32 @@ class MemberLogin extends CI_Controller
 		$data["msg"] = $this->msg;
 		$this->form_validation->set_rules("txtUser","User","required");
 		$this->form_validation->set_rules("txtPass","Password","required|max_length[100]");
+		$query = $this->staf_m->get_store();
+		foreach ($query as $key => $value) {
+			$option[0] = 'Choose store';
+			$option[$value->str_id] = $value->str_name;
+		}
+		$data["option"] = $option;
+
 		if(isset($_POST["btnLogin"])&&$this->form_validation->run()===true)
 		{
 			$userName = $this->input->post("txtUser");
 			$pwd = $this->input->post("txtPass");
 			$accType=$this->input->post("ddlAccType");
-			$validate = $this->ml->validate_member($userName,$pwd,$accType);
+			$ddlStore = $this->input->post("ddlStore", TRUE);
+			$validate = $this->ml->validate_member($userName,$pwd,$accType,$ddlStore);
+
 			if($validate==false)
 			{
 				$data["msg"] = "Member name/ password/ account type is incorrect";
 				$this->load->view("admin/login_member.php",$data);
 			}else{
-				if($validate->status!="0"){
-					$this->profile($validate->acc_id);
-				}else{
-					$data["msg"] = "Your account not accept to login...!";
-					$this->load->view("admin/login_member.php",$data);
-				}
-
+					if($validate->status!="0"){
+						$this->profile($validate->acc_id);
+					}else{
+						$data["msg"] = "Your account not accept to login...!";
+						$this->load->view("admin/login_member.php",$data);
+					}
 			}
 		}else
 		{
@@ -199,6 +207,12 @@ class MemberLogin extends CI_Controller
 		$this->form_validation->set_rules("ddlStaf","Staf name","required");
 		$this->form_validation->set_rules("txtPassword","Password","required");
 		$this->form_validation->set_rules('txtConfirmPassword', 'Confirm Password', 'required');
+		$query = $this->staf_m->get_store();
+		foreach ($query as $key => $value) {
+			$option[0] = 'Choose one';
+			$option[$value->str_id] = $value->str_name;
+		}
+		$data["option"] = $option;
 		if($this->form_validation->run()===false)
 		{
 				$this->load->view("layout_site/header_top1");
@@ -755,7 +769,7 @@ class MemberLogin extends CI_Controller
 						$this->load->view('switchAccount',$data);
 						$this->load->view('layout_site/footer');
 					}
-					
+
 				}
 
 		}

@@ -22,13 +22,17 @@ class memberLogin_model extends CI_Model
 	}
 
 
-	function validate_member($accName="",$password="",$accType="")
+	function validate_member($accName="",$password="",$accType="",$store="")
 	{
 		$result = false;$msg = "";
 		if($accName!=""&&$password!="")
 		{
 			if($accType=="Staf"){
-				$query = $this->db->query("SELECT * FROM tbl_staf AS st INNER JOIN tbl_account AS acc ON st.acc_id=acc.acc_id INNER JOIN tbl_member AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store st ON acc.`acc_id`=st.`acc_id` WHERE mb.mem_name='$accName' AND st.staf_password='$password' AND stf_status='1'");
+				$query = $this->db->query("SELECT * FROM tbl_staf s
+																		INNER JOIN tbl_account a ON s.`acc_id`=a.`acc_id`
+																		INNER JOIN tbl_member m ON a.`mem_id`=m.`mem_id`
+																		INNER JOIN tbl_store st ON s.str_id=st.str_id
+																		WHERE mem_name='{$accName}' and staf_password='{$password}' and s.str_id='{$store}'");
 			}
 			else{
 				$query = $this->db->query("SELECT *,acc.acc_id FROM `tbl_account` AS acc INNER JOIN `tbl_member` AS mb ON acc.mem_id=mb.mem_id LEFT JOIN tbl_store st ON acc.`acc_id`=st.`acc_id` WHERE (mb.mem_name='$accName' OR mb.mem_email='$accName' OR mb.mem_phone='$accName') AND acc.acc_password='$password' AND acc_type='$accType'");

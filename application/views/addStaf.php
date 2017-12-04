@@ -71,6 +71,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="">Store</label>
+							<?php echo form_dropdown('ddlStore', $option,'','class="form-control"'); ?>
+						</div>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
