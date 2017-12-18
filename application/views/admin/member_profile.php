@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		if($this->input->post("ddlAccType")=="Staf"){
 				$service   = "display";
-				$staf      = "display";
+				$staf      = "none";
 				$products1 = "display";
 				$fund      = "none";
 				$Inventory = "display";
@@ -205,6 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<table class="table table-striped">
 												<thead>
 													<tr>
+														<th><input type="checkbox" id="chkAll" name="chk[]" value=""> Check all</th>
 														<th>No.</th>
 														<th>Acc.Code</th>
 														<th>Acc.Type</th>
@@ -224,7 +225,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 															if(empty($acc_img)) $acc_img = "default.png";
 														?>
 														<tr>
-															<td><?php echo $i+1?></td>
+															<td><?php if($i!=100){?><input type="checkbox" class="chk" name="chk[]" value="<?php echo $row->acc_id?>"><?php }?></td>
+															<td> <?php echo $i+1?></td>
 															<td><?php echo $row->acc_code?></td>
 															<td><?php echo $row->acc_type?></td>
 															<td><img src="<?php echo base_url('assets/uploads/'.$acc_img)?>" style="width:45px;"></td>
@@ -241,7 +243,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php $i=$i+1;}?>
 												</tbody>
 											</table>
+											<input type="hidden" name="txtChk" id="txtChk" value="">
 											<button class="btn btn-success btn-sm" id="btnAddAccount"> <i class="fa fa-plus" aria-hidden="true"></i> <?php echo $this->lang->line('add')?> <?php echo $this->lang->line('account')?></button>
+											<button type="button" name="btnRemove" id="btnRemove" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash
+"></i> Remove</button>
 										</div>
 									</div>
 								</div>
@@ -1318,6 +1323,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		window.location.assign("<?php echo base_url()?>admin/memberlogin/edit_profile")
 	});*/
 
+</script>
+
+<script type="text/javascript">
+	$("#chkAll").click(function(){
+		if( $(this).is(':checked') ){
+			for(var i=0;i<=$(".chk").length-1;i++)
+			{
+				$(".chk")[i].checked=true;
+			}
+		}else {
+			for(var i=0;i<=$(".chk").length-1;i++)
+			{
+				$(".chk")[i].checked=false;
+			}
+		}
+	});
+
+	$("#btnRemove").click(function(){
+		var arr = [];
+		for(var i=0;i<=$(".chk").length-1;i++)
+		{
+			if($(".chk")[i].checked==true)
+			{
+				arr[i] = $(".chk")[i].value;
+			}
+		}
+		$("#txtChk").val(JSON.stringify(arr));
+	});
 </script>
 
 <script type="text/javascript">
