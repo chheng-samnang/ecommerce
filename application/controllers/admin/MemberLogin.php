@@ -384,7 +384,8 @@ class MemberLogin extends CI_Controller
 			$this->ml->updateAccount($id);
 			redirect('profile/'.$this->session->acc_id);
 		}
-		$data["account"]=$this->ml->get_account_validation($this->session->acc_id);
+
+		$data["account"]=$this->ml->get_account_validation($id);
 		$data["member"] = $this->ml->select_member($this->session->memLogin);
 		$data["location"] = $this->ml->get_location();
 		$this->load->view('layout_site/header_top1');
