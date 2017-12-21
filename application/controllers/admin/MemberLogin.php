@@ -356,6 +356,25 @@ class MemberLogin extends CI_Controller
 
 	}
 
+	public function removeAccount()
+	{
+		$id = json_decode($this->input->post("txtChk"));
+		if($id!=null)
+		{
+			$result = $this->ml->removeAccount($id);
+			if($result!==false)
+			{
+				$acc_id = isset($this->session->acc_id)?$this->session->acc_id:null;
+				if($acc_id!==null)
+				{
+						redirect(base_url('profile/'.$acc_id));
+				}
+			}
+		}else{
+			return false;
+		}
+	}
+
 	public function editAccount($id)
 	{
 		$this->form_validation->set_rules('txtaccCode', 'Input Your Account Code', 'required');

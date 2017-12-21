@@ -225,7 +225,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 															if(empty($acc_img)) $acc_img = "default.png";
 														?>
 														<tr>
-															<td><?php if($i!=100){?><input type="checkbox" class="chk" name="chk[]" value="<?php echo $row->acc_id?>"><?php }?></td>
+															<td><?php if($i!=100&&$row->acc_type!="General"){?><input type="checkbox" class="chk" id="chk" name="chk[]" value="<?php echo $row->acc_id?>"><?php }?></td>
 															<td> <?php echo $i+1?></td>
 															<td><?php echo $row->acc_code?></td>
 															<td><?php echo $row->acc_type?></td>
@@ -243,10 +243,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													<?php $i=$i+1;}?>
 												</tbody>
 											</table>
-											<input type="hidden" name="txtChk" id="txtChk" value="">
-											<button class="btn btn-success btn-sm" id="btnAddAccount"> <i class="fa fa-plus" aria-hidden="true"></i> <?php echo $this->lang->line('add')?> <?php echo $this->lang->line('account')?></button>
-											<button type="button" name="btnRemove" id="btnRemove" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash
-"></i> Remove</button>
+											<form action="<?php echo base_url("admin/memberLogin/removeAccount")?>" id="formAccount" method="post">
+												<input type="hidden" name="txtChk" id="txtChk" value="">
+												<button class="btn btn-success btn-sm" id="btnAddAccount" type="button"> <i class="fa fa-plus" aria-hidden="true"></i> <?php echo $this->lang->line('add')?> <?php echo $this->lang->line('account')?></button>
+												<button type="button" name="btnRemoveModal" data-toggle="modal" data-target="#AccRemoveModal"  id="removeModal" class="btn btn-danger btn-sm" disabled><i class="glyphicon glyphicon-trash
+	"></i> Remove</button>
+
+
+													<!-- Button trigger modal -->
+
+												<!-- Modal -->
+												<div class="modal fade" id="AccRemoveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+												<div class="modal-dialog" role="document">
+												<div class="modal-content">
+												<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-trash color-red"></i> Account Removal Confirmation</h4>
+												</div>
+												<div class="modal-body">
+													<i class="glyphicon glyphicon-alert"></i> Are you sure you want to remove this account?
+												</div>
+												<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+												<button type="button" class="btn btn-danger" id="btnRemove">Remove</button>
+												</div>
+												</div>
+												</div>
+												</div>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -1331,26 +1355,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			for(var i=0;i<=$(".chk").length-1;i++)
 			{
 				$(".chk")[i].checked=true;
+				$("#removeModal").removeAttr("disabled");
 			}
 		}else {
 			for(var i=0;i<=$(".chk").length-1;i++)
 			{
 				$(".chk")[i].checked=false;
+				$("#removeModal").attr("disabled","disabled");
 			}
 		}
 	});
 
-	$("#btnRemove").click(function(){
-		var arr = [];
+	$(".chk").click(function(){
+
+		var chkState = false;
 		for(var i=0;i<=$(".chk").length-1;i++)
 		{
 			if($(".chk")[i].checked==true)
 			{
-				arr[i] = $(".chk")[i].value;
+				chkState = true;
+			}
+		}
+
+		if(chkState==true)
+		{
+			$("#removeModal").removeAttr("disabled");
+		}else {
+			$("#removeModal").attr("disabled","disabled");
+		}
+
+	});
+
+	$("#btnRemove").click(function(){
+		var arr = [];
+		var j =0;
+		for(var i=0;i<=$(".chk").length-1;i++)
+		{
+			if($(".chk")[i].checked==true)
+			{
+				arr[j] = $(".chk")[i].value;
+				j++;
 			}
 		}
 		$("#txtChk").val(JSON.stringify(arr));
+		$("#formAccount").submit();
 	});
+
 </script>
 
 <script type="text/javascript">

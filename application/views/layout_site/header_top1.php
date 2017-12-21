@@ -15,6 +15,7 @@
     <link href="<?php echo base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
     <link href="<?php echo base_url()?>grid and list/css/component.css" rel="stylesheet">
      <link href="<?php echo base_url()?>assets/drowdown/jquery-select7.css" rel="stylesheet" type="text/css">
+     <link rel="stylesheet" href="<?php echo base_url('assets/custom_style/mystyle.css')?>">
     <script type="text/javascript" src="<?php echo base_url('assets/dist/js/bootstrap-datetimepicker.js');?>"></script>
     <script src="<?php echo base_url()?>assets/bower_components/bootstrap/js/angular.min.js"></script><div class="row">
 </head>

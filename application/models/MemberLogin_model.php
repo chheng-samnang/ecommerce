@@ -48,6 +48,35 @@ class memberLogin_model extends CI_Model
 		}else{ return $msg = "User Name and Password cannot be empty.";}
 	}
 
+	public function removeAccount($id)
+	{
+		if($id!=null)
+		{
+			foreach ($id as $key => $value) {
+				if(!$this->isAccTypeGeneral($value))
+				{
+					$this->db->delete("tbl_account",array("acc_id"=>$value));
+				}else{
+					return false;
+				}
+			}
+		}
+	}
+
+	public function isAccTypeGeneral($acc_id="")
+	{
+		if($acc_id!="")
+		{
+			$query = $this->db->get_where('tbl_account', array("acc_id"=>$acc_id,"acc_type"=>"General"));
+			if($query->num_rows()>0)
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+
 	public function LogTocheckOut($email="",$password=""){
 		$result = false;$msg = "";
 

@@ -59,6 +59,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/dist/css/bootstrap-datetimepicker.css">
     <link href="<?php echo base_url()?>assets/drowdown/jquery-select7.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url()?>assets/bower_components/style/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/custom_style/mystyle.css')?>">
     <script src="<?php echo base_url()?>assets/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo base_url()?>assets/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>assets/dist/js/moment-with-locals.js"></script>
